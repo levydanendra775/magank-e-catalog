@@ -1,0 +1,154 @@
+<?php
+
+function makeDir($path) {
+    if (!is_dir($path)) mkdir($path, 0755, true);
+}
+
+function writeFile($path, $content) {
+    file_put_contents($path, $content);
+    echo "Written: $path\n";
+}
+
+$base = __DIR__ . '/resources/views/admin/laporan';
+makeDir($base);
+
+// Index View
+writeFile("$base/index.blade.php", <<<'BLADE'
+@extends('layouts.admin')
+@section('title', 'Laporan Data')
+@section('content')
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <h5 class="fw-bold mb-0">Ekspor Laporan Data</h5>
+</div>
+
+<div class="row g-4">
+    <!-- Laporan Wisata -->
+    <div class="col-md-6">
+        <div class="card border-0 shadow-sm" style="border-radius:12px;">
+            <div class="card-body p-4 text-center">
+                <div class="mb-3">
+                    <i class="fa-solid fa-map-location-dot fa-3x text-primary opacity-75"></i>
+                </div>
+                <h5 class="fw-bold">Laporan Destinasi Wisata</h5>
+                <p class="text-muted small mb-4">Ekspor seluruh data destinasi wisata Kabupaten Magetan ke dalam format PDF atau Excel (CSV).</p>
+                <div class="d-flex justify-content-center gap-2">
+                    <a href="{{ route('admin.laporan.wisata.pdf') }}" class="btn btn-outline-danger"><i class="fa-solid fa-file-pdf me-2"></i>Cetak PDF</a>
+                    <a href="{{ route('admin.laporan.wisata.excel') }}" class="btn btn-outline-success"><i class="fa-solid fa-file-excel me-2"></i>Cetak Excel</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Laporan UMKM -->
+    <div class="col-md-6">
+        <div class="card border-0 shadow-sm" style="border-radius:12px;">
+            <div class="card-body p-4 text-center">
+                <div class="mb-3">
+                    <i class="fa-solid fa-shop fa-3x text-success opacity-75"></i>
+                </div>
+                <h5 class="fw-bold">Laporan Data UMKM</h5>
+                <p class="text-muted small mb-4">Ekspor seluruh daftar pelaku UMKM lokal Kabupaten Magetan ke dalam format PDF atau Excel (CSV).</p>
+                <div class="d-flex justify-content-center gap-2">
+                    <a href="{{ route('admin.laporan.umkm.pdf') }}" class="btn btn-outline-danger"><i class="fa-solid fa-file-pdf me-2"></i>Cetak PDF</a>
+                    <a href="{{ route('admin.laporan.umkm.excel') }}" class="btn btn-outline-success"><i class="fa-solid fa-file-excel me-2"></i>Cetak Excel</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+@endsection
+BLADE);
+
+// PDF Wisata
+writeFile("$base/pdf_wisata.blade.php", <<<'BLADE'
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <title>Laporan Data Wisata</title>
+    <style>
+        body { font-family: sans-serif; font-size: 12px; }
+        h2 { text-align: center; margin-bottom: 20px; }
+        table { width: 100%; border-collapse: collapse; margin-top: 10px; }
+        th, td { border: 1px solid #333; padding: 8px; text-align: left; }
+        th { background-color: #f2f2f2; }
+    </style>
+</head>
+<body>
+    <h2>Laporan Data Destinasi Wisata<br>Kabupaten Magetan</h2>
+    <p>Dicetak pada: {{ date('d M Y H:i') }}</p>
+    <table>
+        <thead>
+            <tr>
+                <th width="5%">No</th>
+                <th width="25%">Nama Wisata</th>
+                <th width="15%">Kategori</th>
+                <th width="15%">Kecamatan</th>
+                <th width="25%">Alamat</th>
+                <th width="15%">Status</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach($wisata as $i => $w)
+            <tr>
+                <td>{{ $i + 1 }}</td>
+                <td>{{ $w->nama }}</td>
+                <td>{{ $w->kategori }}</td>
+                <td>{{ $w->kecamatan }}</td>
+                <td>{{ $w->alamat }}</td>
+                <td>{{ $w->status_publish ? 'Publish' : 'Draft' }}</td>
+            </tr>
+            @endforeach
+        </tbody>
+    </table>
+</body>
+</html>
+BLADE);
+
+// PDF UMKM
+writeFile("$base/pdf_umkm.blade.php", <<<'BLADE'
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <title>Laporan Data UMKM</title>
+    <style>
+        body { font-family: sans-serif; font-size: 12px; }
+        h2 { text-align: center; margin-bottom: 20px; }
+        table { width: 100%; border-collapse: collapse; margin-top: 10px; }
+        th, td { border: 1px solid #333; padding: 8px; text-align: left; }
+        th { background-color: #f2f2f2; }
+    </style>
+</head>
+<body>
+    <h2>Laporan Data UMKM<br>Kabupaten Magetan</h2>
+    <p>Dicetak pada: {{ date('d M Y H:i') }}</p>
+    <table>
+        <thead>
+            <tr>
+                <th width="5%">No</th>
+                <th width="25%">Nama UMKM</th>
+                <th width="20%">Pemilik</th>
+                <th width="15%">Kecamatan</th>
+                <th width="20%">No. HP</th>
+                <th width="15%">Jml Produk</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach($umkm as $i => $u)
+            <tr>
+                <td>{{ $i + 1 }}</td>
+                <td>{{ $u->nama }}</td>
+                <td>{{ $u->pemilik }}</td>
+                <td>{{ $u->kecamatan }}</td>
+                <td>{{ $u->no_hp }}</td>
+                <td>{{ $u->produks->count() }}</td>
+            </tr>
+            @endforeach
+        </tbody>
+    </table>
+</body>
+</html>
+BLADE);
+
+echo "Laporan views generated!\n";
