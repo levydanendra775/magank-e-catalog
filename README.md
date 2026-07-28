@@ -1,86 +1,171 @@
 # E-Catalog Pariwisata Magetan
 
-Sistem E-Catalog untuk mempromosikan Pariwisata, Destinasi, Event, dan Berita di wilayah Kabupaten Magetan. Dibangun menggunakan framework Laravel.
+Sistem E-Catalog untuk mempromosikan Pariwisata, Destinasi, Event, dan Berita di wilayah Kabupaten Magetan. Dibangun menggunakan framework **Laravel 12** dengan database **MySQL**.
 
-## Prasyarat (Prerequisites)
+---
 
-Pastikan sistem Anda telah menginstal beberapa perangkat lunak berikut:
-- **PHP** >= 8.2
-- **Composer**
-- **Node.js & NPM**
-- **SQLite** (Secara default Laravel menggunakan SQLite) atau **MySQL** (jika ingin dikonfigurasi manual)
+## 🖥️ Prasyarat (Prerequisites)
 
-## Cara Menjalankan Project (Local Development)
+Pastikan sistem Anda telah menginstal perangkat lunak berikut:
 
-### 1. Buka Folder Project
-Jika menggunakan terminal, arahkan terminal (Command Prompt / PowerShell) ke dalam folder project ini.
+| Perangkat | Versi Minimum |
+|-----------|--------------|
+| PHP | >= 8.2 |
+| Composer | Latest |
+| Node.js & NPM | >= 18 |
+| MySQL | >= 8.0 |
 
-### 2. Install Dependensi PHP (Composer)
-Jalankan perintah berikut untuk menginstal semua *library* PHP yang dibutuhkan:
+> **Rekomendasi:** Gunakan [Laragon](https://laragon.org/) agar PHP, MySQL, dan server langsung tersedia tanpa konfigurasi tambahan.
+
+---
+
+## 🚀 Cara Menjalankan Project (Local Development)
+
+### 1. Clone Repository
+
+```bash
+git clone https://github.com/levydanendra775/magank-e-catalog.git
+cd magank-e-catalog
+```
+
+### 2. Install Dependensi PHP
+
 ```bash
 composer install
 ```
 
-### 3. Setup File Konfigurasi (Environment)
-Buat salinan file `.env.example` dan ubah namanya menjadi `.env`. 
-Anda dapat melakukannya secara manual melalui File Explorer, atau melalui terminal:
+### 3. Salin File Konfigurasi
+
 ```bash
-# Windows (CMD/PowerShell)
+# Windows
 copy .env.example .env
 
 # Mac/Linux
 cp .env.example .env
 ```
-*(Secara default, aplikasi ini menggunakan database SQLite yang sangat mudah digunakan untuk development).*
 
 ### 4. Generate Application Key
-Jalankan perintah berikut untuk mengenkripsi session dan data lain di Laravel:
+
 ```bash
 php artisan key:generate
 ```
 
-### 5. Setup Database & Jalankan Migrasi
-Aplikasi ini membutuhkan database. Anda bisa langsung menjalankan perintah migrasi, dan Laravel akan menawarkan untuk membuat file database SQLite secara otomatis:
-```bash
-php artisan migrate --seed
-```
-*(Parameter `--seed` sangat penting digunakan agar role dan akun pengguna awal dibuat ke dalam database).*
+### 5. Konfigurasi Database MySQL
 
-### 6. Install & Compile Dependensi Frontend (NPM)
-Karena aplikasi menggunakan Vite & TailwindCSS, Anda perlu menginstal *library* frontend dan melakukan kompilasi aset (CSS/JS):
+Edit file `.env`, sesuaikan bagian database:
+
+```env
+DB_CONNECTION=mysql
+DB_HOST=127.0.0.1
+DB_PORT=3306
+DB_DATABASE=magang_ecatalog
+DB_USERNAME=root
+DB_PASSWORD=          # kosongkan jika tidak pakai password (default Laragon)
+```
+
+### 6. Buat Database & Import Data
+
+Buat database di MySQL:
+
+```bash
+mysql -u root -e "CREATE DATABASE IF NOT EXISTS magang_ecatalog CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;"
+```
+
+> Atau buat manual via **phpMyAdmin** / **HeidiSQL** dengan nama: `magang_ecatalog`
+
+Lalu import data (tabel + data wisata, user, dll sudah tersedia):
+
+```bash
+mysql -u root magang_ecatalog < database/dump.sql
+```
+
+> ⚠️ **Jangan jalankan** `php artisan migrate` jika sudah import `dump.sql` karena semua tabel dan data sudah ada di dalamnya.
+
+### 7. Buat Storage Link
+
+```bash
+php artisan storage:link
+```
+
+Perintah ini membuat symlink `public/storage → storage/app/public` agar gambar wisata, event, dan berita bisa tampil di browser.
+
+### 8. Install & Compile Frontend
+
 ```bash
 npm install
 npm run build
 ```
-*(Catatan: Anda juga bisa menjalankan `npm run dev` jika sedang mengembangkan aplikasi dan ingin perubahan CSS/JS di-update secara otomatis).*
 
-### 7. Jalankan Local Server
-Nyalakan server bawaan Laravel dengan perintah:
+> Gunakan `npm run dev` jika sedang dalam mode pengembangan aktif agar perubahan CSS/JS otomatis ter-update.
+
+### 9. Jalankan Server
+
 ```bash
 php artisan serve
 ```
-Aplikasi sekarang dapat diakses melalui web browser di alamat: **http://localhost:8000**
 
-*(Jika Anda menggunakan Laragon, Anda juga bisa langsung mengaksesnya melalui URL virtual host seperti `http://namaproyek.test` atau sesuai konfigurasi Laragon Anda).*
+Akses aplikasi di: **http://localhost:8000**
 
----
-
-## Akun Login Default
-Karena Anda telah menjalankan seeder (`--seed`), akun berikut telah tersedia dan siap digunakan untuk masuk ke dalam sistem:
-
-### 👑 Super Admin
-- **Email:** `admin@magetan.go.id`
-- **Password:** `password`
-
-### 👤 Petugas
-- **Email:** `petugas@magetan.go.id`
-- **Password:** `password`
+> Jika menggunakan Laragon, bisa langsung akses via virtual host: `http://magank-e-catalog.test`
 
 ---
 
-## ⚡ Cara Cepat (Shortcut) Instalasi
-Jika Anda ingin melewati proses satu per satu di atas, project ini telah dilengkapi dengan custom script. Anda dapat menjalankan perintah berikut yang akan secara otomatis melakukan (install composer, copy .env, generate key, migrate, install npm, dan build):
+## 🔑 Akun Login Default
+
+| Role | Email | Password |
+|------|-------|----------|
+| 👑 Super Admin | `admin@magetan.go.id` | `password` |
+| 👤 Petugas | `petugas@magetan.go.id` | `password` |
+
+---
+
+## 🔄 Update Data dari Rekan Tim
+
+Jika rekan tim menambah data baru (wisata, event, dll), minta mereka export dump terbaru:
+
 ```bash
-composer setup
+# Di laptop yang punya data terbaru:
+mysqldump -u root magang_ecatalog > database/dump.sql
+git add database/dump.sql
+git commit -m "update: sinkronisasi data database"
+git push
 ```
-Setelah itu Anda hanya tinggal menjalankan seeder `php artisan db:seed` dan aplikasi siap digunakan.
+
+Lalu di laptop kamu:
+
+```bash
+git pull
+mysql -u root magang_ecatalog < database/dump.sql
+```
+
+---
+
+## ⚡ Ringkasan Perintah Cepat
+
+```bash
+# Setelah clone, jalankan semua ini secara urut:
+composer install
+copy .env.example .env          # lalu edit DB_* di .env
+php artisan key:generate
+mysql -u root -e "CREATE DATABASE magang_ecatalog;"
+mysql -u root magang_ecatalog < database/dump.sql
+php artisan storage:link
+npm install && npm run build
+php artisan serve
+```
+
+---
+
+## 📁 Struktur Fitur
+
+| Fitur | URL |
+|-------|-----|
+| Beranda Publik | `/` |
+| Destinasi Wisata | `/wisata` |
+| Event & Agenda | `/event` |
+| Berita | `/berita` |
+| Dashboard Admin | `/admin` |
+
+---
+
+*Dikembangkan oleh tim magang Dinas Pariwisata & Kebudayaan Kabupaten Magetan.*
