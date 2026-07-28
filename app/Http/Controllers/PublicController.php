@@ -4,11 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Banner;
 use App\Models\Wisata;
-use App\Models\Umkm;
-use App\Models\Produk;
 use App\Models\Event;
-use App\Models\Kuliner;
-use App\Models\Penginapan;
 use App\Models\Berita;
 use Illuminate\Http\Request;
 
@@ -66,65 +62,10 @@ public function wisataDetail($slug)
     return view('public.wisata.detail', compact('wisata'));
 }
 
-    public function umkm(Request $request)
-    {
-        $query = Umkm::with('produks');
-
-        if ($request->filled('q')) {
-            $query->where('nama', 'like', '%' . $request->q . '%')
-                  ->orWhere('pemilik', 'like', '%' . $request->q . '%');
-        }
-
-        $umkm = $query->latest()->paginate(12)->withQueryString();
-        return view('public.umkm.index', compact('umkm'));
-    }
-
-    public function produk(Request $request)
-    {
-        $query = Produk::with('umkm')->where('status', true);
-
-        if ($request->filled('q')) {
-            $query->where('nama', 'like', '%' . $request->q . '%');
-        }
-
-        $produk = $query->latest()->paginate(12)->withQueryString();
-        return view('public.produk.index', compact('produk'));
-    }
-
-    public function produkDetail($id)
-    {
-        $produk = Produk::with('umkm')->findOrFail($id);
-        return view('public.produk.detail', compact('produk'));
-    }
-
     public function event()
     {
         $events = Event::where('status', true)->orderBy('tanggal')->paginate(9);
         return view('public.event.index', compact('events'));
-    }
-
-    public function kuliner()
-    {
-        $kuliner = Kuliner::latest()->paginate(12);
-        return view('public.kuliner.index', compact('kuliner'));
-    }
-
-    public function kulinerDetail($id)
-    {
-        $kuliner = Kuliner::findOrFail($id);
-        return view('public.kuliner.detail', compact('kuliner'));
-    }
-
-    public function penginapan()
-    {
-        $penginapan = Penginapan::latest()->paginate(12);
-        return view('public.penginapan.index', compact('penginapan'));
-    }
-
-    public function penginapanDetail($id)
-    {
-        $penginapan = Penginapan::findOrFail($id);
-        return view('public.penginapan.detail', compact('penginapan'));
     }
 
     public function berita()
