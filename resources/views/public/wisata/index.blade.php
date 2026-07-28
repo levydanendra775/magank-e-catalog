@@ -66,6 +66,15 @@
                         <span style="position:absolute;bottom:12px;right:12px;background:rgba(0,0,0,0.65);color:#fff;font-size:0.75rem;font-weight:600;padding:4px 12px;border-radius:100px;">
                             {{ $w->harga_tiket > 0 ? 'Rp '.number_format($w->harga_tiket,0,',','.') : 'Gratis' }}
                         </span>
+
+                        @auth
+                        <button type="button" class="wishlist-btn" data-id="{{ $w->id }}"
+                            data-active="{{ auth()->user()->wishlist->contains($w->id) ? 'true' : 'false' }}"
+                            style="position:absolute;top:12px;right:12px;background:rgba(0,0,0,0.5);border:none;border-radius:50%;width:32px;height:32px;color:#fff;font-size:1rem;">
+                            ❤
+                        </button>
+                        @endauth
+
                     </div>
                     <div class="p-4">
                         <h6 class="fw-bold mb-1" style="font-family:'Plus Jakarta Sans',sans-serif;">{{ $w->nama }}</h6>

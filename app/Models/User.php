@@ -48,4 +48,14 @@ class User extends Authenticatable
             'password' => 'hashed',
         ];
     }
+
+    public function wisataRatings()
+    {
+        return $this->hasMany(WisataRating::class);
+    }
+
+    public function wishlist()
+    {
+        return $this->belongsToMany(Wisata::class, 'wishlists');
+    }
 }

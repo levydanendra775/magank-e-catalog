@@ -66,13 +66,11 @@
         <h4 class="text-center mb-4 fw-bold">E-Catalog<br><small class="fw-normal text-muted" style="font-size: 14px;">Magetan</small></h4>
         <a href="{{ route('dashboard') }}" class="{{ request()->routeIs('dashboard') ? 'active' : '' }}"><i class="fa-solid fa-gauge"></i> Dashboard</a>
         <a href="{{ route('admin.wisata.index') }}" class="{{ request()->routeIs('admin.wisata*') ? 'active' : '' }}"><i class="fa-solid fa-map-location-dot"></i> Wisata</a>
-        <a href="{{ route('admin.umkm.index') }}" class="{{ request()->routeIs('admin.umkm*') ? 'active' : '' }}"><i class="fa-solid fa-shop"></i> UMKM</a>
-        <a href="{{ route('admin.produk.index') }}" class="{{ request()->routeIs('admin.produk*') ? 'active' : '' }}"><i class="fa-solid fa-box"></i> Produk</a>
         <a href="{{ route('admin.event.index') }}" class="{{ request()->routeIs('admin.event*') ? 'active' : '' }}"><i class="fa-solid fa-calendar-days"></i> Event</a>
-        <a href="{{ route('admin.kuliner.index') }}" class="{{ request()->routeIs('admin.kuliner*') ? 'active' : '' }}"><i class="fa-solid fa-utensils"></i> Kuliner</a>
-        <a href="{{ route('admin.penginapan.index') }}" class="{{ request()->routeIs('admin.penginapan*') ? 'active' : '' }}"><i class="fa-solid fa-bed"></i> Penginapan</a>
+
         <h6 class="px-3 mt-4 mb-2 text-muted text-uppercase" style="font-size:12px;">Konten</h6>
         <a href="{{ route('admin.berita.index') }}" class="{{ request()->routeIs('admin.berita*') ? 'active' : '' }}"><i class="fa-regular fa-newspaper"></i> Berita</a>
+        <a href="{{ route('admin.ulasan.index') }}" class="{{ request()->routeIs('admin.ulasan*') ? 'active' : '' }}"><i class="fa-solid fa-star-half-stroke"></i> Ulasan & Rating</a>
         <a href="{{ route('admin.galeri.index') }}" class="{{ request()->routeIs('admin.galeri*') ? 'active' : '' }}"><i class="fa-solid fa-images"></i> Galeri</a>
         <a href="{{ route('admin.banner.index') }}" class="{{ request()->routeIs('admin.banner*') ? 'active' : '' }}"><i class="fa-solid fa-bullhorn"></i> Banner</a>
         <h6 class="px-3 mt-4 mb-2 text-muted text-uppercase" style="font-size:12px;">Laporan</h6>

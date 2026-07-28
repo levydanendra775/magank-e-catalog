@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>@yield('title', 'Beranda') — E-Catalog Magetan</title>
-    <meta name="description" content="@yield('meta_description', 'Temukan destinasi wisata, UMKM, kuliner, penginapan, dan event menarik di Kabupaten Magetan.')">
+    <meta name="description" content="@yield('meta_description', 'Temukan destinasi wisata, event menarik, dan berita seputar Kabupaten Magetan.')">
 
     <!-- Bootstrap 5 -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
@@ -43,47 +43,56 @@
 
         /* ===== NAVBAR ===== */
         .navbar-public {
-            background: rgba(255,255,255,0.95);
-            backdrop-filter: blur(12px);
-            border-bottom: 1px solid var(--border);
-            padding: 14px 0;
+            background: rgba(255, 255, 255, 0.85);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border-bottom: 1px solid rgba(0,0,0,0.05);
+            padding: 20px 0;
             position: sticky;
             top: 0;
             z-index: 1000;
-            transition: box-shadow 0.3s;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
         }
 
         .navbar-public.scrolled {
-            box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+            padding: 12px 0;
+            background: rgba(255, 255, 255, 0.98);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
         }
 
         .navbar-brand-text {
             font-family: 'Plus Jakarta Sans', sans-serif;
             font-weight: 800;
-            font-size: 1.25rem;
-            color: var(--primary);
+            font-size: 1.35rem;
+            background: linear-gradient(135deg, var(--primary), #20c997);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
             line-height: 1.2;
         }
 
         .navbar-brand-text span {
             display: block;
-            font-size: 0.7rem;
-            font-weight: 500;
+            font-size: 0.75rem;
+            font-weight: 600;
             color: var(--text-muted);
+            -webkit-text-fill-color: var(--text-muted); /* override webkit text fill */
+            margin-top: -2px;
         }
 
         .nav-link-custom {
-            color: var(--text-dark) !important;
-            font-weight: 500;
-            font-size: 0.9rem;
-            padding: 8px 14px !important;
-            border-radius: 8px;
-            transition: all 0.2s;
+            color: var(--text-muted) !important;
+            font-weight: 600;
+            font-size: 0.95rem;
+            padding: 8px 18px !important;
+            border-radius: 50px;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
         }
 
         .nav-link-custom:hover, .nav-link-custom.active {
             color: var(--primary) !important;
             background: var(--primary-light);
+            transform: translateY(-2px);
         }
 
         /* ===== SECTION HEADERS ===== */
@@ -145,45 +154,136 @@
 
         /* ===== FOOTER ===== */
         .footer {
-            background: var(--text-dark);
-            color: rgba(255,255,255,0.75);
-            padding: 60px 0 24px;
+            background: #0f172a;
+            position: relative;
+            color: #94a3b8;
+            padding: 70px 0 30px;
+            overflow: hidden;
+        }
+
+        .footer::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80%;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, var(--primary), #20c997, transparent);
+            opacity: 0.6;
+        }
+
+        .footer::after {
+            content: '';
+            position: absolute;
+            top: -150px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 600px;
+            height: 300px;
+            background: radial-gradient(ellipse at center, rgba(32, 201, 151, 0.15) 0%, transparent 70%);
+            pointer-events: none;
         }
 
         .footer h5 {
-            color: #fff;
+            color: #f8fafc;
+            font-weight: 700;
+            letter-spacing: 0.5px;
+            margin-bottom: 20px;
+        }
+
+        .footer .brand-title {
+            background: linear-gradient(135deg, #fff, #20c997);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            font-size: 1.4rem;
+            display: inline-block;
         }
 
         .footer a {
-            color: rgba(255,255,255,0.6);
+            color: #94a3b8;
             text-decoration: none;
-            transition: color 0.2s;
+            transition: all 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+        }
+
+        .footer a i.fa-chevron-right {
+            font-size: 0.75rem;
+            margin-right: 8px;
+            opacity: 0;
+            transform: translateX(-10px);
+            transition: all 0.3s ease;
+            color: #20c997;
         }
 
         .footer a:hover {
-            color: var(--accent);
+            color: #20c997;
+            transform: translateX(5px);
+        }
+
+        .footer a:hover i.fa-chevron-right {
+            opacity: 1;
+            transform: translateX(0);
+        }
+
+        .footer .contact-icon {
+            color: #20c997;
+            background: rgba(32, 201, 151, 0.1);
+            width: 32px;
+            height: 32px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 8px;
+            margin-right: 12px;
+            border: 1px solid rgba(32, 201, 151, 0.2);
+            flex-shrink: 0;
+        }
+
+        .footer .contact-text {
+            display: flex;
+            align-items: flex-start;
+            margin-bottom: 12px;
+            color: #cbd5e1;
+            transition: transform 0.3s ease;
+        }
+
+        .footer a.contact-text:hover,
+        .footer .contact-text:hover {
+            transform: translateX(5px);
+            color: #20c997;
         }
 
         .footer-divider {
-            border-color: rgba(255,255,255,0.1);
+            border: none;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.1), transparent);
+            margin: 40px 0 20px;
         }
 
         /* ===== BUTTONS ===== */
         .btn-primary-custom {
-            background: var(--primary);
+            background: linear-gradient(135deg, var(--primary), #20c997);
             border: none;
             color: #fff;
-            padding: 10px 24px;
-            border-radius: 10px;
+            padding: 10px 26px;
+            border-radius: 50px;
             font-weight: 600;
-            font-size: 0.9rem;
-            transition: all 0.2s;
+            font-size: 0.95rem;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            box-shadow: 0 4px 15px rgba(26,107,58,0.25);
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
         }
 
-        .btn-primary-custom:hover {
-            background: var(--primary-dark);
-            transform: translateY(-1px);
-            box-shadow: 0 4px 14px rgba(26,107,58,0.3);
+        .btn-primary-custom:hover, .btn-primary-custom:focus {
+            background: linear-gradient(135deg, var(--primary-dark), #17a57a);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(26,107,58,0.4);
+            color: #fff;
         }
 
         .btn-outline-custom {
@@ -235,10 +335,20 @@
             font-size: 0.8rem;
             opacity: 0.85;
         }
+
+        .wishlist-btn.active {
+        background: #e63946 !important;
+        }
+        .wishlist-btn[data-active="true"] {
+        background: #e63946;
+        }
     </style>
 
     @stack('styles')
+
+     <meta name="csrf-token" content="{{ csrf_token() }}">
 </head>
+
 <body>
 
     <!-- NAVBAR -->
@@ -246,9 +356,9 @@
         <div class="container">
             <div class="d-flex justify-content-between align-items-center">
                 <a href="{{ route('home') }}" class="text-decoration-none">
-                    <div class="d-flex align-items-center gap-2">
-                        <div class="rounded-2 d-flex align-items-center justify-content-center" style="width:40px;height:40px;background:var(--primary)">
-                            <i class="fa-solid fa-mountain-sun text-white"></i>
+                    <div class="d-flex align-items-center gap-3">
+                        <div class="rounded-3 d-flex align-items-center justify-content-center shadow-sm" style="width:48px;height:48px;background:linear-gradient(135deg, var(--primary), #20c997); transition: transform 0.3s;" onmouseover="this.style.transform='scale(1.05)'" onmouseout="this.style.transform='scale(1)'">
+                            <i class="fa-solid fa-mountain-sun text-white fs-5"></i>
                         </div>
                         <div class="navbar-brand-text">E-Catalog Magetan <span>Dinas Pariwisata & Kebudayaan</span></div>
                     </div>
@@ -262,11 +372,7 @@
                 <!-- Nav links desktop -->
                 <div class="d-none d-md-flex align-items-center gap-1">
                     <a href="{{ route('public.wisata') }}" class="nav-link-custom {{ request()->routeIs('public.wisata*') ? 'active' : '' }}">Wisata</a>
-                    <a href="{{ route('public.umkm') }}" class="nav-link-custom {{ request()->routeIs('public.umkm') ? 'active' : '' }}">UMKM</a>
-                    <a href="{{ route('public.produk') }}" class="nav-link-custom {{ request()->routeIs('public.produk') ? 'active' : '' }}">Produk</a>
                     <a href="{{ route('public.event') }}" class="nav-link-custom {{ request()->routeIs('public.event') ? 'active' : '' }}">Event</a>
-                    <a href="{{ route('public.kuliner') }}" class="nav-link-custom {{ request()->routeIs('public.kuliner') ? 'active' : '' }}">Kuliner</a>
-                    <a href="{{ route('public.penginapan') }}" class="nav-link-custom {{ request()->routeIs('public.penginapan') ? 'active' : '' }}">Penginapan</a>
                     <a href="{{ route('public.berita') }}" class="nav-link-custom {{ request()->routeIs('public.berita') ? 'active' : '' }}">Berita</a>
                     @auth
                         <div class="dropdown ms-2">
@@ -294,11 +400,7 @@
             <div class="collapse d-md-none mt-3" id="navMenu">
                 <div class="d-flex flex-column gap-1">
                     <a href="{{ route('public.wisata') }}" class="nav-link-custom">Wisata</a>
-                    <a href="{{ route('public.umkm') }}" class="nav-link-custom">UMKM</a>
-                    <a href="{{ route('public.produk') }}" class="nav-link-custom">Produk</a>
                     <a href="{{ route('public.event') }}" class="nav-link-custom">Event</a>
-                    <a href="{{ route('public.kuliner') }}" class="nav-link-custom">Kuliner</a>
-                    <a href="{{ route('public.penginapan') }}" class="nav-link-custom">Penginapan</a>
                     <a href="{{ route('public.berita') }}" class="nav-link-custom">Berita</a>
                     @auth
                         <hr class="my-2 text-muted">
@@ -320,40 +422,48 @@
 
     <!-- FOOTER -->
     <footer class="footer">
-        <div class="container">
+        <div class="container position-relative" style="z-index: 1;">
             <div class="row g-4">
-                <div class="col-md-4">
-                    <h5 class="mb-3">E-Catalog Magetan</h5>
-                    <p class="small" style="line-height:1.8; opacity:0.75;">Portal informasi dan promosi pariwisata serta produk UMKM Kabupaten Magetan yang dikelola oleh Bidang Pemasaran Dinas Pariwisata dan Kebudayaan.</p>
+                <div class="col-md-4 pe-md-5">
+                    <h5 class="brand-title mb-3">E-Catalog Magetan</h5>
+                    <p class="small" style="line-height:1.8; color:#94a3b8;">Portal informasi dan promosi pariwisata Kabupaten Magetan yang dikelola oleh Bidang Pemasaran Dinas Pariwisata dan Kebudayaan.</p>
                 </div>
                 <div class="col-md-2">
-                    <h5 class="mb-3 fs-6">Wisata</h5>
-                    <ul class="list-unstyled small">
-                        <li class="mb-2"><a href="{{ route('public.wisata') }}">Destinasi</a></li>
-                        <li class="mb-2"><a href="{{ route('public.kuliner') }}">Kuliner</a></li>
-                        <li class="mb-2"><a href="{{ route('public.penginapan') }}">Penginapan</a></li>
-                        <li class="mb-2"><a href="{{ route('public.event') }}">Event</a></li>
+                    <h5 class="fs-6">Wisata</h5>
+                    <ul class="list-unstyled small d-flex flex-column gap-2">
+                        <li><a href="{{ route('public.wisata') }}"><i class="fa-solid fa-chevron-right"></i>Destinasi</a></li>
+                        <li><a href="{{ route('public.event') }}"><i class="fa-solid fa-chevron-right"></i>Event</a></li>
                     </ul>
                 </div>
                 <div class="col-md-2">
-                    <h5 class="mb-3 fs-6">UMKM</h5>
-                    <ul class="list-unstyled small">
-                        <li class="mb-2"><a href="{{ route('public.umkm') }}">Daftar UMKM</a></li>
-                        <li class="mb-2"><a href="{{ route('public.produk') }}">Katalog Produk</a></li>
-                        <li class="mb-2"><a href="{{ route('public.berita') }}">Berita</a></li>
+                    <h5 class="fs-6">Informasi</h5>
+                    <ul class="list-unstyled small d-flex flex-column gap-2">
+                        <li><a href="{{ route('public.berita') }}"><i class="fa-solid fa-chevron-right"></i>Berita</a></li>
                     </ul>
                 </div>
                 <div class="col-md-4">
-                    <h5 class="mb-3 fs-6">Kontak</h5>
-                    <p class="small" style="opacity:0.75; line-height:2;">
-                        <i class="fa-solid fa-location-dot me-2"></i> Jl. Jend. Sudirman No. 1, Magetan<br>
-                        <i class="fa-solid fa-phone me-2"></i> (0351) 895018<br>
-                        <i class="fa-solid fa-envelope me-2"></i> disbudparmagetan@gmail.com
-                    </p>
+                    <h5 class="fs-6">Kontak</h5>
+                    <div class="small" style="line-height:1.6;">
+                        <a href="https://www.google.com/maps/search/?api=1&query=Plaza+Ndoyo%2C+Jl.+Hasanudin+No.20%2C+Terbono%2C+Selosari%2C+Kec.+Magetan%2C+Kabupaten+Magetan%2C+Jawa+Timur" target="_blank" rel="noopener noreferrer" class="contact-text text-decoration-none w-100">
+                            <div class="contact-icon"><i class="fa-solid fa-location-dot"></i></div>
+                            <div class="mt-1">Plaza Ndoyo, Jl. Hasanudin No.20, Terbono, Selosari, Kec. Magetan, Kabupaten Magetan, Jawa Timur</div>
+                        </a>
+                        <div class="contact-text w-100">
+                            <div class="contact-icon"><i class="fa-solid fa-phone"></i></div>
+                            <div class="mt-1">(0351) 891831</div>
+                        </div>
+                        <div class="contact-text w-100">
+                            <div class="contact-icon"><i class="fa-solid fa-envelope"></i></div>
+                            <div class="mt-1">disparbudpora01@gmail.com</div>
+                        </div>
+                    </div>
                 </div>
             </div>
-            <hr class="footer-divider mt-4">
-            <p class="text-center small mb-0" style="opacity:0.5;">© {{ date('Y') }} Dinas Pariwisata dan Kebudayaan Kabupaten Magetan. All rights reserved.</p>
+            <hr class="footer-divider">
+            <div class="d-flex flex-column flex-md-row justify-content-between align-items-center small" style="color:#94a3b8;">
+                <p class="mb-2 mb-md-0">© {{ date('Y') }} Dinas Pariwisata dan Kebudayaan Kabupaten Magetan.</p>
+                <p class="mb-0">All rights reserved.</p>
+            </div>
         </div>
     </footer>
 
@@ -371,10 +481,33 @@
     <script>
         AOS.init({
             duration: 800,
-            once: true,
+            once: false,
+            mirror: true,
             offset: 100,
         });
     </script>
     @stack('scripts')
+
+    <script>
+    document.querySelectorAll('.wishlist-btn').forEach(btn => {
+    if (btn.dataset.active === 'true') btn.classList.add('active');
+    btn.addEventListener('click', async (e) => {
+        e.preventDefault();
+        e.stopPropagation();
+
+        const id = btn.dataset.id;
+        const res = await fetch(`/wisata/${id}/wishlist`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').content,
+            },
+        });
+        const data = await res.json();
+        btn.classList.toggle('active', data.wishlisted);
+        });
+    });
+    </script>
+
 </body>
 </html>

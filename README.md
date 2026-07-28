@@ -1,6 +1,6 @@
-# E-Catalog Pariwisata & UMKM Magetan
+# E-Catalog Pariwisata Magetan
 
-Sistem E-Catalog untuk mempromosikan Pariwisata dan UMKM di wilayah Magetan. Dibangun menggunakan framework Laravel.
+Sistem E-Catalog untuk mempromosikan Pariwisata, Destinasi, Event, dan Berita di wilayah Kabupaten Magetan. Dibangun menggunakan framework Laravel.
 
 ## Prasyarat (Prerequisites)
 

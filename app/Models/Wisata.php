@@ -19,4 +19,14 @@ class Wisata extends Model
     {
         return $this->hasMany(WisataGallery::class);
     }
+
+    public function ratings()
+    {
+        return $this->hasMany(WisataRating::class);
+    }
+
+    public function wishlistedBy()
+    {
+        return $this->belongsToMany(User::class, 'wishlists');
+    }
 }

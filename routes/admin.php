@@ -11,6 +11,7 @@ use App\Http\Controllers\Admin\PenginapanController;
 use App\Http\Controllers\Admin\BeritaController;
 use App\Http\Controllers\Admin\BannerController;
 use App\Http\Controllers\Admin\GaleriController;
+use App\Http\Controllers\Admin\UlasanController;
 
 use App\Http\Controllers\Admin\LaporanController;
 
@@ -33,4 +34,6 @@ Route::middleware(['auth', 'role:Admin|Petugas'])->prefix('admin')->name('admin.
     Route::resource('berita', BeritaController::class);
     Route::resource('banner', BannerController::class);
     Route::resource('galeri', GaleriController::class);
+    Route::resource('ulasan', UlasanController::class)->only(['index', 'destroy']);
+    Route::post('/ulasan/{id}/reply', [UlasanController::class, 'reply'])->name('ulasan.reply');
 });

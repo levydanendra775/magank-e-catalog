@@ -1,7 +1,7 @@
 @extends('layouts.public')
 
-@section('title', 'Beranda — E-Catalog Pariwisata & UMKM Kabupaten Magetan')
-@section('meta_description', 'Jelajahi destinasi wisata, produk UMKM lokal, kuliner, event, dan penginapan terbaik di Kabupaten Magetan.')
+@section('title', 'Beranda — E-Catalog Pariwisata Kabupaten Magetan')
+@section('meta_description', 'Jelajahi destinasi wisata, event, dan berita terbaik di Kabupaten Magetan.')
 
 @push('styles')
 <style>
@@ -276,19 +276,17 @@
                 <div class="hero-badge"><i class="fa-solid fa-mountain-sun me-2"></i>Kabupaten Magetan, Jawa Timur</div>
                 <h1 class="hero-title mb-4">
                     Jelajahi Keindahan<br>
-                    <span class="highlight">Wisata & UMKM</span><br>
+                    <span class="highlight">Wisata & Event</span><br>
                     Magetan
                 </h1>
                 <p class="hero-subtitle mb-5">
-                    Temukan destinasi wisata menakjubkan, produk UMKM unggulan, kuliner khas, event menarik, dan informasi pariwisata lengkap Kabupaten Magetan dalam satu platform.
+                    Temukan destinasi wisata menakjubkan, event menarik, dan informasi pariwisata lengkap Kabupaten Magetan dalam satu platform.
                 </p>
                 <div class="d-flex gap-3 flex-wrap">
                     <a href="{{ route('public.wisata') }}" class="btn btn-warning fw-bold px-4 py-2" style="border-radius:10px; font-size:0.95rem;">
                         <i class="fa-solid fa-map-location-dot me-2"></i>Jelajahi Wisata
                     </a>
-                    <a href="{{ route('public.umkm') }}" class="btn btn-outline-light fw-bold px-4 py-2" style="border-radius:10px; font-size:0.95rem;">
-                        <i class="fa-solid fa-shop me-2"></i>Lihat UMKM
-                    </a>
+
                 </div>
             </div>
 
@@ -298,8 +296,6 @@
                     @php
                         $heroStats = [
                             ['icon'=>'fa-map-location-dot','num'=>App\Models\Wisata::count(),'label'=>'Destinasi Wisata'],
-                            ['icon'=>'fa-shop','num'=>App\Models\Umkm::count(),'label'=>'Pelaku UMKM'],
-                            ['icon'=>'fa-box','num'=>App\Models\Produk::count(),'label'=>'Produk Lokal'],
                             ['icon'=>'fa-calendar-days','num'=>App\Models\Event::count(),'label'=>'Event Tahunan'],
                         ];
                     @endphp
@@ -373,49 +369,10 @@
     </div>
 </section>
 
-<!-- ===== UMKM LOKAL ===== -->
-<section class="section-py bg-section-alt">
-    <div class="container">
-        <div class="d-flex justify-content-between align-items-end mb-5">
-            <div data-aos="fade-up">
-                <div class="section-badge"><i class="fa-solid fa-shop me-2"></i>UMKM Lokal</div>
-                <h2 class="section-title mb-2">Produk Unggulan UMKM</h2>
-                <p class="text-muted mb-0">Dukung ekonomi lokal dengan membeli produk asli Magetan</p>
-            </div>
-            <a href="{{ route('public.umkm') }}" class="btn-outline-custom d-none d-md-inline-block" data-aos="fade-left">Lihat Semua <i class="fa-solid fa-arrow-right ms-1"></i></a>
-        </div>
-
-        @if($umkm->count())
-        <div class="row g-3">
-            @foreach($umkm as $u)
-            <div class="col-md-6 col-xl-4" data-aos="fade-up" data-aos-delay="{{ $loop->iteration * 100 }}">
-                <div class="umkm-card">
-                    @if($u->logo)
-                        <img src="{{ Storage::url($u->logo) }}" alt="{{ $u->nama }}" class="umkm-logo">
-                    @else
-                        <div class="umkm-logo-placeholder"><i class="fa-solid fa-shop"></i></div>
-                    @endif
-                    <div>
-                        <h6 class="fw-bold mb-1" style="font-family:'Plus Jakarta Sans',sans-serif">{{ $u->nama }}</h6>
-                        <p class="text-muted small mb-1"><i class="fa-solid fa-location-dot me-1"></i>{{ $u->kecamatan }}</p>
-                        <p class="text-muted small mb-0"><i class="fa-solid fa-user me-1"></i>{{ $u->pemilik }}</p>
-                    </div>
-                </div>
-            </div>
-            @endforeach
-        </div>
-        @else
-        <div class="text-center py-5 text-muted">
-            <i class="fa-solid fa-shop fa-3x mb-3 opacity-25"></i>
-            <p>Belum ada UMKM yang terdaftar.</p>
-        </div>
-        @endif
-    </div>
-</section>
 
 <!-- ===== EVENT ===== -->
 @if($events->count())
-<section class="section-py">
+<section class="section-py bg-section-alt">
     <div class="container">
         <div class="d-flex justify-content-between align-items-end mb-5">
             <div data-aos="fade-up">
@@ -457,7 +414,7 @@
 
 <!-- ===== BERITA ===== -->
 @if($berita->count())
-<section class="section-py bg-section-alt">
+<section class="section-py">
     <div class="container">
         <div class="d-flex justify-content-between align-items-end mb-5">
             <div data-aos="fade-up">
@@ -498,7 +455,7 @@
         <div class="cta-section" data-aos="zoom-in" data-aos-duration="1000">
             <div class="section-badge" style="background:rgba(255,255,255,0.2); color:#fff; border-color:rgba(255,255,255,0.4);">Informasi Lebih Lanjut</div>
             <h2 class="text-white mb-3">Siap Berwisata ke Magetan?</h2>
-            <p class="mb-4" style="opacity:0.85; max-width:500px; margin:0 auto 2rem;">Hubungi Dinas Pariwisata dan Kebudayaan Kabupaten Magetan untuk informasi lebih lengkap seputar paket wisata dan promosi UMKM.</p>
+            <p class="mb-4" style="opacity:0.85; max-width:500px; margin:0 auto 2rem;">Hubungi Dinas Pariwisata dan Kebudayaan Kabupaten Magetan untuk informasi lebih lengkap seputar destinasi dan paket wisata.</p>
             <div class="d-flex gap-3 justify-content-center flex-wrap">
                 <a href="{{ route('public.wisata') }}" class="btn btn-warning fw-bold px-4 py-2" style="border-radius:10px;">
                     <i class="fa-solid fa-map-location-dot me-2"></i>Jelajahi Sekarang

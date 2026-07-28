@@ -26,34 +26,45 @@ class PublicController extends Controller
     }
 
     public function wisata(Request $request)
-    {
-        $query = Wisata::where('status_publish', true);
+{
+    $query = Wisata::where('status_publish', true)
+        ->withAvg('ratings', 'rating')
+        ->withCount('ratings');
 
-        if ($request->filled('q')) {
-            $query->where('nama', 'like', '%' . $request->q . '%');
-        }
-
-        if ($request->filled('kategori')) {
-            $query->where('kategori', $request->kategori);
-        }
-
-        if ($request->filled('kecamatan')) {
-            $query->where('kecamatan', $request->kecamatan);
-        }
-
-        $wisata = $query->latest()->paginate(12)->withQueryString();
-        
-        $kategoriList = ['Alam', 'Budaya', 'Religi', 'Buatan', 'Edukasi', 'Kuliner', 'Olahraga'];
-        $kecamatanList = ['Magetan', 'Maospati', 'Karas', 'Panekan', 'Plaosan', 'Sidorejo', 'Parang', 'Barat', 'Sukomoro', 'Ngariboyo', 'Kartoharjo', 'Kawedanan', 'Takeran', 'Nguntoronadi', 'Lembeyan', 'Bancikan', 'Poncol', 'Karangrejo', 'Satu Atap'];
-
-        return view('public.wisata.index', compact('wisata', 'kategoriList', 'kecamatanList'));
+    if ($request->filled('q')) {
+        $query->where('nama', 'like', '%' . $request->q . '%');
     }
 
-    public function wisataDetail($slug)
-    {
-        $wisata = Wisata::where('slug', $slug)->where('status_publish', true)->firstOrFail();
-        return view('public.wisata.detail', compact('wisata'));
+    if ($request->filled('kategori')) {
+        $query->where('kategori', $request->kategori);
     }
+
+    if ($request->filled('kecamatan')) {
+        $query->where('kecamatan', $request->kecamatan);
+    }
+
+    $wisata = $query->latest()->paginate(12)->withQueryString();
+
+    $kategoriList = ['Alam', 'Budaya', 'Religi', 'Buatan', 'Edukasi', 'Kuliner', 'Olahraga'];
+    $kecamatanList = ['Magetan', 'Maospati', 'Karas', 'Panekan', 'Plaosan', 'Sidorejo', 'Parang', 'Barat', 'Sukomoro', 'Ngariboyo', 'Kartoharjo', 'Kawedanan', 'Takeran', 'Nguntoronadi', 'Lembeyan', 'Bancikan', 'Poncol', 'Karangrejo', 'Satu Atap'];
+
+    return view('public.wisata.index', compact('wisata', 'kategoriList', 'kecamatanList'));
+}
+
+public function wisataDetail($slug)
+{
+    $wisata = Wisata::where('slug', $slug)
+        ->where('status_publish', true)
+        ->withAvg('ratings', 'rating')
+        ->withCount('ratings')
+        ->with([
+            'ratings' => fn($q) => $q->latest()->with('user'),
+            'galleries',
+        ])
+        ->firstOrFail();
+
+    return view('public.wisata.detail', compact('wisata'));
+}
 
     public function umkm(Request $request)
     {
