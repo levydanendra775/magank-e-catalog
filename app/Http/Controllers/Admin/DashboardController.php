@@ -37,8 +37,8 @@ class DashboardController extends Controller
             ->pluck('total', 'kategori')->toArray();
 
         // Chart Data: Event per Bulan (Tahun ini)
-        $eventPerBulan = Event::select(DB::raw('strftime("%m", tanggal) as bulan'), DB::raw('count(*) as total'))
-            ->whereRaw('strftime("%Y", tanggal) = ?', [date('Y')])
+        $eventPerBulan = Event::select(DB::raw('DATE_FORMAT(tanggal, "%m") as bulan'), DB::raw('count(*) as total'))
+            ->whereRaw('YEAR(tanggal) = ?', [date('Y')])
             ->groupBy('bulan')
             ->pluck('total', 'bulan')->toArray();
 

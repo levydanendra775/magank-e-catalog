@@ -11,6 +11,7 @@ Route::get('/', [PublicController::class, 'home'])->name('home');
 Route::get('/wisata', [PublicController::class, 'wisata'])->name('public.wisata');
 Route::get('/wisata/{slug}', [PublicController::class, 'wisataDetail'])->name('public.wisata.detail');
 Route::get('/event', [PublicController::class, 'event'])->name('public.event');
+Route::get('/event/{id}', [PublicController::class, 'eventDetail'])->name('public.event.detail');
 
 Route::get('/berita', [PublicController::class, 'berita'])->name('public.berita');
 Route::get('/berita/{id}', [PublicController::class, 'beritaDetail'])->name('public.berita.detail');

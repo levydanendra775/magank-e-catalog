@@ -11,7 +11,8 @@
     <div class="row g-4">
         @forelse($events as $event)
         <div class="col-md-6 col-xl-4">
-            <div class="card border-0 shadow-sm h-100" style="border-radius:16px;border:1px solid #e2e8f0!important;overflow:hidden;transition:all 0.3s;">
+            <a href="{{ route('public.event.detail', $event->id) }}" class="text-decoration-none">
+            <div class="card border-0 shadow-sm h-100" style="border-radius:16px;border:1px solid #e2e8f0!important;overflow:hidden;transition:all 0.3s;" onmouseover="this.style.transform='translateY(-4px)';this.style.boxShadow='0 12px 30px rgba(0,0,0,0.12)';" onmouseout="this.style.transform='';this.style.boxShadow='';">
                 <div style="position:relative;height:200px;overflow:hidden;">
                     @if($event->poster)
                         <img src="{{ Storage::url($event->poster) }}" class="w-100 h-100" style="object-fit:cover;" alt="{{ $event->judul }}">
@@ -26,17 +27,16 @@
                     </div>
                 </div>
                 <div class="card-body p-4">
-                    <h6 class="fw-bold mb-2" style="font-family:'Plus Jakarta Sans',sans-serif;">{{ $event->judul }}</h6>
+                    <h6 class="fw-bold mb-2" style="font-family:'Plus Jakarta Sans',sans-serif;color:#1a1a1a;">{{ $event->judul }}</h6>
                     <p class="text-muted small mb-2"><i class="fa-solid fa-location-dot me-1"></i>{{ $event->lokasi }}</p>
                     @if($event->jam)
                     <p class="text-muted small mb-2"><i class="fa-regular fa-clock me-1"></i>{{ $event->jam }}</p>
                     @endif
                     <p class="text-muted small mb-3">{{ Str::limit(strip_tags($event->deskripsi), 80) }}</p>
-                    @if($event->link_pendaftaran)
-                    <a href="{{ $event->link_pendaftaran }}" target="_blank" class="btn btn-sm btn-warning fw-bold" style="border-radius:8px;">Daftar Sekarang</a>
-                    @endif
+                    <span class="btn btn-sm btn-outline-success fw-bold" style="border-radius:8px;">Lihat Detail →</span>
                 </div>
             </div>
+            </a>
         </div>
         @empty
         <div class="col-12 text-center py-5 text-muted"><i class="fa-solid fa-calendar-days fa-3x mb-3 opacity-25"></i><p>Belum ada event.</p></div>

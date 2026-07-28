@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Banner;
 use App\Models\Wisata;
+use App\Models\Umkm;
 use App\Models\Event;
 use App\Models\Berita;
 use Illuminate\Http\Request;
@@ -66,6 +67,12 @@ public function wisataDetail($slug)
     {
         $events = Event::where('status', true)->orderBy('tanggal')->paginate(9);
         return view('public.event.index', compact('events'));
+    }
+
+    public function eventDetail($id)
+    {
+        $event = Event::where('status', true)->findOrFail($id);
+        return view('public.event.detail', compact('event'));
     }
 
     public function berita()
