@@ -11,88 +11,166 @@
     <!-- FontAwesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
     <!-- Google Fonts -->
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,wght@0,500;0,600;1,500&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=IBM+Plex+Mono:wght@500&display=swap" rel="stylesheet">
     <!-- AOS Animation -->
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
 
     <style>
         :root {
-            --primary: #1a6b3a;
-            --primary-dark: #114d2a;
-            --primary-light: #e9f7ef;
-            --accent: #f5a623;
-            --accent-dark: #d4891a;
-            --text-dark: #1a1a2e;
-            --text-muted: #6c757d;
-            --bg-light: #f8faf9;
-            --border: #e2e8f0;
+            --primary: #1F3A34;
+            --primary-dark: #14261F;
+            --primary-light: #EAF0EC;
+            --accent: #C89B3C;
+            --accent-dark: #9C7726;
+            --rust: #7A3B2E;
+            --text-dark: #24302B;
+            --text-muted: #5B6B62;
+            --bg-light: #F5F7F1;
+            --border: #DCE4DD;
         }
 
         * { box-sizing: border-box; }
 
         body {
-            font-family: 'Inter', sans-serif;
+            font-family: 'Plus Jakarta Sans', sans-serif;
             color: var(--text-dark);
             background: #fff;
         }
 
         h1, h2, h3, h4, h5 {
-            font-family: 'Plus Jakarta Sans', sans-serif;
-            font-weight: 700;
+            font-family: 'Fraunces', serif;
+            font-weight: 600;
         }
 
-        /* ===== NAVBAR ===== */
+        .font-mono { font-family: 'IBM Plex Mono', monospace; }
+
+        /* =============================================
+           NAVBAR — 21st.dev "Floating Navbar" Style
+           Inspired by: Aceternity UI / Manu Arora
+        ============================================= */
+        @keyframes nav-slide-down {
+            from { transform: translateY(-100%); opacity: 0; }
+            to   { transform: translateY(0);    opacity: 1; }
+        }
+
         .navbar-public {
-            background: rgba(255, 255, 255, 0.85);
-            backdrop-filter: blur(16px);
-            -webkit-backdrop-filter: blur(16px);
-            border-bottom: 1px solid rgba(0,0,0,0.05);
-            padding: 20px 0;
+            /* Start: fully solid (matches hero dark bg) */
+            background: var(--primary);
+            padding: 16px 0;
             position: sticky;
             top: 0;
             z-index: 1000;
-            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            /* Smooth transition for glass morph */
+            transition: background 0.4s ease,
+                        padding 0.3s ease,
+                        box-shadow 0.4s ease,
+                        transform 0.4s cubic-bezier(0.2,0.6,0.2,1),
+                        backdrop-filter 0.4s ease;
+            animation: nav-slide-down 0.6s cubic-bezier(0.2,0.6,0.2,1) both;
         }
 
-        .navbar-public.scrolled {
-            padding: 12px 0;
-            background: rgba(255, 255, 255, 0.98);
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+        /* Scrolled state — glassmorphism dark */
+        .navbar-public.nav-glass {
+            background: rgba(15, 26, 22, 0.75);
+            backdrop-filter: blur(20px) saturate(1.6);
+            -webkit-backdrop-filter: blur(20px) saturate(1.6);
+            padding: 10px 0;
+            box-shadow:
+                0 1px 0 rgba(255,255,255,0.06),
+                0 8px 32px rgba(0,0,0,0.28);
+            border-bottom: 1px solid rgba(255,255,255,0.06);
         }
 
+        /* Hidden — slides up on scroll down */
+        .navbar-public.nav-hidden {
+            transform: translateY(-110%);
+        }
+
+        /* Logo images */
+        .navbar-logo-tourism,
+        .navbar-logo-dinas {
+            transition: opacity 0.25s ease, transform 0.25s ease;
+            filter: brightness(1.05);
+        }
+        .navbar-logo-tourism:hover,
+        .navbar-logo-dinas:hover {
+            opacity: 0.85;
+            transform: scale(0.97);
+        }
+
+        /* Brand text */
         .navbar-brand-text {
             font-family: 'Plus Jakarta Sans', sans-serif;
-            font-weight: 800;
-            font-size: 1.35rem;
-            background: linear-gradient(135deg, var(--primary), #20c997);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            line-height: 1.2;
+            font-weight: 700;
+            font-style: normal;
+            font-size: 0.75rem;
+            color: #fff;
+            line-height: 1.3;
+            letter-spacing: 0.3px;
+            text-transform: uppercase;
         }
-
         .navbar-brand-text span {
             display: block;
-            font-size: 0.75rem;
-            font-weight: 600;
-            color: var(--text-muted);
-            -webkit-text-fill-color: var(--text-muted); /* override webkit text fill */
-            margin-top: -2px;
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            font-style: normal;
+            font-size: 0.68rem;
+            font-weight: 500;
+            color: rgba(255,255,255,0.65);
+            margin-top: 2px;
+            letter-spacing: 0.2px;
         }
 
+        /* Divider between logos */
+        .nav-logo-divider {
+            width: 1px;
+            height: 36px;
+            background: rgba(255,255,255,0.2);
+            margin: 0 6px;
+            transition: background 0.3s;
+        }
+        .navbar-public.nav-glass .nav-logo-divider {
+            background: rgba(255,255,255,0.15);
+        }
+
+        /* Nav links — with animated underline indicator */
         .nav-link-custom {
-            color: var(--text-muted) !important;
+            color: rgba(255,255,255,0.72) !important;
             font-weight: 600;
-            font-size: 0.95rem;
-            padding: 8px 18px !important;
-            border-radius: 50px;
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            font-size: 0.9rem;
+            padding: 6px 14px !important;
+            border-radius: 8px;
+            transition: color 0.2s ease, background 0.2s ease;
             position: relative;
+            letter-spacing: 0.01em;
         }
 
-        .nav-link-custom:hover, .nav-link-custom.active {
-            color: var(--primary) !important;
-            background: var(--primary-light);
-            transform: translateY(-2px);
+        /* Underline indicator */
+        .nav-link-custom::after {
+            content: '';
+            position: absolute;
+            bottom: 2px;
+            left: 50%;
+            transform: translateX(-50%) scaleX(0);
+            width: calc(100% - 28px);
+            height: 2px;
+            background: var(--accent);
+            border-radius: 2px;
+            transition: transform 0.25s cubic-bezier(0.2,0.6,0.2,1);
+        }
+
+        .nav-link-custom:hover {
+            color: #fff !important;
+            background: rgba(255,255,255,0.07);
+        }
+
+        .nav-link-custom:hover::after,
+        .nav-link-custom.active::after {
+            transform: translateX(-50%) scaleX(1);
+        }
+
+        .nav-link-custom.active {
+            color: #fff !important;
+            background: rgba(255,255,255,0.05);
         }
 
         /* ===== SECTION HEADERS ===== */
@@ -112,15 +190,30 @@
         /* ===== CARDS ===== */
         .card-hover {
             border: 1px solid var(--border) !important;
-            border-radius: 16px !important;
-            transition: all 0.3s ease;
+            border-radius: 12px !important;
+            transition: all 0.25s ease;
             overflow: hidden;
         }
 
         .card-hover:hover {
-            transform: translateY(-6px);
-            box-shadow: 0 16px 48px rgba(26,107,58,0.12) !important;
+            transform: translateY(-3px);
+            box-shadow: 0 12px 28px rgba(31,58,52,0.12) !important;
             border-color: var(--primary) !important;
+        }
+
+        /* Signature: elevation badge (mdpl) — encodes real elevation data, not decoration */
+        .elevation-badge {
+            position: absolute;
+            top: 12px;
+            right: 12px;
+            background: rgba(31,58,52,0.85);
+            color: #fff;
+            font-family: 'IBM Plex Mono', monospace;
+            font-size: 0.68rem;
+            font-weight: 500;
+            padding: 4px 10px;
+            border-radius: 6px;
+            letter-spacing: 0.3px;
         }
 
         .card-img-wrapper {
@@ -144,58 +237,33 @@
             position: absolute;
             top: 12px;
             left: 12px;
-            background: var(--primary);
+            background: var(--rust);
             color: #fff;
             font-size: 0.73rem;
             font-weight: 600;
             padding: 4px 12px;
-            border-radius: 100px;
+            border-radius: 6px;
         }
 
         /* ===== FOOTER ===== */
         .footer {
-            background: #0f172a;
+            background: var(--primary-dark);
             position: relative;
-            color: #94a3b8;
-            padding: 70px 0 30px;
-            overflow: hidden;
-        }
-
-        .footer::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 80%;
-            height: 1px;
-            background: linear-gradient(90deg, transparent, var(--primary), #20c997, transparent);
-            opacity: 0.6;
-        }
-
-        .footer::after {
-            content: '';
-            position: absolute;
-            top: -150px;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 600px;
-            height: 300px;
-            background: radial-gradient(ellipse at center, rgba(32, 201, 151, 0.15) 0%, transparent 70%);
-            pointer-events: none;
+            color: rgba(255,255,255,0.6);
+            padding: 60px 0 30px;
         }
 
         .footer h5 {
-            color: #f8fafc;
-            font-weight: 700;
-            letter-spacing: 0.5px;
+            color: #fff;
+            font-weight: 600;
+            font-family: 'Fraunces', serif;
             margin-bottom: 20px;
         }
 
         .footer .brand-title {
-            background: linear-gradient(135deg, #fff, #20c997);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
+            color: #fff;
+            font-family: 'Fraunces', serif;
+            font-style: italic;
             font-size: 1.4rem;
             display: inline-block;
         }
@@ -212,14 +280,13 @@
             font-size: 0.75rem;
             margin-right: 8px;
             opacity: 0;
-            transform: translateX(-10px);
-            transition: all 0.3s ease;
-            color: #20c997;
+            transform: translateX(-6px);
+            transition: all 0.2s ease;
+            color: var(--accent);
         }
 
         .footer a:hover {
-            color: #20c997;
-            transform: translateX(5px);
+            color: var(--accent);
         }
 
         .footer a:hover i.fa-chevron-right {
@@ -228,8 +295,8 @@
         }
 
         .footer .contact-icon {
-            color: #20c997;
-            background: rgba(32, 201, 151, 0.1);
+            color: var(--accent);
+            background: rgba(200, 155, 60, 0.12);
             width: 32px;
             height: 32px;
             display: inline-flex;
@@ -237,7 +304,6 @@
             justify-content: center;
             border-radius: 8px;
             margin-right: 12px;
-            border: 1px solid rgba(32, 201, 151, 0.2);
             flex-shrink: 0;
         }
 
@@ -245,34 +311,31 @@
             display: flex;
             align-items: flex-start;
             margin-bottom: 12px;
-            color: #cbd5e1;
-            transition: transform 0.3s ease;
+            color: rgba(255,255,255,0.6);
         }
 
         .footer a.contact-text:hover,
         .footer .contact-text:hover {
-            transform: translateX(5px);
-            color: #20c997;
+            color: var(--accent);
         }
 
         .footer-divider {
             border: none;
             height: 1px;
-            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.1), transparent);
+            background: rgba(255,255,255,0.1);
             margin: 40px 0 20px;
         }
 
         /* ===== BUTTONS ===== */
         .btn-primary-custom {
-            background: linear-gradient(135deg, var(--primary), #20c997);
+            background: var(--accent);
             border: none;
-            color: #fff;
-            padding: 10px 26px;
-            border-radius: 50px;
-            font-weight: 600;
+            color: var(--primary-dark);
+            padding: 9px 22px;
+            border-radius: 8px;
+            font-weight: 700;
             font-size: 0.95rem;
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-            box-shadow: 0 4px 15px rgba(26,107,58,0.25);
+            transition: all 0.2s ease;
             display: inline-flex;
             align-items: center;
             justify-content: center;
@@ -280,17 +343,15 @@
         }
 
         .btn-primary-custom:hover, .btn-primary-custom:focus {
-            background: linear-gradient(135deg, var(--primary-dark), #17a57a);
-            transform: translateY(-2px);
-            box-shadow: 0 8px 25px rgba(26,107,58,0.4);
+            background: var(--accent-dark);
             color: #fff;
         }
 
         .btn-outline-custom {
-            border: 2px solid var(--primary);
+            border: 1.5px solid var(--primary);
             color: var(--primary);
-            padding: 9px 24px;
-            border-radius: 10px;
+            padding: 8px 22px;
+            border-radius: 8px;
             font-weight: 600;
             font-size: 0.9rem;
             background: transparent;
@@ -309,7 +370,7 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            background: linear-gradient(135deg, #e9f7ef, #c8ebd5);
+            background: var(--primary-light);
             color: var(--primary);
         }
 
@@ -336,12 +397,18 @@
             opacity: 0.85;
         }
 
-        .wishlist-btn.active {
-        background: #e63946 !important;
+        /* Divider between logos */
+        .nav-logo-divider-line {
+            width: 1px;
+            height: 36px;
+            background: rgba(255,255,255,0.18);
+            margin: 0 4px;
+            flex-shrink: 0;
         }
-        .wishlist-btn[data-active="true"] {
-        background: #e63946;
-        }
+
+        /* Wishlist button */
+        .wishlist-btn.active { background: #e63946 !important; }
+        .wishlist-btn[data-active="true"] { background: #e63946; }
     </style>
 
     @stack('styles')
@@ -351,67 +418,106 @@
 
 <body>
 
-    <!-- NAVBAR -->
+    <!-- NAVBAR — 21st.dev Floating Style -->
     <nav class="navbar-public" id="mainNavbar">
         <div class="container">
             <div class="d-flex justify-content-between align-items-center">
                 <a href="{{ route('home') }}" class="text-decoration-none">
-                    <div class="d-flex align-items-center gap-3">
-                        <div class="rounded-3 d-flex align-items-center justify-content-center shadow-sm" style="width:48px;height:48px;background:linear-gradient(135deg, var(--primary), #20c997); transition: transform 0.3s;" onmouseover="this.style.transform='scale(1.05)'" onmouseout="this.style.transform='scale(1)'">
-                            <i class="fa-solid fa-mountain-sun text-white fs-5"></i>
+                    <div class="d-flex align-items-center gap-2">
+                        {{-- Logo Magetan Tourism (JANGAN DIUBAH) --}}
+                        <img src="{{ asset('images/magetan-tourism.png') }}"
+                             alt="Magetan Tourism"
+                             class="navbar-logo-tourism"
+                             style="height:50px; width:auto; object-fit:contain;">
+                        {{-- Divider --}}
+                        <div class="nav-logo-divider-line"></div>
+                        {{-- Lambang resmi Kabupaten Magetan (JANGAN DIUBAH) --}}
+                        <img src="{{ asset('images/lambang-magetan.png') }}"
+                             alt="Lambang Kabupaten Magetan"
+                             class="navbar-logo-dinas"
+                             style="height:50px; width:auto; object-fit:contain;">
+                        {{-- Teks Dinas (JANGAN DIUBAH) --}}
+                        <div class="navbar-brand-text d-none d-lg-block" style="line-height:1.25;">
+                            DINAS KEBUDAYAAN DAN PARIWISATA
+                            <span>KABUPATEN MAGETAN</span>
                         </div>
-                        <div class="navbar-brand-text">E-Catalog Magetan <span>Dinas Pariwisata & Kebudayaan</span></div>
                     </div>
                 </a>
 
                 <!-- Mobile toggle -->
-                <button class="navbar-toggler border-0 d-md-none" type="button" data-bs-toggle="collapse" data-bs-target="#navMenu">
+                <button class="navbar-toggler border-0 d-md-none" type="button"
+                        id="navToggle"
+                        style="background:rgba(255,255,255,0.1); border-radius:8px; padding:8px 12px; color:#fff;">
                     <i class="fa-solid fa-bars"></i>
                 </button>
 
                 <!-- Nav links desktop -->
                 <div class="d-none d-md-flex align-items-center gap-1">
-                    <a href="{{ route('public.wisata') }}" class="nav-link-custom {{ request()->routeIs('public.wisata*') ? 'active' : '' }}">Wisata</a>
-                    <a href="{{ route('public.event') }}" class="nav-link-custom {{ request()->routeIs('public.event') ? 'active' : '' }}">Event</a>
-                    <a href="{{ route('public.berita') }}" class="nav-link-custom {{ request()->routeIs('public.berita') ? 'active' : '' }}">Berita</a>
+                    <a href="{{ route('public.wisata') }}"
+                       class="nav-link-custom {{ request()->routeIs('public.wisata*') ? 'active' : '' }}">Wisata</a>
+                    <a href="{{ route('public.event') }}"
+                       class="nav-link-custom {{ request()->routeIs('public.event') ? 'active' : '' }}">Event</a>
+                    <a href="{{ route('public.berita') }}"
+                       class="nav-link-custom {{ request()->routeIs('public.berita*') ? 'active' : '' }}">Berita</a>
+
                     @auth
                         <div class="dropdown ms-2">
-                            <button class="btn-primary-custom dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            <button class="btn-primary-custom dropdown-toggle" type="button"
+                                    data-bs-toggle="dropdown" aria-expanded="false"
+                                    style="border-radius:10px; padding:9px 20px; font-size:0.88rem;">
                                 <i class="fa-solid fa-user-circle me-1"></i>Akun
                             </button>
-                            <ul class="dropdown-menu dropdown-menu-end shadow border-0 mt-2" style="border-radius:12px;">
-                                <li><a class="dropdown-item py-2" href="{{ route('admin.dashboard') }}"><i class="fa-solid fa-gauge me-2 text-muted"></i>Dashboard Admin</a></li>
-                                <li><hr class="dropdown-divider"></li>
+                            <ul class="dropdown-menu dropdown-menu-end shadow border-0 mt-2"
+                                style="border-radius:12px; background:rgba(20,38,31,0.95); backdrop-filter:blur(16px); border:1px solid rgba(255,255,255,0.1) !important;">
+                                <li><a class="dropdown-item py-2" href="{{ route('admin.dashboard') }}"
+                                       style="color:rgba(255,255,255,0.85); font-size:0.88rem;">
+                                    <i class="fa-solid fa-gauge me-2" style="color:var(--accent);"></i>Dashboard Admin
+                                </a></li>
+                                <li><hr class="dropdown-divider" style="border-color:rgba(255,255,255,0.1);"></li>
                                 <li>
                                     <form method="POST" action="{{ route('logout') }}">
                                         @csrf
-                                        <button type="submit" class="dropdown-item py-2 text-danger fw-semibold"><i class="fa-solid fa-right-from-bracket me-2"></i>Logout / Ganti Akun</button>
+                                        <button type="submit" class="dropdown-item py-2 fw-semibold"
+                                                style="color:#ff6b6b; font-size:0.88rem;">
+                                            <i class="fa-solid fa-right-from-bracket me-2"></i>Logout / Ganti Akun
+                                        </button>
                                     </form>
                                 </li>
                             </ul>
                         </div>
                     @else
-                        <a href="{{ route('login') }}" class="btn-primary-custom ms-2">Login</a>
+                        <a href="{{ route('login') }}" class="btn-primary-custom ms-2"
+                           style="border-radius:10px; padding:9px 20px; font-size:0.88rem;">
+                            <i class="fa-solid fa-right-to-bracket me-1"></i>Login
+                        </a>
                     @endauth
                 </div>
             </div>
 
-            <!-- Mobile collapse -->
-            <div class="collapse d-md-none mt-3" id="navMenu">
-                <div class="d-flex flex-column gap-1">
-                    <a href="{{ route('public.wisata') }}" class="nav-link-custom">Wisata</a>
-                    <a href="{{ route('public.event') }}" class="nav-link-custom">Event</a>
-                    <a href="{{ route('public.berita') }}" class="nav-link-custom">Berita</a>
-                    @auth
-                        <hr class="my-2 text-muted">
-                        <a href="{{ route('admin.dashboard') }}" class="nav-link-custom fw-bold"><i class="fa-solid fa-gauge me-2"></i>Dashboard Admin</a>
-                        <form method="POST" action="{{ route('logout') }}" class="mt-1 mb-2">
-                            @csrf
-                            <button type="submit" class="btn btn-danger w-100 text-center" style="border-radius:10px;font-weight:600;"><i class="fa-solid fa-right-from-bracket me-2"></i>Logout / Ganti Akun</button>
-                        </form>
-                    @else
-                        <a href="{{ route('login') }}" class="btn-primary-custom mt-2 text-center">Login Admin</a>
-                    @endauth
+            <!-- Mobile menu collapse -->
+            <div class="d-md-none" id="navMenuMobile" style="display:none !important; overflow:hidden; max-height:0; transition: max-height 0.35s cubic-bezier(0.2,0.6,0.2,1);">
+                <div style="padding: 12px 0 8px; border-top: 1px solid rgba(255,255,255,0.1); margin-top: 12px;">
+                    <div class="d-flex flex-column gap-1">
+                        <a href="{{ route('public.wisata') }}" class="nav-link-custom">Wisata</a>
+                        <a href="{{ route('public.event') }}" class="nav-link-custom">Event</a>
+                        <a href="{{ route('public.berita') }}" class="nav-link-custom">Berita</a>
+                        @auth
+                            <hr style="border-color:rgba(255,255,255,0.12); my-2">
+                            <a href="{{ route('admin.dashboard') }}" class="nav-link-custom fw-bold">
+                                <i class="fa-solid fa-gauge me-2"></i>Dashboard Admin
+                            </a>
+                            <form method="POST" action="{{ route('logout') }}" class="mt-1 mb-2">
+                                @csrf
+                                <button type="submit" class="btn btn-danger w-100" style="border-radius:10px; font-weight:600;">
+                                    <i class="fa-solid fa-right-from-bracket me-2"></i>Logout
+                                </button>
+                            </form>
+                        @else
+                            <a href="{{ route('login') }}" class="btn-primary-custom mt-2 text-center">
+                                <i class="fa-solid fa-right-to-bracket me-1"></i>Login Admin
+                            </a>
+                        @endauth
+                    </div>
                 </div>
             </div>
         </div>
@@ -469,22 +575,77 @@
 
     <!-- Bootstrap JS -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-    <script>
-        // Navbar scroll effect
-        window.addEventListener('scroll', () => {
-            document.getElementById('mainNavbar').classList.toggle('scrolled', window.scrollY > 20);
-        });
-    </script>
 
     <!-- AOS Animation JS -->
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     <script>
-        AOS.init({
-            duration: 800,
-            once: false,
-            mirror: true,
-            offset: 100,
+        AOS.init({ duration: 800, once: false, mirror: true, offset: 100 });
+    </script>
+
+    <script>
+    /* =====================================================
+       NAVBAR — Floating glass behavior (21st.dev inspired)
+       - Transparent → glass on scroll
+       - Hide on scroll down, reveal on scroll up
+    ===================================================== */
+    (function() {
+        const nav = document.getElementById('mainNavbar');
+        if (!nav) return;
+        let lastY = window.scrollY;
+        let ticking = false;
+
+        function updateNav() {
+            const currentY = window.scrollY;
+            const scrollingDown = currentY > lastY;
+            const pastThreshold = currentY > 60;
+
+            // Glass morph effect
+            nav.classList.toggle('nav-glass', pastThreshold);
+
+            // Hide/reveal on scroll direction
+            if (pastThreshold) {
+                nav.classList.toggle('nav-hidden', scrollingDown);
+            } else {
+                nav.classList.remove('nav-hidden');
+            }
+
+            lastY = currentY <= 0 ? 0 : currentY;
+            ticking = false;
+        }
+
+        window.addEventListener('scroll', () => {
+            if (!ticking) {
+                requestAnimationFrame(updateNav);
+                ticking = true;
+            }
+        }, { passive: true });
+    })();
+
+    /* Mobile menu custom toggle */
+    (function() {
+        const toggle = document.getElementById('navToggle');
+        const menu   = document.getElementById('navMenuMobile');
+        if (!toggle || !menu) return;
+        let open = false;
+
+        toggle.addEventListener('click', () => {
+            open = !open;
+            if (open) {
+                menu.style.setProperty('display', 'block', 'important');
+                // Animate open
+                requestAnimationFrame(() => {
+                    menu.style.maxHeight = menu.scrollHeight + 'px';
+                });
+                toggle.innerHTML = '<i class="fa-solid fa-xmark"></i>';
+            } else {
+                menu.style.maxHeight = '0';
+                menu.addEventListener('transitionend', () => {
+                    if (!open) menu.style.setProperty('display', 'none', 'important');
+                }, { once: true });
+                toggle.innerHTML = '<i class="fa-solid fa-bars"></i>';
+            }
         });
+    })();
     </script>
     @stack('scripts')
 
