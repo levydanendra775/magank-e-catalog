@@ -73,6 +73,11 @@
                             style="position:absolute;top:12px;right:12px;background:rgba(0,0,0,0.5);border:none;border-radius:50%;width:32px;height:32px;color:#fff;font-size:1rem;">
                             ❤
                         </button>
+                        @else
+                        <a href="{{ route('login') }}" title="Login untuk menyimpan wishlist"
+                            style="position:absolute;top:12px;right:12px;background:rgba(0,0,0,0.5);border:none;border-radius:50%;width:32px;height:32px;color:#fff;font-size:1rem;display:flex;align-items:center;justify-content:center;text-decoration:none;">
+                            🤍
+                        </a>
                         @endauth
 
                     </div>
