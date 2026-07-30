@@ -3,130 +3,172 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login Admin - E-Catalog Magetan</title>
-    <!-- Fonts & Icons -->
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <title>Login - E-Catalog Magetan</title>
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600;9..144,700&family=Plus+Jakarta+Sans:wght@400;500;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
     <style>
         * {
             box-sizing: border-box;
             margin: 0;
             padding: 0;
-            font-family: 'Inter', sans-serif;
         }
 
         body {
-            /* Theme Background matching Hero Section */
-            background: 
-                linear-gradient(rgba(15, 26, 22, 0.60), rgba(15, 26, 22, 0.75)),
-                url('/images/hero-telaga-sarangan.jpg') center/cover no-repeat fixed;
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            background-color: #1F3D2B; /* Solid green Magetan */
+            color: #ffffff;
             height: 100vh;
             display: flex;
-            align-items: center;
-            justify-content: center;
-            color: #ffffff;
+            overflow: hidden;
         }
 
-        .login-wrapper {
+        /* Split Screen Layout */
+        .split-layout {
+            display: flex;
             width: 100%;
-            max-width: 420px;
-            padding: 20px;
+            height: 100%;
         }
 
-        .login-card {
-            background: rgba(20, 20, 22, 0.85); /* Dark Glass */
-            backdrop-filter: blur(16px);
-            -webkit-backdrop-filter: blur(16px);
-            border: 1px solid rgba(255, 255, 255, 0.08);
-            border-radius: 24px;
-            padding: 40px;
-            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+        /* Left Panel - Image */
+        .image-panel {
+            flex: 1.2;
+            background: url('/images/hero-telaga-sarangan.jpg') center/cover no-repeat;
+            position: relative;
         }
 
-        .avatar {
-            width: 56px;
-            height: 56px;
-            background: rgba(255, 255, 255, 0.1);
-            border-radius: 50%;
+        /* Right Panel - Form */
+        .form-panel {
+            flex: 1;
+            background-color: #1F3D2B;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            padding: 40px 8%;
+            box-shadow: -10px 0 30px rgba(0, 0, 0, 0.2);
+            z-index: 10;
+        }
+
+        @media (max-width: 900px) {
+            .image-panel {
+                display: none; /* Hide image on smaller screens */
+            }
+            .form-panel {
+                padding: 40px 5%;
+            }
+        }
+
+        /* Logo styling */
+        .logo-container {
+            margin-bottom: 40px;
             display: flex;
             align-items: center;
-            justify-content: center;
-            margin: 0 auto 24px;
-            font-size: 24px;
-            font-weight: 600;
-            color: #ffffff;
-            border: 1px solid rgba(255, 255, 255, 0.05);
+            gap: 16px;
         }
 
-        .text-center { text-align: center; }
-        .mb-4 { margin-bottom: 24px; }
-        
-        .title {
-            font-size: 24px;
+        .logo-container img {
+            height: 64px;
+            width: auto;
+            object-fit: contain;
+        }
+
+        .logo-text {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .logo-text span.top {
+            font-size: 11px;
             font-weight: 600;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            color: rgba(255, 255, 255, 0.7);
+        }
+
+        .logo-text span.bottom {
+            font-size: 14px;
+            font-weight: 700;
+            letter-spacing: 0.5px;
+        }
+
+        /* Typography */
+        .title {
+            font-family: 'Fraunces', serif;
+            font-size: 36px;
+            font-weight: 700;
             margin-bottom: 8px;
-            letter-spacing: -0.5px;
+            line-height: 1.2;
+            color: #ffffff;
         }
 
         .subtitle {
-            font-size: 14px;
-            color: #a1a1aa; /* Zinc 400 */
+            font-size: 15px;
+            color: rgba(255, 255, 255, 0.7);
+            margin-bottom: 48px;
+            font-weight: 400;
+        }
+
+        /* Form styling */
+        .form-group {
+            position: relative;
             margin-bottom: 32px;
         }
 
-        .form-group {
-            position: relative;
-            margin-bottom: 16px;
-        }
-
-        .form-group i.icon-left {
-            position: absolute;
-            left: 16px;
-            top: 50%;
-            transform: translateY(-50%);
-            color: #71717a; /* Zinc 500 */
-            font-size: 14px;
-        }
-
-        .password-toggle {
-            position: absolute;
-            right: 16px;
-            top: 50%;
-            transform: translateY(-50%);
-            color: #71717a; /* Zinc 500 */
-            font-size: 14px;
-            cursor: pointer;
-            z-index: 10;
+        .form-label {
+            display: block;
+            font-size: 13px;
+            font-weight: 600;
+            color: rgba(255, 255, 255, 0.85);
+            margin-bottom: 8px;
+            letter-spacing: 0.3px;
         }
 
         .form-control {
             width: 100%;
-            background: rgba(255, 255, 255, 0.03);
-            border: 1px solid rgba(255, 255, 255, 0.08);
-            border-radius: 12px;
-            padding: 14px 16px 14px 44px;
+            background: transparent;
+            border: none;
+            border-bottom: 1.5px solid rgba(255, 255, 255, 0.3);
+            padding: 10px 0;
             color: #ffffff;
-            font-size: 14px;
-            transition: all 0.2s ease;
+            font-size: 16px;
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            transition: border-color 0.3s ease;
             outline: none;
         }
 
         .form-control::placeholder {
-            color: #52525b; /* Zinc 600 */
+            color: rgba(255, 255, 255, 0.3);
+            font-weight: 400;
         }
 
         .form-control:focus {
-            background: rgba(255, 255, 255, 0.06);
-            border-color: rgba(255, 255, 255, 0.2);
-            box-shadow: 0 0 0 4px rgba(255, 255, 255, 0.05);
+            border-bottom-color: #C89B3C; /* Accent color matching public layout */
         }
 
+        .password-toggle {
+            position: absolute;
+            right: 0;
+            bottom: 12px;
+            color: rgba(255, 255, 255, 0.6);
+            font-size: 16px;
+            cursor: pointer;
+            transition: color 0.2s;
+        }
+        
+        .password-toggle:hover {
+            color: #ffffff;
+        }
+
+        /* Options layout */
         .options {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            margin-bottom: 24px;
-            font-size: 13px;
+            margin-bottom: 40px;
+            font-size: 14px;
         }
 
         .checkbox-wrapper {
@@ -134,15 +176,15 @@
             align-items: center;
             gap: 8px;
             cursor: pointer;
-            color: #a1a1aa;
+            color: rgba(255, 255, 255, 0.8);
         }
 
         .checkbox-wrapper input {
             appearance: none;
-            width: 16px;
-            height: 16px;
-            background: rgba(255, 255, 255, 0.05);
-            border: 1px solid rgba(255, 255, 255, 0.2);
+            width: 18px;
+            height: 18px;
+            background: transparent;
+            border: 1.5px solid rgba(255, 255, 255, 0.4);
             border-radius: 4px;
             cursor: pointer;
             display: flex;
@@ -152,102 +194,78 @@
         }
 
         .checkbox-wrapper input:checked {
-            background: #ffffff;
-            border-color: #ffffff;
+            background: #C89B3C;
+            border-color: #C89B3C;
         }
 
         .checkbox-wrapper input:checked::before {
             content: '\f00c';
             font-family: 'Font Awesome 6 Free';
             font-weight: 900;
-            color: #000;
-            font-size: 10px;
+            color: #1F3D2B;
+            font-size: 11px;
         }
 
         .forgot-link {
-            color: #a1a1aa;
+            color: rgba(255, 255, 255, 0.8);
             text-decoration: none;
             transition: color 0.2s;
+            font-weight: 500;
         }
 
         .forgot-link:hover {
-            color: #ffffff;
+            color: #C89B3C;
         }
 
+        /* Buttons */
         .btn-submit {
             width: 100%;
-            background: #ffffff;
-            color: #09090b; /* Zinc 950 */
+            background: #C89B3C;
+            color: #1F3D2B;
             border: none;
-            border-radius: 12px;
-            padding: 14px;
-            font-size: 15px;
-            font-weight: 600;
+            border-radius: 8px;
+            padding: 16px;
+            font-size: 16px;
+            font-weight: 700;
+            font-family: 'Plus Jakarta Sans', sans-serif;
             cursor: pointer;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            gap: 8px;
-            transition: all 0.2s;
+            transition: all 0.3s ease;
+            margin-bottom: 24px;
         }
 
         .btn-submit:hover {
-            background: #f4f4f5; /* Zinc 100 */
-            transform: translateY(-1px);
+            background: #d8af56;
+            transform: translateY(-2px);
+            box-shadow: 0 8px 15px rgba(0, 0, 0, 0.15);
         }
 
-        .divider {
+        .back-link {
             display: flex;
             align-items: center;
-            text-align: center;
-            margin: 24px 0;
-            color: #52525b; /* Zinc 600 */
-            font-size: 12px;
-        }
-
-        .divider::before,
-        .divider::after {
-            content: '';
-            flex: 1;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.08);
-        }
-
-        .divider:not(:empty)::before { margin-right: 16px; }
-        .divider:not(:empty)::after { margin-left: 16px; }
-
-        .btn-secondary {
-            width: 100%;
-            background: rgba(255, 255, 255, 0.03);
-            color: #ffffff;
-            border: 1px solid rgba(255, 255, 255, 0.08);
-            border-radius: 12px;
-            padding: 12px;
+            justify-content: center;
+            gap: 8px;
+            color: rgba(255, 255, 255, 0.6);
+            text-decoration: none;
             font-size: 14px;
             font-weight: 500;
-            cursor: pointer;
-            text-decoration: none;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            gap: 8px;
-            transition: all 0.2s;
+            transition: color 0.2s;
         }
 
-        .btn-secondary:hover {
-            background: rgba(255, 255, 255, 0.06);
+        .back-link:hover {
+            color: #ffffff;
         }
 
         .signup-text {
             text-align: center;
-            font-size: 13px;
-            color: #a1a1aa;
-            margin-top: 24px;
+            font-size: 14px;
+            color: rgba(255, 255, 255, 0.7);
+            margin-top: 32px;
         }
 
         .signup-text a {
-            color: #ffffff;
+            color: #C89B3C;
             text-decoration: none;
-            font-weight: 500;
+            font-weight: 600;
         }
 
         .signup-text a:hover {
@@ -257,36 +275,41 @@
         /* Status and Validation Messages */
         .alert {
             background: rgba(34, 197, 94, 0.1);
-            border: 1px solid rgba(34, 197, 94, 0.2);
+            border-left: 4px solid #4ade80;
             color: #4ade80;
-            padding: 12px;
-            border-radius: 8px;
-            font-size: 13px;
-            margin-bottom: 20px;
-            text-align: center;
+            padding: 16px;
+            font-size: 14px;
+            margin-bottom: 24px;
         }
 
         .text-danger {
-            color: #f87171;
+            color: #ff8787;
             font-size: 12px;
             margin-top: 6px;
             display: block;
-            margin-left: 4px;
         }
     </style>
 </head>
 <body>
 
-    <div class="login-wrapper">
-        <div class="login-card">
+    <div class="split-layout">
+        <!-- Background Image Panel -->
+        <div class="image-panel"></div>
+
+        <!-- Form Panel -->
+        <div class="form-panel">
             
-            <div class="avatar">
-                E
+            <div class="logo-container">
+                <img src="{{ asset('images/lambang-magetan.png') }}" alt="Lambang Magetan">
+                <div class="logo-text">
+                    <span class="top">Pemerintah Kabupaten</span>
+                    <span class="bottom">MAGETAN</span>
+                </div>
             </div>
 
-            <div class="text-center">
-                <h1 class="title">Selamat Datang</h1>
-                <p class="subtitle">Masuk untuk melanjutkan ke E-Catalog</p>
+            <div>
+                <h1 class="title">Kelola Katalog Magetan</h1>
+                <p class="subtitle">Masuk dengan kredensial admin Anda untuk melanjutkan.</p>
             </div>
 
             @if (session('status'))
@@ -299,16 +322,16 @@
                 @csrf
 
                 <div class="form-group">
-                    <i class="fa-regular fa-envelope icon-left"></i>
-                    <input id="email" class="form-control" type="email" name="email" value="{{ old('email') }}" required autofocus autocomplete="username" placeholder="Alamat email">
+                    <label for="email" class="form-label">Alamat Email</label>
+                    <input id="email" class="form-control" type="email" name="email" value="{{ old('email') }}" required autofocus autocomplete="username" placeholder="Masukkan email Anda">
                     @error('email')
                         <span class="text-danger">{{ $message }}</span>
                     @enderror
                 </div>
 
                 <div class="form-group">
-                    <i class="fa-solid fa-lock icon-left"></i>
-                    <input id="password" class="form-control" type="password" name="password" required autocomplete="current-password" placeholder="Password" style="padding-right: 44px;">
+                    <label for="password" class="form-label">Kata Sandi</label>
+                    <input id="password" class="form-control" type="password" name="password" required autocomplete="current-password" placeholder="Masukkan kata sandi">
                     <i class="fa-regular fa-eye password-toggle" id="togglePasswordIcon" onclick="togglePassword()"></i>
                     @error('password')
                         <span class="text-danger">{{ $message }}</span>
@@ -322,18 +345,16 @@
                     </label>
 
                     @if (Route::has('password.request'))
-                        <a href="{{ route('password.request') }}" class="forgot-link">Lupa password?</a>
+                        <a href="{{ route('password.request') }}" class="forgot-link">Lupa kata sandi?</a>
                     @endif
                 </div>
 
                 <button type="submit" class="btn-submit">
-                    Sign In <i class="fa-solid fa-arrow-right ms-1" style="font-size: 12px; margin-left: 4px;"></i>
+                    Masuk
                 </button>
 
-                <div class="divider">atau</div>
-
-                <a href="{{ route('home') }}" class="btn-secondary">
-                    <i class="fa-solid fa-house"></i> Kembali ke Beranda
+                <a href="{{ route('home') }}" class="back-link">
+                    <i class="fa-solid fa-arrow-left"></i> Kembali ke Beranda
                 </a>
 
                 <div class="signup-text">
