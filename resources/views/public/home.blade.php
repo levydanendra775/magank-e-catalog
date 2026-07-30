@@ -723,7 +723,7 @@
                             <span class="hero-dot red"></span>
                             <span class="hero-dot yellow"></span>
                             <span class="hero-dot green"></span>
-                            <span style="font-family:'IBM Plex Mono',monospace; font-size:0.68rem; color:rgba(255,255,255,0.4); margin-left:10px;">ecatalog.magetan.go.id</span>
+                            <span style="font-family:'IBM Plex Mono',monospace; font-size:0.68rem; color:rgba(255,255,255,0.4); margin-left:10px;"></span>
                         </div>
                         <!-- Map preview / destination showcase -->
                         <div style="position:relative; height:260px; background:linear-gradient(135deg, #1F3A34 0%, #14261F 100%); overflow:hidden;">
@@ -737,12 +737,12 @@
                                 @endfor
                             </svg>
                             <!-- Location pins -->
-                            <div style="position:absolute; top:30%; left:40%; transform:translate(-50%,-50%);">
+                            <a href="https://www.google.com/maps/search/Telaga+Sarangan+Magetan" target="_blank" style="position:absolute; top:30%; left:40%; transform:translate(-50%,-50%); text-decoration:none; z-index:10; transition: transform 0.2s ease-in-out; cursor:pointer;" onmouseover="this.style.transform='translate(-50%,-60%) scale(1.1)'" onmouseout="this.style.transform='translate(-50%,-50%) scale(1)'">
                                 <div style="background:var(--accent); width:36px; height:36px; border-radius:50% 50% 50% 0; transform:rotate(-45deg); display:flex; align-items:center; justify-content:center; box-shadow:0 4px 16px rgba(200,155,60,0.5);">
                                     <i class="fa-solid fa-mountain" style="color:#14261F; font-size:0.8rem; transform:rotate(45deg);"></i>
                                 </div>
                                 <div style="position:absolute; top:-32px; left:50%; transform:translateX(-50%); white-space:nowrap; background:rgba(200,155,60,0.15); border:1px solid rgba(200,155,60,0.4); color:var(--accent); font-size:0.65rem; font-weight:600; padding:3px 10px; border-radius:6px; font-family:'IBM Plex Mono',monospace;">Telaga Sarangan</div>
-                            </div>
+                            </a>
                             <div style="position:absolute; top:55%; left:65%; transform:translate(-50%,-50%);">
                                 <div style="background:rgba(255,255,255,0.9); width:28px; height:28px; border-radius:50% 50% 50% 0; transform:rotate(-45deg); display:flex; align-items:center; justify-content:center; box-shadow:0 4px 12px rgba(0,0,0,0.3);">
                                     <i class="fa-solid fa-tree" style="color:#1F3A34; font-size:0.65rem; transform:rotate(45deg);"></i>
