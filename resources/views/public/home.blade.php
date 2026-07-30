@@ -40,8 +40,10 @@
     }
 
     .hero-section {
-        min-height: 92vh;
-        background: var(--primary-dark);
+        min-height: 80vh;
+        background:
+            linear-gradient(rgba(15, 26, 22, 0.60), rgba(15, 26, 22, 0.75)),
+            url('/images/hero-telaga-sarangan.jpg') center/cover no-repeat;
         display: flex;
         align-items: center;
         position: relative;

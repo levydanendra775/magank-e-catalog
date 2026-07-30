@@ -41,13 +41,13 @@
         @endauth
 
         <div style="position:absolute;bottom:32px;left:0;right:0;" class="container">
-            <span class="badge mb-2" style="background:#1a6b3a;font-size:0.8rem;padding:6px 14px;border-radius:100px;">{{ $wisata->kategori }}</span>
+            <span class="badge mb-2" style="background:#1F3A34;font-size:0.8rem;padding:6px 14px;border-radius:6px;">{{ $wisata->kategori }}</span>
             <h1 class="text-white fw-bold mb-1" style="font-family:'Plus Jakarta Sans',sans-serif;text-shadow:0 2px 8px rgba(0,0,0,0.4);">{{ $wisata->nama }}</h1>
             <p class="text-white mb-0" style="opacity:0.85;"><i class="fa-solid fa-location-dot me-1"></i>{{ $wisata->alamat }}, {{ $wisata->kecamatan }}</p>
         </div>
     </div>
 @else
-    <div style="background:linear-gradient(135deg,#0a3d1f,#1a6b3a);padding:60px 0;position:relative;">
+    <div style="background:#1F3A34;padding:60px 0;position:relative;">
         <div class="container text-white">
             <span class="badge mb-2" style="background:rgba(255,255,255,0.2);font-size:0.8rem;padding:6px 14px;border-radius:100px;">{{ $wisata->kategori }}</span>
             <h1 class="fw-bold mb-1" style="font-family:'Plus Jakarta Sans',sans-serif;">{{ $wisata->nama }}</h1>
@@ -73,15 +73,15 @@
             {{-- Breadcrumb --}}
             <nav aria-label="breadcrumb" class="mb-4">
                 <ol class="breadcrumb">
-                    <li class="breadcrumb-item"><a href="{{ route('home') }}" class="text-decoration-none" style="color:#1a6b3a;">Beranda</a></li>
-                    <li class="breadcrumb-item"><a href="{{ route('public.wisata') }}" class="text-decoration-none" style="color:#1a6b3a;">Wisata</a></li>
+                    <li class="breadcrumb-item"><a href="{{ route('home') }}" class="text-decoration-none" style="color:#1F3A34;">Beranda</a></li>
+                    <li class="breadcrumb-item"><a href="{{ route('public.wisata') }}" class="text-decoration-none" style="color:#1F3A34;">Wisata</a></li>
                     <li class="breadcrumb-item active text-muted">{{ $wisata->nama }}</li>
                 </ol>
             </nav>
 
             {{-- Judul jika tidak ada thumbnail --}}
             @if(!$wisata->thumbnail)
-            <span class="badge mb-3" style="background:#1a6b3a;font-size:0.8rem;padding:6px 14px;border-radius:100px;">{{ $wisata->kategori }}</span>
+            <span class="badge mb-3" style="background:#1F3A34;font-size:0.8rem;padding:6px 14px;border-radius:6px;">{{ $wisata->kategori }}</span>
             <h1 style="font-family:'Plus Jakarta Sans',sans-serif;font-weight:800;">{{ $wisata->nama }}</h1>
             <p class="text-muted mb-4"><i class="fa-solid fa-location-dot me-1"></i>{{ $wisata->alamat }}, {{ $wisata->kecamatan }}</p>
             @endif
@@ -89,26 +89,26 @@
             {{-- Info Cards --}}
             <div class="row g-3 mb-4">
                 <div class="col-sm-6">
-                    <div class="d-flex align-items-start gap-3 p-3 rounded-3" style="background:#f0fff4;border:1px solid #b7ebc8;">
-                        <div style="width:38px;height:38px;background:#1a6b3a;border-radius:10px;display:flex;align-items:center;justify-content:center;flex-shrink:0;">
+                    <div class="d-flex align-items-start gap-3 p-3 rounded-3" style="background:#F5F7F1;border:1px solid #DCE4DD;">
+                        <div style="width:38px;height:38px;background:#1F3A34;border-radius:8px;display:flex;align-items:center;justify-content:center;flex-shrink:0;">
                             <i class="fa-solid fa-ticket text-white" style="font-size:0.9rem;"></i>
                         </div>
                         <div>
                             <div class="fw-semibold small text-muted mb-1">Harga Tiket</div>
-                            <div class="fw-bold" style="color:#333;">{{ $wisata->harga_tiket > 0 ? 'Rp '.number_format($wisata->harga_tiket,0,',','.') : 'Gratis' }}</div>
+                            <div class="fw-bold font-mono" style="color:#24302B;">{{ $wisata->harga_tiket > 0 ? 'Rp '.number_format($wisata->harga_tiket,0,',','.') : 'Gratis' }}</div>
                         </div>
                     </div>
                 </div>
 
                 @if($wisata->jam_operasional)
                 <div class="col-sm-6">
-                    <div class="d-flex align-items-start gap-3 p-3 rounded-3" style="background:#f0f4ff;border:1px solid #c7d4fb;">
-                        <div style="width:38px;height:38px;background:#4361ee;border-radius:10px;display:flex;align-items:center;justify-content:center;flex-shrink:0;">
+                    <div class="d-flex align-items-start gap-3 p-3 rounded-3" style="background:#F5F7F1;border:1px solid #DCE4DD;">
+                        <div style="width:38px;height:38px;background:#1F3A34;border-radius:8px;display:flex;align-items:center;justify-content:center;flex-shrink:0;">
                             <i class="fa-regular fa-clock text-white" style="font-size:0.9rem;"></i>
                         </div>
                         <div>
                             <div class="fw-semibold small text-muted mb-1">Jam Operasional</div>
-                            <div class="fw-bold" style="color:#333;">{{ $wisata->jam_operasional }}</div>
+                            <div class="fw-bold font-mono" style="color:#24302B;">{{ $wisata->jam_operasional }}</div>
                         </div>
                     </div>
                 </div>
@@ -116,13 +116,13 @@
 
                 @if($wisata->kecamatan)
                 <div class="col-sm-6">
-                    <div class="d-flex align-items-start gap-3 p-3 rounded-3" style="background:#fff0f3;border:1px solid #fbc8d4;">
-                        <div style="width:38px;height:38px;background:#e63946;border-radius:10px;display:flex;align-items:center;justify-content:center;flex-shrink:0;">
+                    <div class="d-flex align-items-start gap-3 p-3 rounded-3" style="background:#F5F7F1;border:1px solid #DCE4DD;">
+                        <div style="width:38px;height:38px;background:#1F3A34;border-radius:8px;display:flex;align-items:center;justify-content:center;flex-shrink:0;">
                             <i class="fa-solid fa-location-dot text-white" style="font-size:0.9rem;"></i>
                         </div>
                         <div>
                             <div class="fw-semibold small text-muted mb-1">Kecamatan</div>
-                            <div class="fw-bold" style="color:#333;">{{ $wisata->kecamatan }}</div>
+                            <div class="fw-bold" style="color:#24302B;">{{ $wisata->kecamatan }}</div>
                         </div>
                     </div>
                 </div>
@@ -130,13 +130,13 @@
 
                 @if($wisata->fasilitas)
                 <div class="col-sm-6">
-                    <div class="d-flex align-items-start gap-3 p-3 rounded-3" style="background:#fff8f0;border:1px solid #fde8c8;">
-                        <div style="width:38px;height:38px;background:#fd7e14;border-radius:10px;display:flex;align-items:center;justify-content:center;flex-shrink:0;">
+                    <div class="d-flex align-items-start gap-3 p-3 rounded-3" style="background:#F5F7F1;border:1px solid #DCE4DD;">
+                        <div style="width:38px;height:38px;background:#1F3A34;border-radius:8px;display:flex;align-items:center;justify-content:center;flex-shrink:0;">
                             <i class="fa-solid fa-star text-white" style="font-size:0.9rem;"></i>
                         </div>
                         <div>
                             <div class="fw-semibold small text-muted mb-1">Fasilitas</div>
-                            <div style="color:#333;font-size:0.92rem;">{{ $wisata->fasilitas }}</div>
+                            <div style="color:#24302B;font-size:0.92rem;">{{ $wisata->fasilitas }}</div>
                         </div>
                     </div>
                 </div>
@@ -159,8 +159,8 @@
                         Ulasan & Rating
                     </h5>
                     <div class="d-flex align-items-center gap-1 px-3 py-1 rounded-pill" style="background:#fff8e1;">
-                        <i class="fa-solid fa-star" style="color:#fd7e14; font-size:0.9rem;"></i>
-                        <strong style="color:#fd7e14;">{{ number_format($wisata->ratings_avg_rating ?? 0, 1) }}</strong>
+                        <i class="fa-solid fa-star" style="color:#C89B3C; font-size:0.9rem;"></i>
+                        <strong style="color:#C89B3C;">{{ number_format($wisata->ratings_avg_rating ?? 0, 1) }}</strong>
                         <span class="text-muted" style="font-size:0.8rem;">({{ $wisata->ratings_count ?? 0 }} ulasan)</span>
                     </div>
                 </div>
@@ -180,7 +180,7 @@
                 {{-- User sudah punya ulasan: tampilkan ulasan dengan tombol hapus saja --}}
                 <div class="mb-4 p-3 rounded-3" style="background:#f8f9fa; border:1px solid #e2e8f0;">
                     <div class="d-flex justify-content-between align-items-center mb-2">
-                        <p class="fw-semibold small mb-0" style="color:#1a6b3a;"><i class="fa-solid fa-circle-check me-1"></i>Ulasan Anda Sudah Terkirim</p>
+                        <p class="fw-semibold small mb-0" style="color:#1F3A34;"><i class="fa-solid fa-circle-check me-1"></i>Ulasan Anda Sudah Terkirim</p>
                         <form action="{{ route('rating.destroy', $wisata) }}" method="POST"
                               onsubmit="return confirm('Hapus ulasan Anda?');">
                             @csrf @method('DELETE')
@@ -191,7 +191,7 @@
                     </div>
                     <div class="d-flex align-items-center gap-1 mb-2">
                         @for($i = 1; $i <= 5; $i++)
-                            <i class="fa-{{ $i <= $myRating->rating ? 'solid' : 'regular' }} fa-star" style="color:#fd7e14; font-size:0.85rem;"></i>
+                            <i class="fa-{{ $i <= $myRating->rating ? 'solid' : 'regular' }} fa-star" style="color:#C89B3C; font-size:0.85rem;"></i>
                         @endfor
                         <span class="text-muted ms-1" style="font-size:0.78rem;">({{ $myRating->rating }}/5)</span>
                     </div>
@@ -205,7 +205,7 @@
                 {{-- Belum ada ulasan: form kirim baru --}}
                 <form action="{{ route('rating.store', $wisata) }}" method="POST" class="mb-4 p-3 rounded-3" style="background:#f8f9fa; border:1px solid #e2e8f0;">
                     @csrf
-                    <p class="fw-semibold small mb-2" style="color:#1a6b3a;"><i class="fa-solid fa-pen-to-square me-1"></i>Tulis Ulasan Anda</p>
+                    <p class="fw-semibold small mb-2" style="color:#1F3A34;"><i class="fa-solid fa-pen-to-square me-1"></i>Tulis Ulasan Anda</p>
                     <div class="d-flex align-items-center gap-2 mb-2">
                         <label class="small fw-semibold mb-0 text-muted">Rating:</label>
                         <select name="rating" class="form-select form-select-sm" required style="max-width:120px;">
@@ -215,7 +215,7 @@
                         </select>
                     </div>
                     <textarea name="komentar" class="form-control mb-2" rows="3" placeholder="Tulis ulasanmu..." style="font-size:0.9rem;"></textarea>
-                    <button type="submit" class="btn btn-sm" style="background:#1a6b3a;color:#fff;font-size:0.85rem;">
+                    <button type="submit" class="btn btn-sm" style="background:#1F3A34;color:#fff;font-size:0.85rem;">
                         <i class="fa-solid fa-paper-plane me-1"></i>Kirim Ulasan
                     </button>
                 </form>
@@ -224,7 +224,7 @@
                 @else
                 <div class="mb-4 p-3 rounded-3 text-center" style="background:#f8f9fa; border:1px dashed #ccc;">
                     <p class="text-muted mb-0 small">
-                        <a href="{{ route('login') }}" style="color:#1a6b3a; font-weight:600;">Login</a> terlebih dahulu untuk memberikan ulasan.
+                        <a href="{{ route('login') }}" style="color:#1F3A34; font-weight:600;">Login</a> terlebih dahulu untuk memberikan ulasan.
                     </p>
                 </div>
                 @endauth
@@ -236,7 +236,7 @@
                         {{-- Header Ulasan --}}
                         <div class="d-flex justify-content-between align-items-start">
                             <div class="d-flex align-items-center gap-2">
-                                <div style="width:38px;height:38px;border-radius:50%;background:linear-gradient(135deg,#1a6b3a,#20c997);display:flex;align-items:center;justify-content:center;color:#fff;font-weight:700;font-size:0.9rem;flex-shrink:0;">
+                                <div style="width:38px;height:38px;border-radius:50%;background:#1F3A34;display:flex;align-items:center;justify-content:center;color:#fff;font-weight:700;font-size:0.9rem;flex-shrink:0;">
                                     {{ strtoupper(substr($r->user->name, 0, 1)) }}
                                 </div>
                                 <div>
@@ -266,10 +266,10 @@
 
                         {{-- Balasan Admin --}}
                         @if($r->admin_reply)
-                        <div class="mt-2 p-3 rounded-3" style="background:#e9f7ef; border-left:3px solid #1a6b3a; margin-left:10px;">
+                        <div class="mt-2 p-3 rounded-3" style="background:#F5F7F1; border-left:3px solid #1F3A34; margin-left:10px;">
                             <div class="d-flex align-items-center gap-2 mb-1">
-                                <i class="fa-solid fa-shield-halved" style="color:#1a6b3a; font-size:0.8rem;"></i>
-                                <strong style="color:#1a6b3a; font-size:0.82rem;">Dinas Pariwisata & Kebudayaan</strong>
+                                <i class="fa-solid fa-shield-halved" style="color:#1F3A34; font-size:0.8rem;"></i>
+                                <strong style="color:#1F3A34; font-size:0.82rem;">Dinas Pariwisata & Kebudayaan</strong>
                                 <span class="text-muted" style="font-size:0.72rem;">
                                     · <i class="fa-regular fa-clock me-1"></i>{{ $r->admin_replied_at?->translatedFormat('d F Y, H:i') }}
                                 </span>
@@ -311,7 +311,7 @@
             <div class="d-flex flex-wrap gap-2">
                 <a href="{{ $finalMapsUrl }}" target="_blank" rel="noopener noreferrer"
                    class="btn btn-danger px-4 py-2"
-                   style="border-radius:10px;font-weight:600;background:#e63946;border-color:#e63946;">
+                   style="border-radius:10px;font-weight:600;background:#7A3B2E;border-color:#7A3B2E;">
                     <i class="fa-solid fa-map-location-dot me-2"></i>Buka di Google Maps
                 </a>
                 <a href="{{ route('public.wisata') }}"
@@ -327,7 +327,7 @@
             <div class="card border-0 shadow-sm" style="border-radius:16px;overflow:hidden;position:sticky;top:80px;">
                 <div class="card-header py-3 px-4 border-0" style="background:#f8f9fa;">
                     <h6 class="fw-bold mb-0" style="font-family:'Plus Jakarta Sans',sans-serif;">
-                        <i class="fa-solid fa-map-location-dot me-2" style="color:#e63946;"></i>Lokasi
+                        <i class="fa-solid fa-map-location-dot me-2" style="color:#7A3B2E;"></i>Lokasi
                     </h6>
                 </div>
                 <div class="card-body p-0">
@@ -344,7 +344,7 @@
                 <div class="card-footer border-0 p-3" style="background:#f8f9fa;">
                     <a href="{{ $finalMapsUrl }}" target="_blank" rel="noopener noreferrer"
                        class="btn btn-danger w-100"
-                       style="border-radius:10px;font-weight:600;background:#e63946;border-color:#e63946;">
+                       style="border-radius:10px;font-weight:600;background:#7A3B2E;border-color:#7A3B2E;">
                         <i class="fa-solid fa-diamond-turn-right me-2"></i>Petunjuk Arah
                     </a>
                 </div>
@@ -400,8 +400,8 @@ document.addEventListener('DOMContentLoaded', function () {
     function updateLikeBtn(btn, liked) {
         const icon = btn.querySelector('i');
         if (liked) {
-            btn.style.color = '#1a6b3a';
-            btn.style.borderColor = '#1a6b3a';
+            btn.style.color = '#1F3A34';
+            btn.style.borderColor = '#1F3A34';
             btn.style.background = '#f0fff4';
             icon.className = 'fa-solid fa-thumbs-up';
             icon.style.fontSize = '0.85rem';
