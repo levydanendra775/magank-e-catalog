@@ -79,13 +79,24 @@
             margin-bottom: 16px;
         }
 
-        .form-group i {
+        .form-group i.icon-left {
             position: absolute;
             left: 16px;
             top: 50%;
             transform: translateY(-50%);
             color: #71717a; /* Zinc 500 */
             font-size: 14px;
+        }
+
+        .password-toggle {
+            position: absolute;
+            right: 16px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #71717a; /* Zinc 500 */
+            font-size: 14px;
+            cursor: pointer;
+            z-index: 10;
         }
 
         .form-control {
@@ -288,7 +299,7 @@
                 @csrf
 
                 <div class="form-group">
-                    <i class="fa-regular fa-envelope"></i>
+                    <i class="fa-regular fa-envelope icon-left"></i>
                     <input id="email" class="form-control" type="email" name="email" value="{{ old('email') }}" required autofocus autocomplete="username" placeholder="Alamat email">
                     @error('email')
                         <span class="text-danger">{{ $message }}</span>
@@ -296,8 +307,9 @@
                 </div>
 
                 <div class="form-group">
-                    <i class="fa-solid fa-lock"></i>
-                    <input id="password" class="form-control" type="password" name="password" required autocomplete="current-password" placeholder="Password">
+                    <i class="fa-solid fa-lock icon-left"></i>
+                    <input id="password" class="form-control" type="password" name="password" required autocomplete="current-password" placeholder="Password" style="padding-right: 44px;">
+                    <i class="fa-regular fa-eye password-toggle" id="togglePasswordIcon" onclick="togglePassword()"></i>
                     @error('password')
                         <span class="text-danger">{{ $message }}</span>
                     @enderror
@@ -331,5 +343,21 @@
         </div>
     </div>
 
+    <script>
+        function togglePassword() {
+            const passwordInput = document.getElementById('password');
+            const toggleIcon = document.getElementById('togglePasswordIcon');
+            
+            if (passwordInput.type === 'password') {
+                passwordInput.type = 'text';
+                toggleIcon.classList.remove('fa-eye');
+                toggleIcon.classList.add('fa-eye-slash');
+            } else {
+                passwordInput.type = 'password';
+                toggleIcon.classList.remove('fa-eye-slash');
+                toggleIcon.classList.add('fa-eye');
+            }
+        }
+    </script>
 </body>
 </html>
