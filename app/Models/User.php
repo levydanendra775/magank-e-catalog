@@ -56,6 +56,6 @@ class User extends Authenticatable
 
     public function wishlist()
     {
-        return $this->belongsToMany(Wisata::class, 'wishlists');
+        return $this->belongsToMany(Wisata::class, 'wishlists')->withTimestamps();
     }
 }

@@ -104,7 +104,7 @@ npm run build
 php artisan serve
 ```
 
-Akses aplikasi di: **http://localhost:8000**
+Akses aplikasi di: **x**
 
 > Jika menggunakan Laragon, bisa langsung akses via virtual host: `http://magank-e-catalog.test`
 

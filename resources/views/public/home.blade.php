@@ -368,11 +368,6 @@
     /* =============================================
        WISATA CARD — 21st.dev "3D Card" Style
     ============================================= */
-    @keyframes card-reveal {
-        from { opacity: 0; transform: translateY(24px) scale(0.97); }
-        to   { opacity: 1; transform: none; }
-    }
-
     .wisata-card-3d {
         border-radius: 20px;
         overflow: hidden;
@@ -603,38 +598,317 @@
         box-shadow: 0 12px 32px rgba(0,0,0,0.08);
     }
 
-    /* ===== CTA Section — glassmorphism dark ===== */
-    .cta-section {
-        background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
-        border-radius: 20px;
-        padding: 70px 40px;
+    /* =============================================
+       21st.dev AURORA BENTO CTA SECTION
+    ============================================= */
+    .cta-aurora-wrapper {
+        position: relative;
+        padding: 40px 0 90px;
+        overflow: hidden;
+    }
+
+    .cta-aurora-card {
+        position: relative;
+        border-radius: 32px;
+        background: linear-gradient(135deg, #071f16 0%, #0d3425 50%, #061911 100%);
+        border: 1px solid rgba(255, 255, 255, 0.15);
+        box-shadow: 
+            0 30px 90px -20px rgba(5, 30, 20, 0.65),
+            0 0 0 1px rgba(200, 155, 60, 0.2),
+            inset 0 1px 1px rgba(255, 255, 255, 0.3);
+        padding: 68px 56px;
+        overflow: hidden;
         color: #fff;
-        text-align: center;
+    }
+
+    /* Background animated glow orbs */
+    .cta-aurora-card .aurora-orb {
+        position: absolute;
+        border-radius: 50%;
+        filter: blur(80px);
+        pointer-events: none;
+        opacity: 0.6;
+        animation: aurora-float 8s ease-in-out infinite alternate;
+    }
+
+    .cta-aurora-card .aurora-orb-1 {
+        width: 380px;
+        height: 380px;
+        top: -120px;
+        left: -100px;
+        background: radial-gradient(circle, rgba(16, 185, 129, 0.45) 0%, transparent 70%);
+    }
+
+    .cta-aurora-card .aurora-orb-2 {
+        width: 420px;
+        height: 420px;
+        bottom: -140px;
+        right: -120px;
+        background: radial-gradient(circle, rgba(245, 166, 35, 0.35) 0%, transparent 70%);
+        animation-delay: -3s;
+    }
+
+    .cta-aurora-card .aurora-orb-3 {
+        width: 260px;
+        height: 260px;
+        top: 25%;
+        left: 45%;
+        background: radial-gradient(circle, rgba(52, 211, 153, 0.25) 0%, transparent 70%);
+        animation-delay: -5s;
+    }
+
+    @keyframes aurora-float {
+        0% { transform: translate(0, 0) scale(1); }
+        50% { transform: translate(30px, -20px) scale(1.08); }
+        100% { transform: translate(-20px, 30px) scale(0.95); }
+    }
+
+    /* Subtle dot grid pattern */
+    .cta-aurora-card .grid-dots {
+        position: absolute;
+        inset: 0;
+        background-image: radial-gradient(rgba(255, 255, 255, 0.08) 1.5px, transparent 1.5px);
+        background-size: 28px 28px;
+        mask-image: radial-gradient(ellipse 85% 70% at 50% 50%, #000 50%, transparent 100%);
+        -webkit-mask-image: radial-gradient(ellipse 85% 70% at 50% 50%, #000 50%, transparent 100%);
+        pointer-events: none;
+    }
+
+    /* Floating decorative rings */
+    .cta-aurora-card .deco-rings {
+        position: absolute;
+        right: -100px;
+        top: -100px;
+        width: 460px;
+        height: 460px;
+        border-radius: 50%;
+        border: 1px dashed rgba(200, 155, 60, 0.18);
+        pointer-events: none;
+    }
+
+    .cta-aurora-card .deco-rings::before {
+        content: '';
+        position: absolute;
+        inset: 50px;
+        border-radius: 50%;
+        border: 1px solid rgba(255, 255, 255, 0.05);
+    }
+
+    /* Badge with pulse dot */
+    .cta-pill-badge {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        background: rgba(255, 255, 255, 0.1);
+        backdrop-filter: blur(12px);
+        border: 1px solid rgba(255, 255, 255, 0.25);
+        border-radius: 100px;
+        padding: 6px 16px;
+        font-size: 0.76rem;
+        font-weight: 700;
+        letter-spacing: 0.8px;
+        text-transform: uppercase;
+        color: #fff;
+        margin-bottom: 20px;
+    }
+
+    .cta-pill-badge .live-dot {
+        width: 8px;
+        height: 8px;
+        border-radius: 50%;
+        background: #10b981;
+        box-shadow: 0 0 10px #10b981;
+        animation: live-pulse 2s infinite;
+    }
+
+    @keyframes live-pulse {
+        0% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.7); }
+        70% { transform: scale(1); box-shadow: 0 0 0 8px rgba(16, 185, 129, 0); }
+        100% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(16, 185, 129, 0); }
+    }
+
+    .cta-heading {
+        font-family: 'Fraunces', serif;
+        font-size: 2.75rem;
+        font-weight: 700;
+        line-height: 1.2;
+        color: #ffffff;
+        margin-bottom: 16px;
+    }
+
+    .text-gradient-gold {
+        background: linear-gradient(135deg, #fce08b 0%, #f5a623 50%, #e08b14 100%);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        display: inline-block;
+    }
+
+    .cta-desc {
+        color: rgba(255, 255, 255, 0.82);
+        font-size: 1.05rem;
+        line-height: 1.7;
+        max-width: 560px;
+        margin-bottom: 30px;
+    }
+
+    /* Bento Stats Box */
+    .cta-bento-grid {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 16px;
+    }
+
+    .cta-bento-item {
+        background: rgba(255, 255, 255, 0.06);
+        backdrop-filter: blur(16px);
+        border: 1px solid rgba(255, 255, 255, 0.12);
+        border-radius: 20px;
+        padding: 20px;
+        transition: all 0.3s cubic-bezier(0.2, 0.6, 0.2, 1);
         position: relative;
         overflow: hidden;
     }
 
-    .cta-section::before {
-        content: '';
-        position: absolute;
-        top: -60px; right: -60px;
-        width: 280px; height: 280px;
-        background: radial-gradient(circle, rgba(200,155,60,0.18) 0%, transparent 70%);
-        pointer-events: none;
+    .cta-bento-item:hover {
+        background: rgba(255, 255, 255, 0.12);
+        border-color: rgba(200, 155, 60, 0.4);
+        transform: translateY(-4px);
+        box-shadow: 0 12px 30px rgba(0, 0, 0, 0.25);
     }
 
-    .cta-section::after {
+    .cta-bento-icon {
+        width: 44px;
+        height: 44px;
+        border-radius: 14px;
+        background: linear-gradient(135deg, rgba(200, 155, 60, 0.25), rgba(16, 185, 129, 0.2));
+        border: 1px solid rgba(255, 255, 255, 0.2);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 1.25rem;
+        color: var(--accent);
+        margin-bottom: 12px;
+    }
+
+    .cta-bento-val {
+        font-family: 'Fraunces', serif;
+        font-size: 1.45rem;
+        font-weight: 700;
+        color: #ffffff;
+        line-height: 1.1;
+        margin-bottom: 4px;
+    }
+
+    .cta-bento-lbl {
+        font-size: 0.76rem;
+        color: rgba(255, 255, 255, 0.75);
+        font-weight: 500;
+        line-height: 1.35;
+        margin: 0;
+    }
+
+    /* Shimmer primary button */
+    .btn-cta-primary {
+        display: inline-flex;
+        align-items: center;
+        gap: 10px;
+        background: linear-gradient(135deg, #f5a623 0%, #d48806 100%);
+        color: #0d281e !important;
+        font-weight: 700;
+        font-size: 0.98rem;
+        padding: 14px 28px;
+        border-radius: 14px;
+        text-decoration: none;
+        box-shadow: 0 8px 24px rgba(245, 166, 35, 0.35);
+        transition: all 0.3s cubic-bezier(0.2, 0.6, 0.2, 1);
+        position: relative;
+        overflow: hidden;
+        border: none;
+    }
+
+    .btn-cta-primary:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 14px 32px rgba(245, 166, 35, 0.5);
+        color: #071711 !important;
+    }
+
+    .btn-cta-primary::after {
         content: '';
         position: absolute;
-        bottom: -60px; left: -40px;
-        width: 200px; height: 200px;
-        background: radial-gradient(circle, rgba(200,155,60,0.1) 0%, transparent 70%);
-        pointer-events: none;
+        top: -50%;
+        left: -60%;
+        width: 40%;
+        height: 200%;
+        background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.4), transparent);
+        transform: rotate(25deg);
+        transition: left 0.75s ease-in-out;
+    }
+
+    .btn-cta-primary:hover::after {
+        left: 130%;
+    }
+
+    .btn-cta-secondary {
+        display: inline-flex;
+        align-items: center;
+        gap: 10px;
+        background: rgba(255, 255, 255, 0.08);
+        backdrop-filter: blur(12px);
+        border: 1.5px solid rgba(255, 255, 255, 0.25);
+        color: #ffffff !important;
+        font-weight: 600;
+        font-size: 0.98rem;
+        padding: 14px 26px;
+        border-radius: 14px;
+        text-decoration: none;
+        transition: all 0.3s cubic-bezier(0.2, 0.6, 0.2, 1);
+    }
+
+    .btn-cta-secondary:hover {
+        background: rgba(255, 255, 255, 0.18);
+        border-color: rgba(255, 255, 255, 0.5);
+        transform: translateY(-2px);
+        color: #ffffff !important;
+    }
+
+    /* Floating Quote Pill */
+    .floating-quote-pill {
+        position: absolute;
+        bottom: 22px;
+        right: 24px;
+        background: rgba(10, 24, 18, 0.75);
+        backdrop-filter: blur(14px);
+        border: 1px solid rgba(200, 155, 60, 0.3);
+        border-radius: 100px;
+        padding: 8px 18px;
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        font-size: 0.78rem;
+        color: #fce08b;
+        box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+        animation: float-quote 4s ease-in-out infinite alternate;
+    }
+
+    @keyframes float-quote {
+        0% { transform: translateY(0); }
+        100% { transform: translateY(-6px); }
+    }
+
+    @media (max-width: 991px) {
+        .cta-aurora-card { padding: 44px 28px; }
+        .cta-heading { font-size: 2.1rem; }
+        .cta-bento-grid { margin-top: 24px; }
+        .floating-quote-pill { display: none; }
+    }
+
+    @media (max-width: 576px) {
+        .cta-bento-grid { grid-template-columns: 1fr; }
+        .cta-heading { font-size: 1.75rem; }
     }
 
     @media (max-width: 768px) {
         .hero-section { min-height: 100svh; padding: 80px 0 60px; }
-        .cta-section { padding: 50px 24px; }
     }
 </style>
 @endpush
@@ -862,12 +1136,9 @@
         @if($wisata->count())
         <div class="row g-3" id="wisata-grid">
             @foreach($wisata as $w)
-            <div class="col-md-6 col-xl-4">
+            <div class="col-md-6 col-xl-4" data-aos="fade-up" data-aos-delay="{{ $loop->iteration * 100 }}">
                 {{-- 3D Card — inspired by 21st.dev / Kavi Katiyar "3D Card" --}}
-                <a href="{{ route('public.wisata.detail', $w->slug) }}"
-                   class="wisata-card-3d"
-                   data-tilt
-                   style="animation: card-reveal 0.7s cubic-bezier(0.2,0.6,0.2,1) {{ ($loop->iteration - 1) * 0.1 }}s both;">
+                <div class="wisata-card-3d" data-tilt>
 
                     {{-- Full-bleed image --}}
                     @if($w->thumbnail)
@@ -882,7 +1153,7 @@
                     <div class="wc-overlay"></div>
 
                     {{-- Top: name + location --}}
-                    <div class="wc-top">
+                    <div class="wc-top pe-5">
                         <p class="wc-name">{{ $w->nama }}</p>
                         <div class="wc-loc">
                             <i class="fa-solid fa-location-dot"></i>
@@ -890,9 +1161,25 @@
                         </div>
                     </div>
 
-                    {{-- Top-right: arrow CTA --}}
-                    <div class="wc-arrow">
-                        <i class="fa-solid fa-arrow-up-right-from-square" style="font-size:0.8rem;"></i>
+                    {{-- Top-right: Like Button --}}
+                    <div style="position:absolute;top:14px;right:14px;z-index:10;">
+                        @auth
+                        <button type="button"
+                                class="wishlist-btn {{ auth()->user()->wishlist->contains($w->id) ? 'active' : '' }}"
+                                data-id="{{ $w->id }}"
+                                data-active="{{ auth()->user()->wishlist->contains($w->id) ? 'true' : 'false' }}"
+                                title="{{ auth()->user()->wishlist->contains($w->id) ? 'Hapus dari Wisata Disukai' : 'Sukai Wisata Ini' }}"
+                                aria-label="Sukai Wisata">
+                            <i class="fa-heart {{ auth()->user()->wishlist->contains($w->id) ? 'fa-solid' : 'fa-regular' }}"></i>
+                        </button>
+                        @else
+                        <a href="{{ route('login') }}"
+                           class="wishlist-btn wishlist-btn-guest"
+                           title="Login untuk menyukai wisata"
+                           aria-label="Login untuk menyukai">
+                            <i class="fa-regular fa-heart"></i>
+                        </a>
+                        @endauth
                     </div>
 
                     {{-- Bottom: category + price --}}
@@ -905,7 +1192,9 @@
                         @endif
                     </div>
 
-                </a>
+                    {{-- Card Link Hitbox --}}
+                    <a href="{{ route('public.wisata.detail', $w->slug) }}" class="position-absolute inset-0 w-100 h-100" style="z-index:3;" aria-label="{{ $w->nama }}"></a>
+                </div>
             </div>
             @endforeach
         </div>
@@ -974,24 +1263,47 @@ document.querySelectorAll('[data-tilt]').forEach(card => {
         <div class="row g-4">
             @foreach($events as $event)
             <div class="col-md-6 col-xl-3" data-aos="fade-up" data-aos-delay="{{ $loop->iteration * 100 }}">
-                <div class="event-card">
-                    <div class="position-relative" style="height:180px; overflow:hidden;">
-                        @if($event->poster)
-                            <img src="{{ Storage::url($event->poster) }}" alt="{{ $event->judul }}" class="w-100 h-100" style="object-fit:cover; transition:transform 0.4s">
-                        @else
-                            <div class="w-100 h-100 d-flex align-items-center justify-content-center" style="background:#1F3A34">
-                                <i class="fa-solid fa-calendar-star fa-3x text-white opacity-50"></i>
-                            </div>
-                        @endif
-                        <div class="event-date-badge">
-                            <div style="font-size:1.1rem">{{ $event->tanggal->format('d') }}</div>
-                            <div style="font-size:0.7rem; opacity:0.9">{{ $event->tanggal->format('M') }}</div>
+                {{-- 3D Event Card --}}
+                <div class="wisata-card-3d event-card-3d" data-tilt>
+                    @if($event->poster)
+                        <img class="wc-img" src="{{ Storage::url($event->poster) }}" alt="{{ $event->judul }}" loading="lazy">
+                    @else
+                        <div class="wc-nophoto" style="background:linear-gradient(135deg,#142e20,#0a1b13);">
+                            <i class="fa-solid fa-calendar-star"></i>
+                        </div>
+                    @endif
+
+                    <div class="wc-overlay"></div>
+
+                    {{-- Top bar: date badge & arrow --}}
+                    <div class="d-flex justify-content-between align-items-start" style="position:absolute;top:16px;left:16px;right:16px;z-index:3;">
+                        <div style="background:var(--accent);color:var(--primary-dark);border-radius:12px;padding:6px 12px;text-align:center;box-shadow:0 4px 14px rgba(0,0,0,0.3);backdrop-filter:blur(8px);">
+                            <div style="font-size:1.15rem;line-height:1;font-weight:800;font-family:'Plus Jakarta Sans',sans-serif;">{{ $event->tanggal->format('d') }}</div>
+                            <div style="font-size:0.65rem;text-transform:uppercase;letter-spacing:0.5px;font-weight:700;">{{ $event->tanggal->format('M Y') }}</div>
+                        </div>
+                        <div class="wc-arrow" style="position:static;">
+                            <i class="fa-solid fa-arrow-up-right-from-square" style="font-size:0.8rem;"></i>
                         </div>
                     </div>
-                    <div class="p-3">
-                        <h6 class="fw-bold mb-1" style="font-family:'Plus Jakarta Sans',sans-serif; font-size:0.9rem;">{{ Str::limit($event->judul, 50) }}</h6>
-                        <p class="text-muted small mb-0"><i class="fa-solid fa-location-dot me-1"></i>{{ Str::limit($event->lokasi, 35) }}</p>
+
+                    {{-- Bottom content: title & location --}}
+                    <div class="wc-bottom flex-column align-items-start" style="gap:6px;">
+                        <p class="wc-name text-white fw-bold mb-1" style="font-size:1.05rem;line-height:1.3;text-shadow:0 2px 8px rgba(0,0,0,0.7);">
+                            {{ Str::limit($event->judul, 45) }}
+                        </p>
+                        <div class="d-flex align-items-center gap-2 flex-wrap">
+                            <span class="wc-cat" style="background:rgba(15,34,26,0.85);backdrop-filter:blur(8px);font-size:0.65rem;">
+                                <i class="fa-solid fa-location-dot me-1 text-warning"></i>{{ Str::limit($event->lokasi, 22) }}
+                            </span>
+                            @if($event->jam)
+                            <span class="wc-price" style="background:rgba(10,22,18,0.75);font-size:0.65rem;">
+                                <i class="fa-regular fa-clock me-1"></i>{{ $event->jam }}
+                            </span>
+                            @endif
+                        </div>
                     </div>
+
+                    <a href="{{ route('public.event.detail', $event->id) }}" class="position-absolute inset-0 w-100 h-100" style="z-index:4;" aria-label="{{ $event->judul }}"></a>
                 </div>
             </div>
             @endforeach
@@ -1016,19 +1328,39 @@ document.querySelectorAll('[data-tilt]').forEach(card => {
         <div class="row g-4">
             @foreach($berita as $b)
             <div class="col-md-4" data-aos="fade-up" data-aos-delay="{{ $loop->iteration * 100 }}">
-                <div class="berita-card h-100">
+                {{-- 3D Berita Card --}}
+                <div class="wisata-card-3d berita-card-3d" data-tilt>
                     @if($b->thumbnail)
-                        <img src="{{ Storage::url($b->thumbnail) }}" alt="{{ $b->judul }}" class="w-100" style="height:200px; object-fit:cover;">
+                        <img class="wc-img" src="{{ Storage::url($b->thumbnail) }}" alt="{{ $b->judul }}" loading="lazy">
                     @else
-                        <div class="w-100 d-flex align-items-center justify-content-center" style="height:200px; background:#e9f7ef;">
-                            <i class="fa-regular fa-newspaper fa-3x" style="color:#1F3A34; opacity:0.3;"></i>
+                        <div class="wc-nophoto" style="background:linear-gradient(135deg,#142e20,#0a1b13);">
+                            <i class="fa-regular fa-newspaper"></i>
                         </div>
                     @endif
-                    <div class="p-4">
-                        <p class="text-muted small mb-2"><i class="fa-regular fa-calendar me-1"></i>{{ $b->created_at->format('d M Y') }}</p>
-                        <h6 class="fw-bold" style="font-family:'Plus Jakarta Sans',sans-serif;">{{ Str::limit($b->judul, 60) }}</h6>
-                        <p class="text-muted small mb-0">{{ Str::limit(strip_tags($b->isi), 100) }}</p>
+
+                    <div class="wc-overlay"></div>
+
+                    {{-- Top bar: date badge & arrow --}}
+                    <div class="d-flex justify-content-between align-items-center" style="position:absolute;top:16px;left:16px;right:16px;z-index:3;">
+                        <span class="wc-cat" style="background:rgba(26,107,58,0.85);backdrop-filter:blur(8px);border:1px solid rgba(255,255,255,0.2);">
+                            <i class="fa-regular fa-calendar me-1"></i>{{ $b->created_at->format('d M Y') }}
+                        </span>
+                        <div class="wc-arrow" style="position:static;">
+                            <i class="fa-solid fa-arrow-up-right-from-square" style="font-size:0.8rem;"></i>
+                        </div>
                     </div>
+
+                    {{-- Bottom content: title & snippet --}}
+                    <div class="wc-bottom flex-column align-items-start" style="gap:6px;">
+                        <p class="wc-name text-white fw-bold mb-1" style="font-size:1.1rem;line-height:1.35;text-shadow:0 2px 8px rgba(0,0,0,0.7);">
+                            {{ Str::limit($b->judul, 60) }}
+                        </p>
+                        <p class="mb-0 text-white-50 small" style="font-size:0.75rem;line-height:1.4;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;text-shadow:0 1px 4px rgba(0,0,0,0.7);">
+                            {{ Str::limit(strip_tags($b->isi), 90) }}
+                        </p>
+                    </div>
+
+                    <a href="{{ route('public.berita.detail', $b->id) }}" class="position-absolute inset-0 w-100 h-100" style="z-index:4;" aria-label="{{ $b->judul }}"></a>
                 </div>
             </div>
             @endforeach
@@ -1037,20 +1369,98 @@ document.querySelectorAll('[data-tilt]').forEach(card => {
 </section>
 @endif
 
-<!-- ===== CTA ===== -->
-<section class="section-py">
+<!-- ===== CTA AURORA BENTO 21ST.DEV ===== -->
+<section class="cta-aurora-wrapper">
     <div class="container">
-        <div class="cta-section" data-aos="zoom-in" data-aos-duration="1000">
-            <div class="section-badge" style="background:rgba(255,255,255,0.2); color:#fff; border-color:rgba(255,255,255,0.4);">Informasi Lebih Lanjut</div>
-            <h2 class="text-white mb-3">Siap Berwisata ke Magetan?</h2>
-            <p class="mb-4" style="opacity:0.85; max-width:500px; margin:0 auto 2rem;">Hubungi Dinas Pariwisata dan Kebudayaan Kabupaten Magetan untuk informasi lebih lengkap seputar destinasi dan paket wisata.</p>
-            <div class="d-flex gap-3 justify-content-center flex-wrap">
-                <a href="{{ route('public.wisata') }}" class="btn-primary-custom fw-bold px-4 py-2">
-                    <i class="fa-solid fa-map-location-dot me-2"></i>Jelajahi Sekarang
-                </a>
-                <a href="{{ route('public.tentang') }}" class="btn btn-outline-light fw-bold px-4 py-2" style="border-radius:10px;">
-                    <i class="fa-solid fa-circle-info me-2"></i>Tentang Kami
-                </a>
+        <div class="cta-aurora-card" data-aos="zoom-in" data-aos-duration="900">
+            <!-- Background Aurora Ambient Orbs -->
+            <div class="aurora-orb aurora-orb-1"></div>
+            <div class="aurora-orb aurora-orb-2"></div>
+            <div class="aurora-orb aurora-orb-3"></div>
+
+            <!-- Dot Grid Overlay -->
+            <div class="grid-dots"></div>
+
+            <!-- Geometric Rings -->
+            <div class="deco-rings"></div>
+
+            <div class="row align-items-center position-relative g-4" style="z-index: 2;">
+                <!-- Left Column: Content & Call to Actions -->
+                <div class="col-lg-7 pe-lg-4">
+                    <div class="cta-pill-badge">
+                        <span class="live-dot"></span>
+                        <span>Dinas Kebudayaan & Pariwisata Kab. Magetan</span>
+                    </div>
+
+                    <h2 class="cta-heading">
+                        Siap Menjelajahi Pesona <span class="text-gradient-gold">Bumi Magetan?</span>
+                    </h2>
+
+                    <p class="cta-desc">
+                        Temukan keindahan Telaga Sarangan, segarnya udara lereng Gunung Lawu, kekayaan tradisi budaya, dan nikmati aneka ragam kuliner legendaris khas Magetan dalam satu genggaman.
+                    </p>
+
+                    <div class="d-flex gap-3 flex-wrap align-items-center mb-4">
+                        <a href="{{ route('public.wisata') }}" class="btn-cta-primary">
+                            <i class="fa-solid fa-compass"></i>
+                            <span>Mulai Jelajah Wisata</span>
+                            <i class="fa-solid fa-arrow-right ms-1"></i>
+                        </a>
+                        <a href="{{ route('public.tentang') }}" class="btn-cta-secondary">
+                            <i class="fa-solid fa-circle-info"></i>
+                            <span>Tentang Magetan Tourism</span>
+                        </a>
+                    </div>
+
+                    <div class="d-inline-flex align-items-center gap-2 px-3 py-2" style="background:rgba(255,255,255,0.06); border:1px solid rgba(255,255,255,0.12); border-radius:100px; font-size:0.8rem; color:rgba(255,255,255,0.85); backdrop-filter:blur(8px);">
+                        <i class="fa-solid fa-headset text-warning"></i>
+                        <span>Pusat Layanan & Konsultasi Wisata:</span>
+                        <strong class="text-white">Buka Setiap Hari (08:00 - 16:00 WIB)</strong>
+                    </div>
+                </div>
+
+                <!-- Right Column: Bento Stats Cards -->
+                <div class="col-lg-5">
+                    <div class="cta-bento-grid">
+                        <div class="cta-bento-item">
+                            <div class="cta-bento-icon">
+                                <i class="fa-solid fa-mountain-sun"></i>
+                            </div>
+                            <div class="cta-bento-val">50+</div>
+                            <p class="cta-bento-lbl">Destinasi Wisata Alam & Budaya Unggulan</p>
+                        </div>
+
+                        <div class="cta-bento-item">
+                            <div class="cta-bento-icon">
+                                <i class="fa-solid fa-star"></i>
+                            </div>
+                            <div class="cta-bento-val">4.9 / 5</div>
+                            <p class="cta-bento-lbl">Tingkat Kepuasan & Ulasan Wisatawan</p>
+                        </div>
+
+                        <div class="cta-bento-item">
+                            <div class="cta-bento-icon">
+                                <i class="fa-solid fa-calendar-check"></i>
+                            </div>
+                            <div class="cta-bento-val">Event</div>
+                            <p class="cta-bento-lbl">Festival Tradisi & Seni Budaya Tahunan</p>
+                        </div>
+
+                        <div class="cta-bento-item">
+                            <div class="cta-bento-icon">
+                                <i class="fa-solid fa-map-location-dot"></i>
+                            </div>
+                            <div class="cta-bento-val">E-Catalog</div>
+                            <p class="cta-bento-lbl">Akses Rute, Tiket & Fasilitas Terpadu</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Floating Quote Pill -->
+            <div class="floating-quote-pill">
+                <i class="fa-solid fa-sparkles"></i>
+                <span><strong>Magetan:</strong> The Beauty of Java</span>
             </div>
         </div>
     </div>

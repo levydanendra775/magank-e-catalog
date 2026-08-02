@@ -33,11 +33,19 @@
         <div style="position:absolute;inset:0;background:linear-gradient(to top,rgba(0,0,0,0.6) 0%,transparent 55%);"></div>
 
         @auth
-        <button type="button" class="wishlist-btn" data-id="{{ $wisata->id }}"
+        <button type="button" class="wishlist-btn {{ auth()->user()->wishlist->contains($wisata->id) ? 'active' : '' }}"
+            data-id="{{ $wisata->id }}"
             data-active="{{ auth()->user()->wishlist->contains($wisata->id) ? 'true' : 'false' }}"
-            style="position:absolute;top:20px;right:20px;background:rgba(0,0,0,0.5);border:none;border-radius:50%;width:44px;height:44px;color:#fff;font-size:1.2rem;z-index:2;">
-            ❤
+            title="{{ auth()->user()->wishlist->contains($wisata->id) ? 'Hapus dari Wisata Disukai' : 'Sukai Wisata Ini' }}"
+            style="position:absolute;top:24px;right:24px;z-index:10;">
+            <i class="fa-heart {{ auth()->user()->wishlist->contains($wisata->id) ? 'fa-solid' : 'fa-regular' }}"></i>
         </button>
+        @else
+        <a href="{{ route('login') }}" class="wishlist-btn wishlist-btn-guest"
+            title="Login untuk menyukai wisata"
+            style="position:absolute;top:24px;right:24px;z-index:10;">
+            <i class="fa-regular fa-heart"></i>
+        </a>
         @endauth
 
         <div style="position:absolute;bottom:32px;left:0;right:0;" class="container">
@@ -55,11 +63,19 @@
         </div>
 
         @auth
-        <button type="button" class="wishlist-btn" data-id="{{ $wisata->id }}"
+        <button type="button" class="wishlist-btn {{ auth()->user()->wishlist->contains($wisata->id) ? 'active' : '' }}"
+            data-id="{{ $wisata->id }}"
             data-active="{{ auth()->user()->wishlist->contains($wisata->id) ? 'true' : 'false' }}"
-            style="position:absolute;top:20px;right:20px;background:rgba(0,0,0,0.5);border:none;border-radius:50%;width:44px;height:44px;color:#fff;font-size:1.2rem;z-index:2;">
-            ❤
+            title="{{ auth()->user()->wishlist->contains($wisata->id) ? 'Hapus dari Wisata Disukai' : 'Sukai Wisata Ini' }}"
+            style="position:absolute;top:24px;right:24px;z-index:10;">
+            <i class="fa-heart {{ auth()->user()->wishlist->contains($wisata->id) ? 'fa-solid' : 'fa-regular' }}"></i>
         </button>
+        @else
+        <a href="{{ route('login') }}" class="wishlist-btn wishlist-btn-guest"
+            title="Login untuk menyukai wisata"
+            style="position:absolute;top:24px;right:24px;z-index:10;">
+            <i class="fa-regular fa-heart"></i>
+        </a>
         @endauth
     </div>
 @endif

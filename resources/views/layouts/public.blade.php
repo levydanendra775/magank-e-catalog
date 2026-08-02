@@ -407,8 +407,63 @@
         }
 
         /* Wishlist button */
-        .wishlist-btn.active { background: #e63946 !important; }
-        .wishlist-btn[data-active="true"] { background: #e63946; }
+        .wishlist-btn {
+            width: 42px;
+            height: 42px;
+            border-radius: 50%;
+            background: rgba(15, 34, 26, 0.75);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1.5px solid rgba(255, 255, 255, 0.25);
+            color: #ffffff;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.05rem;
+            cursor: pointer;
+            transition: all 0.3s cubic-bezier(0.2, 0.6, 0.2, 1);
+            box-shadow: 0 4px 14px rgba(0, 0, 0, 0.25);
+            text-decoration: none;
+            outline: none;
+        }
+
+        .wishlist-btn:hover {
+            background: rgba(255, 255, 255, 0.95);
+            color: #e63946;
+            border-color: #ff6b6b;
+            transform: scale(1.12);
+            box-shadow: 0 6px 20px rgba(230, 57, 70, 0.45);
+        }
+
+        .wishlist-btn.active,
+        .wishlist-btn[data-active="true"] {
+            background: #e63946 !important;
+            border-color: #ff858d !important;
+            color: #ffffff !important;
+            box-shadow: 0 4px 18px rgba(230, 57, 70, 0.65);
+            transform: scale(1.05);
+        }
+
+        .wishlist-btn.active:hover,
+        .wishlist-btn[data-active="true"]:hover {
+            transform: scale(1.15);
+            box-shadow: 0 8px 25px rgba(230, 57, 70, 0.8);
+        }
+
+        @keyframes heart-pop {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.35) rotate(-10deg); }
+            100% { transform: scale(1); }
+        }
+
+        .heart-pop {
+            animation: heart-pop 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
+        .wc-title, .wc-title a, .wc-title span, .wc-name {
+            color: #ffffff !important;
+            text-decoration: none !important;
+        }
     </style>
 
     @stack('styles')
@@ -462,22 +517,34 @@
 
                     @auth
                         <div class="dropdown ms-2">
-                            <button class="btn-primary-custom dropdown-toggle" type="button"
+                            <button class="btn-primary-custom dropdown-toggle d-flex align-items-center gap-2" type="button"
                                     data-bs-toggle="dropdown" aria-expanded="false"
-                                    style="border-radius:10px; padding:9px 20px; font-size:0.88rem;">
-                                <i class="fa-solid fa-user-circle me-1"></i>Akun
+                                    style="border-radius:10px; padding:9px 18px; font-size:0.88rem;">
+                                <i class="fa-solid fa-circle-user" style="font-size:1.05rem;"></i>
+                                <span>Akun</span>
                             </button>
                             <ul class="dropdown-menu dropdown-menu-end shadow border-0 mt-2"
-                                style="border-radius:12px; background:rgba(20,38,31,0.95); backdrop-filter:blur(16px); border:1px solid rgba(255,255,255,0.1) !important;">
-                                <li><a class="dropdown-item py-2" href="{{ route('admin.dashboard') }}"
-                                       style="color:rgba(255,255,255,0.85); font-size:0.88rem;">
+                                style="border-radius:14px; background:rgba(18,36,29,0.96); backdrop-filter:blur(18px); -webkit-backdrop-filter:blur(18px); border:1px solid rgba(255,255,255,0.12) !important; min-width:230px; padding:8px;">
+                                <li class="px-3 py-2 text-white-50 small border-bottom border-secondary border-opacity-25 mb-1">
+                                    <div class="fw-bold text-white text-truncate">{{ auth()->user()->name }}</div>
+                                    <div class="text-truncate" style="font-size:0.75rem;">{{ auth()->user()->email }}</div>
+                                </li>
+                                @if(auth()->user()->hasAnyRole(['Admin', 'Petugas']))
+                                <li><a class="dropdown-item py-2 px-3 rounded-2" href="{{ route('admin.dashboard') }}"
+                                       style="color:rgba(255,255,255,0.9); font-size:0.88rem; transition: background 0.2s;">
                                     <i class="fa-solid fa-gauge me-2" style="color:var(--accent);"></i>Dashboard Admin
                                 </a></li>
-                                <li><hr class="dropdown-divider" style="border-color:rgba(255,255,255,0.1);"></li>
+                                @endif
+                                <li><a class="dropdown-item py-2 px-3 rounded-2 d-flex align-items-center justify-content-between" href="{{ route('wishlist.index') }}"
+                                       style="color:rgba(255,255,255,0.9); font-size:0.88rem; transition: background 0.2s;">
+                                    <span><i class="fa-solid fa-heart me-2" style="color:#ff6b6b;"></i>Wisata Disukai</span>
+                                    <span class="badge bg-danger rounded-pill navbar-wishlist-count" style="font-size:0.7rem;">{{ auth()->user()->wishlist()->count() }}</span>
+                                </a></li>
+                                <li><hr class="dropdown-divider my-2" style="border-color:rgba(255,255,255,0.1);"></li>
                                 <li>
                                     <form method="POST" action="{{ route('logout') }}">
                                         @csrf
-                                        <button type="submit" class="dropdown-item py-2 fw-semibold"
+                                        <button type="submit" class="dropdown-item py-2 px-3 rounded-2 fw-semibold"
                                                 style="color:#ff6b6b; font-size:0.88rem;">
                                             <i class="fa-solid fa-right-from-bracket me-2"></i>Logout / Ganti Akun
                                         </button>
@@ -502,11 +569,20 @@
                         <a href="{{ route('public.event') }}" class="nav-link-custom">Event</a>
                         <a href="{{ route('public.berita') }}" class="nav-link-custom">Berita</a>
                         @auth
-                            <hr style="border-color:rgba(255,255,255,0.12); my-2">
+                            <hr style="border-color:rgba(255,255,255,0.12); margin:8px 0;">
+                            <div class="px-2 py-1 text-white-50 small">
+                                Halo, <strong class="text-white">{{ auth()->user()->name }}</strong>
+                            </div>
+                            @if(auth()->user()->hasAnyRole(['Admin', 'Petugas']))
                             <a href="{{ route('admin.dashboard') }}" class="nav-link-custom fw-bold">
-                                <i class="fa-solid fa-gauge me-2"></i>Dashboard Admin
+                                <i class="fa-solid fa-gauge me-2" style="color:var(--accent);"></i>Dashboard Admin
                             </a>
-                            <form method="POST" action="{{ route('logout') }}" class="mt-1 mb-2">
+                            @endif
+                            <a href="{{ route('wishlist.index') }}" class="nav-link-custom fw-bold d-flex align-items-center justify-content-between">
+                                <span><i class="fa-solid fa-heart me-2" style="color:#ff6b6b;"></i>Wisata Disukai</span>
+                                <span class="badge bg-danger rounded-pill navbar-wishlist-count">{{ auth()->user()->wishlist()->count() }}</span>
+                            </a>
+                            <form method="POST" action="{{ route('logout') }}" class="mt-2 mb-2">
                                 @csrf
                                 <button type="submit" class="btn btn-danger w-100" style="border-radius:10px; font-weight:600;">
                                     <i class="fa-solid fa-right-from-bracket me-2"></i>Logout
@@ -514,7 +590,7 @@
                             </form>
                         @else
                             <a href="{{ route('login') }}" class="btn-primary-custom mt-2 text-center">
-                                <i class="fa-solid fa-right-to-bracket me-1"></i>Login Admin
+                                <i class="fa-solid fa-right-to-bracket me-1"></i>Login
                             </a>
                         @endauth
                     </div>
@@ -649,26 +725,130 @@
     </script>
     @stack('scripts')
 
+    <!-- Toast Container -->
+    <div id="toast-container" style="position:fixed; bottom:28px; right:28px; z-index:99999; display:flex; flex-direction:column; gap:10px; pointer-events:none;"></div>
+
     <script>
-    document.querySelectorAll('.wishlist-btn').forEach(btn => {
-    if (btn.dataset.active === 'true') btn.classList.add('active');
-    btn.addEventListener('click', async (e) => {
-        e.preventDefault();
-        e.stopPropagation();
+    (function() {
+        function showWishlistToast(message, type = 'success') {
+            const container = document.getElementById('toast-container');
+            if (!container) return;
+            const toast = document.createElement('div');
+            toast.style.cssText = `
+                background: ${type === 'error' ? 'rgba(220, 53, 69, 0.95)' : 'rgba(18, 36, 29, 0.95)'};
+                color: #fff;
+                padding: 12px 20px;
+                border-radius: 14px;
+                box-shadow: 0 12px 36px rgba(0,0,0,0.3);
+                backdrop-filter: blur(14px);
+                -webkit-backdrop-filter: blur(14px);
+                border: 1px solid rgba(255,255,255,0.18);
+                font-size: 0.88rem;
+                font-weight: 600;
+                display: flex;
+                align-items: center;
+                gap: 10px;
+                opacity: 0;
+                transform: translateY(20px) scale(0.95);
+                transition: all 0.35s cubic-bezier(0.2, 0.6, 0.2, 1);
+                pointer-events: auto;
+            `;
+            toast.innerHTML = `<i class="fa-solid fa-heart" style="color:${type === 'error' ? '#fff' : '#ff6b6b'}; font-size:1.1rem;"></i><span>${message}</span>`;
+            container.appendChild(toast);
+            requestAnimationFrame(() => {
+                toast.style.opacity = '1';
+                toast.style.transform = 'translateY(0) scale(1)';
+            });
+            setTimeout(() => {
+                toast.style.opacity = '0';
+                toast.style.transform = 'translateY(10px) scale(0.95)';
+                setTimeout(() => toast.remove(), 350);
+            }, 2800);
+        }
 
-        const id = btn.dataset.id;
-        const res = await fetch(`/wisata/${id}/wishlist`, {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-                'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').content,
-            },
+        document.addEventListener('click', async (e) => {
+            const btn = e.target.closest('.wishlist-btn');
+            if (!btn) return;
+
+            e.preventDefault();
+            e.stopPropagation();
+
+            if (btn.classList.contains('wishlist-btn-guest')) {
+                window.location.href = "{{ route('login') }}";
+                return;
+            }
+
+            const id = btn.dataset.id;
+            const csrfToken = document.querySelector('meta[name="csrf-token"]')?.content;
+
+            btn.disabled = true;
+            try {
+                const res = await fetch(`/wisata/${id}/wishlist`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Accept': 'application/json',
+                        'X-CSRF-TOKEN': csrfToken,
+                    },
+                });
+
+                if (res.status === 401) {
+                    window.location.href = "{{ route('login') }}";
+                    return;
+                }
+
+                const data = await res.json();
+                if (data.success) {
+                    // Update all matching buttons on the page
+                    document.querySelectorAll(`.wishlist-btn[data-id="${id}"]`).forEach(b => {
+                        b.classList.toggle('active', data.wishlisted);
+                        b.setAttribute('data-active', data.wishlisted ? 'true' : 'false');
+                        b.title = data.wishlisted ? 'Hapus dari Wisata Disukai' : 'Sukai Wisata Ini';
+
+                        const icon = b.querySelector('i');
+                        if (icon) {
+                            icon.className = data.wishlisted ? 'fa-solid fa-heart' : 'fa-regular fa-heart';
+                        }
+                        b.classList.add('heart-pop');
+                        setTimeout(() => b.classList.remove('heart-pop'), 450);
+                    });
+
+                    // Update navbar counts
+                    if (data.user_count !== undefined) {
+                        document.querySelectorAll('.navbar-wishlist-count').forEach(badge => {
+                            badge.textContent = data.user_count;
+                        });
+                    }
+
+                    showWishlistToast(data.message, 'success');
+
+                    // If on Wishlist Page, remove card smoothly
+                    if (btn.dataset.isWishlistPage === 'true' && !data.wishlisted) {
+                        const cardCol = document.getElementById(`wishlist-col-${id}`);
+                        if (cardCol) {
+                            cardCol.style.transition = 'all 0.4s ease';
+                            cardCol.style.opacity = '0';
+                            cardCol.style.transform = 'scale(0.85) translateY(20px)';
+                            setTimeout(() => {
+                                cardCol.remove();
+                                const grid = document.getElementById('wishlist-grid');
+                                const remaining = grid ? grid.querySelectorAll('.wishlist-item-col').length : 0;
+                                if (remaining === 0) {
+                                    const emptyState = document.getElementById('wishlist-empty-state');
+                                    if (emptyState) emptyState.classList.remove('d-none');
+                                }
+                            }, 400);
+                        }
+                    }
+                }
+            } catch (err) {
+                console.error(err);
+                showWishlistToast('Gagal memproses permintaan', 'error');
+            } finally {
+                btn.disabled = false;
+            }
         });
-        const data = await res.json();
-        btn.classList.toggle('active', data.wishlisted);
-        });
-    });
+    })();
     </script>
-
 </body>
 </html>

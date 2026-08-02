@@ -27,6 +27,6 @@ class Wisata extends Model
 
     public function wishlistedBy()
     {
-        return $this->belongsToMany(User::class, 'wishlists');
+        return $this->belongsToMany(User::class, 'wishlists')->withTimestamps();
     }
 }

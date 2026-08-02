@@ -1,40 +1,8 @@
 @extends('layouts.public')
-@section('title', 'Destinasi Wisata — E-Catalog Magetan')
+@section('title', 'Wisata Disukai — E-Catalog Magetan')
 
 @push('styles')
 <style>
-/* =============================================
-   FILTER CARD PREMIUM
-============================================= */
-.page-hero-wisata {
-    background: linear-gradient(135deg, #0a2e1c 0%, #134e2c 50%, #1a6b3a 100%);
-    padding: 70px 0 60px;
-    position: relative;
-    overflow: hidden;
-}
-
-.page-hero-wisata::before {
-    content: '';
-    position: absolute;
-    top: -50%;
-    right: -20%;
-    width: 600px;
-    height: 600px;
-    background: radial-gradient(circle, rgba(200,155,60,0.12) 0%, transparent 70%);
-    pointer-events: none;
-}
-
-.filter-card-premium {
-    background: #ffffff;
-    border-radius: 18px;
-    padding: 22px 24px;
-    box-shadow: 0 12px 35px rgba(20, 38, 31, 0.08);
-    border: 1px solid rgba(26, 107, 58, 0.12);
-    margin-top: -38px;
-    position: relative;
-    z-index: 10;
-}
-
 /* =============================================
    21st.dev WISATA CARD SYSTEM
 ============================================= */
@@ -254,83 +222,38 @@
 
 @section('content')
 {{-- Page Hero Header --}}
-<div class="page-hero-wisata" data-aos="fade-down">
-    <div class="container text-white pb-4">
+<div style="background:linear-gradient(135deg,#0a3d1f,#1a6b3a);padding:70px 0 60px;" data-aos="fade-down">
+    <div class="container text-white">
         <nav aria-label="breadcrumb" class="mb-3">
             <ol class="breadcrumb" style="--bs-breadcrumb-divider-color:rgba(255,255,255,0.5);">
                 <li class="breadcrumb-item"><a href="{{ route('home') }}" class="text-white text-decoration-none opacity-75">Beranda</a></li>
-                <li class="breadcrumb-item active text-white">Wisata</li>
+                <li class="breadcrumb-item active text-white">Wisata Disukai</li>
             </ol>
         </nav>
-        <span class="badge mb-2 px-3 py-2" style="background:rgba(255,255,255,0.15);backdrop-filter:blur(8px);border:1px solid rgba(255,255,255,0.25);border-radius:100px;font-size:0.75rem;letter-spacing:1px;font-weight:700;">
-            <i class="fa-solid fa-mountain-sun me-1"></i> PARIWISATA MAGETAN
-        </span>
-        <h1 class="fw-bold mb-2 display-6" style="font-family:'Plus Jakarta Sans',sans-serif;">Destinasi Wisata Magetan</h1>
-        <p class="mb-0 text-white-50" style="font-size:1.05rem;">Temukan keindahan alam, budaya, dan pesona Kabupaten Magetan yang memukau</p>
-    </div>
-</div>
-
-{{-- Filter Card --}}
-<div class="container mb-4">
-    <div class="filter-card-premium" data-aos="fade-up" data-aos-delay="150">
-        <form action="{{ route('public.wisata') }}" method="GET">
-            <div class="row g-3 align-items-center">
-                <div class="col-lg-4 col-md-12">
-                    <div class="input-group">
-                        <span class="input-group-text bg-light border-end-0" style="border-radius:10px 0 0 10px;">
-                            <i class="fa-solid fa-magnifying-glass text-muted"></i>
-                        </span>
-                        <input type="text" name="q" class="form-control border-start-0 py-2" style="border-radius:0 10px 10px 0;" placeholder="Cari nama wisata atau alamat..." value="{{ request('q') }}">
-                    </div>
-                </div>
-                <div class="col-lg-3 col-md-4">
-                    <select name="kategori" class="form-select py-2" style="border-radius:10px;">
-                        <option value="">Semua Kategori</option>
-                        @foreach($kategoriList ?? [] as $kat)
-                            <option value="{{ $kat }}" {{ request('kategori') == $kat ? 'selected' : '' }}>{{ $kat }}</option>
-                        @endforeach
-                    </select>
-                </div>
-                <div class="col-lg-3 col-md-4">
-                    <select name="kecamatan" class="form-select py-2" style="border-radius:10px;">
-                        <option value="">Semua Kecamatan</option>
-                        @foreach($kecamatanList ?? [] as $kec)
-                            <option value="{{ $kec }}" {{ request('kecamatan') == $kec ? 'selected' : '' }}>{{ $kec }}</option>
-                        @endforeach
-                    </select>
-                </div>
-                <div class="col-lg-2 col-md-4 d-grid">
-                    <button type="submit" class="btn btn-warning fw-bold py-2" style="border-radius:10px;">
-                        <i class="fa-solid fa-magnifying-glass me-2"></i>Filter
-                    </button>
-                </div>
+        <div class="d-flex flex-wrap align-items-center justify-content-between gap-3">
+            <div>
+                <span class="badge mb-2 px-3 py-2" style="background:rgba(255,255,255,0.15);backdrop-filter:blur(8px);border:1px solid rgba(255,255,255,0.25);border-radius:100px;font-size:0.75rem;letter-spacing:1px;font-weight:700;">
+                    <i class="fa-solid fa-heart me-1 text-danger"></i> KOLEKSI FAVORIT
+                </span>
+                <h1 class="fw-bold mb-2" style="font-family:'Plus Jakarta Sans',sans-serif;">Wisata yang Anda Sukai</h1>
+                <p class="mb-0 text-white-50">Daftar destinasi wisata Magetan yang telah Anda simpan untuk dikunjungi</p>
             </div>
-        </form>
+            <div>
+                <a href="{{ route('public.wisata') }}" class="btn btn-outline-light px-4 py-2" style="border-radius:10px;font-weight:600;backdrop-filter:blur(8px);">
+                    <i class="fa-solid fa-compass me-2"></i>Jelajahi Wisata Lainnya
+                </a>
+            </div>
+        </div>
     </div>
 </div>
 
-{{-- Cards Grid --}}
-<div class="container py-4">
-    @if(request('q') || request('kategori') || request('kecamatan'))
-    <div class="d-flex align-items-center justify-content-between mb-4 flex-wrap gap-2">
-        <div class="text-muted small">
-            Menampilkan hasil pencarian
-            @if(request('q')) untuk "<strong>{{ request('q') }}</strong>"@endif
-            @if(request('kategori')) kategori "<strong>{{ request('kategori') }}</strong>"@endif
-            @if(request('kecamatan')) di kecamatan "<strong>{{ request('kecamatan') }}</strong>"@endif
-            ({{ $wisata->total() }} destinasi ditemukan)
-        </div>
-        <a href="{{ route('public.wisata') }}" class="btn btn-sm btn-outline-secondary" style="border-radius:8px;">
-            <i class="fa-solid fa-rotate-left me-1"></i>Reset Filter
-        </a>
-    </div>
-    @endif
-
-    <div class="row g-4">
-        @forelse($wisata as $w)
-        <div class="col-md-6 col-xl-4" data-aos="fade-up" data-aos-delay="{{ $loop->iteration * 80 }}">
+<div class="container py-5">
+    @if($wishlist->count())
+    <div class="row g-4" id="wishlist-grid">
+        @foreach($wishlist as $w)
+        <div class="col-md-6 col-xl-4 wishlist-item-col" id="wishlist-col-{{ $w->id }}" data-aos="fade-up" data-aos-delay="{{ $loop->iteration * 80 }}">
             <div class="wisata-card-21st" data-tilt>
-                {{-- Image Background --}}
+                {{-- Image background --}}
                 <div class="wc-img-wrapper">
                     @if($w->thumbnail)
                         <img src="{{ Storage::url($w->thumbnail) }}" alt="{{ $w->nama }}" class="wc-bg-img" loading="lazy">
@@ -348,24 +271,16 @@
                         {{ $w->kategori }}
                     </span>
 
-                    {{-- Like / Wishlist Button --}}
-                    @auth
+                    {{-- Like Button (Active) --}}
                     <button type="button"
-                            class="wishlist-btn {{ auth()->user()->wishlist->contains($w->id) ? 'active' : '' }}"
+                            class="wishlist-btn active"
                             data-id="{{ $w->id }}"
-                            data-active="{{ auth()->user()->wishlist->contains($w->id) ? 'true' : 'false' }}"
-                            title="{{ auth()->user()->wishlist->contains($w->id) ? 'Hapus dari Wisata Disukai' : 'Sukai Wisata Ini' }}"
-                            aria-label="Sukai Wisata">
-                        <i class="fa-heart {{ auth()->user()->wishlist->contains($w->id) ? 'fa-solid' : 'fa-regular' }}"></i>
+                            data-active="true"
+                            data-is-wishlist-page="true"
+                            title="Hapus dari Wisata Disukai"
+                            aria-label="Hapus dari Disukai">
+                        <i class="fa-solid fa-heart"></i>
                     </button>
-                    @else
-                    <a href="{{ route('login') }}"
-                       class="wishlist-btn wishlist-btn-guest"
-                       title="Login untuk menyukai wisata"
-                       aria-label="Login untuk menyukai">
-                        <i class="fa-regular fa-heart"></i>
-                    </a>
-                    @endauth
                 </div>
 
                 {{-- Bottom Floating Content --}}
@@ -413,26 +328,28 @@
                     </div>
                 </div>
 
-                {{-- Full card clickable hitbox --}}
+                {{-- Hitbox for entire card navigation --}}
                 <a href="{{ route('public.wisata.detail', $w->slug) }}" class="wc-hitbox" aria-label="{{ $w->nama }}"></a>
             </div>
         </div>
-        @empty
-        <div class="col-12 text-center py-5 text-muted" data-aos="fade-up">
-            <div style="width:80px;height:80px;background:rgba(26,107,58,0.1);border-radius:50%;display:inline-flex;align-items:center;justify-content:center;font-size:2rem;color:#1a6b3a;margin-bottom:16px;">
-                <i class="fa-solid fa-map-location-dot"></i>
-            </div>
-            <h5 class="fw-bold">Tidak ada destinasi yang sesuai</h5>
-            <p class="text-muted">Coba ubah kata kunci pencarian atau filter kategori/kecamatan.</p>
-            <a href="{{ route('public.wisata') }}" class="btn btn-warning fw-bold px-4 py-2" style="border-radius:10px;">
-                Tampilkan Semua Wisata
-            </a>
-        </div>
-        @endforelse
+        @endforeach
     </div>
 
-    <div class="mt-5 d-flex justify-content-center">
-        {{ $wisata->links() }}
+    <div class="mt-4">{{ $wishlist->links() }}</div>
+    @endif
+
+    {{-- Empty State (visible when empty or all un-favorited) --}}
+    <div id="wishlist-empty-state" class="text-center py-5 {{ $wishlist->count() ? 'd-none' : '' }}" data-aos="fade-up">
+        <div style="width:90px;height:90px;background:rgba(230,57,70,0.1);color:#e63946;border-radius:50%;display:inline-flex;align-items:center;justify-content:center;font-size:2.5rem;margin-bottom:24px;border:2px dashed rgba(230,57,70,0.3);">
+            <i class="fa-regular fa-heart"></i>
+        </div>
+        <h3 class="fw-bold mb-2" style="font-family:'Plus Jakarta Sans',sans-serif;">Belum Ada Wisata yang Disukai</h3>
+        <p class="text-muted mb-4" style="max-width:480px;margin:0 auto;">
+            Anda belum menambahkan tempat wisata ke dalam daftar favorit. Tekan tombol hati pada kartu wisata untuk menyimpannya di sini.
+        </p>
+        <a href="{{ route('public.wisata') }}" class="btn btn-warning fw-bold px-4 py-2" style="border-radius:12px;">
+            <i class="fa-solid fa-compass me-2"></i>Jelajahi Destinasi Wisata
+        </a>
     </div>
 </div>
 @endsection
