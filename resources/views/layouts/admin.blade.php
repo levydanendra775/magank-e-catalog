@@ -562,10 +562,44 @@
             </div>
 
             <div class="topbar-actions">
-                <button class="topbar-btn" title="Notifikasi">
-                    <i class="fa-regular fa-bell"></i>
-                    <span class="topbar-badge-dot"></span>
-                </button>
+                <div class="dropdown">
+                    <button class="topbar-btn" type="button" id="notificationDropdown" data-bs-toggle="dropdown" aria-expanded="false" title="Notifikasi">
+                        <i class="fa-regular fa-bell"></i>
+                        @if(isset($hasUnreadActivities) && $hasUnreadActivities)
+                        <span class="topbar-badge-dot"></span>
+                        @endif
+                    </button>
+                    <ul class="dropdown-menu dropdown-menu-end shadow-sm border-0 mt-2" aria-labelledby="notificationDropdown" style="width: 320px; border-radius: 12px; padding: 0;">
+                        <li class="p-3 border-bottom" style="background-color: var(--primary-light); border-top-left-radius: 12px; border-top-right-radius: 12px;">
+                            <h6 class="mb-0 fw-bold" style="color: var(--primary);">Notifikasi Aktivitas</h6>
+                        </li>
+                        <div style="max-height: 350px; overflow-y: auto;">
+                            @if(isset($recentActivities) && $recentActivities->count() > 0)
+                                @foreach($recentActivities as $activity)
+                                <li>
+                                    <a class="dropdown-item d-flex align-items-start p-3 border-bottom text-wrap" href="#" style="transition: background-color 0.2s;">
+                                        <div class="bg-light rounded-circle p-2 me-3 d-flex align-items-center justify-content-center" style="width: 40px; height: 40px; flex-shrink: 0;">
+                                            <i class="{{ $activity->icon }}" style="color: {{ $activity->icon_color }};"></i>
+                                        </div>
+                                        <div>
+                                            <p class="mb-1 text-dark fw-semibold" style="font-size: 0.88rem; line-height: 1.4;">{{ $activity->user_name }} <span class="fw-normal text-muted">{{ $activity->message }}</span> {{ $activity->target_name }}</p>
+                                            <small class="text-muted" style="font-size: 0.75rem;"><i class="fa-regular fa-clock me-1"></i>{{ \Carbon\Carbon::parse($activity->time)->diffForHumans() }}</small>
+                                        </div>
+                                    </a>
+                                </li>
+                                @endforeach
+                            @else
+                                <li class="p-4 text-center text-muted">
+                                    <i class="fa-regular fa-bell-slash mb-2" style="font-size: 1.5rem; opacity: 0.5;"></i>
+                                    <p class="mb-0" style="font-size: 0.85rem;">Belum ada aktivitas baru</p>
+                                </li>
+                            @endif
+                        </div>
+                        <li class="p-2 text-center" style="border-top: 1px solid var(--border-color);">
+                            <a href="#" class="text-decoration-none" style="font-size: 0.85rem; font-weight: 600; color: var(--primary);">Lihat Semua Notifikasi</a>
+                        </li>
+                    </ul>
+                </div>
 
                 <span class="user-badge ms-2">
                     <i class="fa-solid fa-user-shield" style="color:var(--accent);"></i>
