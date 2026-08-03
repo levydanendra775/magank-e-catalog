@@ -8,8 +8,10 @@ use Illuminate\Support\Facades\DB;
 class BeritaSeeder extends Seeder
 {
     /**
-     * Sync data ke tabel `beritas`.
-     * Aman dijalankan berulang kali — tidak duplikat (updateOrInsert).
+     * Sync PENUH data ke tabel `beritas`.
+     * - Tambah data baru  ✅
+     * - Update data lama  ✅
+     * - Hapus data yang dihapus dari seeder  ✅
      *
      * Generate ulang file ini:
      *   php generate_seeders.php
@@ -37,6 +39,18 @@ Berbagai produk khas Magetan saat ini telah terhimpun dalam satu lokasi di RPM. 
             ],
         ];
 
+        // ── Hapus data yang sudah tidak ada di seeder ──
+        $activeKeys = array (
+  0 => 'Rumah Promosi Magetan Siapkan Konsep "Wisata Resto" untuk Dongkrak Penjualan UMKM',
+);
+        $deleted = DB::table('beritas')
+            ->whereNotIn('judul', $activeKeys)
+            ->delete();
+        if ($deleted > 0) {
+            $this->command->warn("  ⚠ Dihapus {$deleted} data lama dari `beritas`.");
+        }
+
+        // ── Tambah / update data dari seeder ──
         foreach ($data as $item) {
             DB::table('beritas')->updateOrInsert(
                 ['judul' => $item['judul']],
@@ -44,6 +58,6 @@ Berbagai produk khas Magetan saat ini telah terhimpun dalam satu lokasi di RPM. 
             );
         }
 
-        $this->command->info('✓ BeritaSeeder: ' . count($data) . ' data berhasil disinkronisasi.');
+        $this->command->info('✓ BeritaSeeder: ' . count($data) . ' data aktif di database.');
     }
 }

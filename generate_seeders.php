@@ -17,17 +17,24 @@ $kernel->bootstrap();
 
 // ─────────────────────────────────────────────
 // Helper: tulis seeder ke file
+// Mode SYNC PENUH: insert, update, DAN hapus data yang sudah tidak ada
 // ─────────────────────────────────────────────
 function writeSeeder(string $className, string $tableName, string $uniqueKey, array $rows, string $path): void
 {
+    // Kumpulkan semua nilai unique key untuk logika delete
+    $uniqueValues = array_map(fn($r) => ((array)$r)[$uniqueKey], $rows);
+    $uniqueValuesExport = var_export($uniqueValues, true);
+
     $output  = "<?php\n\n";
     $output .= "namespace Database\\Seeders;\n\n";
     $output .= "use Illuminate\\Database\\Seeder;\n";
     $output .= "use Illuminate\\Support\\Facades\\DB;\n\n";
     $output .= "class {$className} extends Seeder\n{\n";
     $output .= "    /**\n";
-    $output .= "     * Sync data ke tabel `{$tableName}`.\n";
-    $output .= "     * Aman dijalankan berulang kali — tidak duplikat (updateOrInsert).\n";
+    $output .= "     * Sync PENUH data ke tabel `{$tableName}`.\n";
+    $output .= "     * - Tambah data baru  ✅\n";
+    $output .= "     * - Update data lama  ✅\n";
+    $output .= "     * - Hapus data yang dihapus dari seeder  ✅\n";
     $output .= "     *\n";
     $output .= "     * Generate ulang file ini:\n";
     $output .= "     *   php generate_seeders.php\n";
@@ -41,20 +48,33 @@ function writeSeeder(string $className, string $tableName, string $uniqueKey, ar
     foreach ($rows as $row) {
         $output .= "            [\n";
         foreach ((array)$row as $col => $val) {
-            if ($col === 'id') continue; // skip id — biarkan auto increment
+            if ($col === 'id') continue;
             $output .= "                " . str_pad("'{$col}'", 22) . " => " . var_export($val, true) . ",\n";
         }
         $output .= "            ],\n";
     }
 
     $output .= "        ];\n\n";
+
+    // Logika HAPUS: hapus record yang tidak ada di seeder
+    $output .= "        // ── Hapus data yang sudah tidak ada di seeder ──\n";
+    $output .= "        \$activeKeys = {$uniqueValuesExport};\n";
+    $output .= "        \$deleted = DB::table('{$tableName}')\n";
+    $output .= "            ->whereNotIn('{$uniqueKey}', \$activeKeys)\n";
+    $output .= "            ->delete();\n";
+    $output .= "        if (\$deleted > 0) {\n";
+    $output .= "            \$this->command->warn(\"  ⚠ Dihapus {\$deleted} data lama dari `{$tableName}`.\");\n";
+    $output .= "        }\n\n";
+
+    // Logika INSERT / UPDATE
+    $output .= "        // ── Tambah / update data dari seeder ──\n";
     $output .= "        foreach (\$data as \$item) {\n";
     $output .= "            DB::table('{$tableName}')->updateOrInsert(\n";
     $output .= "                ['{$uniqueKey}' => \$item['{$uniqueKey}']],\n";
     $output .= "                \$item\n";
     $output .= "            );\n";
     $output .= "        }\n\n";
-    $output .= "        \$this->command->info('✓ {$className}: ' . count(\$data) . ' data berhasil disinkronisasi.');\n";
+    $output .= "        \$this->command->info('✓ {$className}: ' . count(\$data) . ' data aktif di database.');\n";
     $output .= "    }\n}\n";
 
     file_put_contents($path, $output);
@@ -64,42 +84,22 @@ function writeSeeder(string $className, string $tableName, string $uniqueKey, ar
 // 1. WisataSeeder
 // ─────────────────────────────────────────────
 $wisatas = DB::table('wisatas')->orderBy('id')->get()->toArray();
-writeSeeder(
-    'WisataSeeder',
-    'wisatas',
-    'slug',
-    $wisatas,
-    __DIR__ . '/database/seeders/WisataSeeder.php'
-);
+writeSeeder('WisataSeeder', 'wisatas', 'slug', $wisatas, __DIR__ . '/database/seeders/WisataSeeder.php');
 echo "✅ WisataSeeder.php  — " . count($wisatas) . " data\n";
 
 // ─────────────────────────────────────────────
 // 2. EventSeeder
 // ─────────────────────────────────────────────
 $events = DB::table('events')->orderBy('id')->get()->toArray();
-writeSeeder(
-    'EventSeeder',
-    'events',
-    'judul',
-    $events,
-    __DIR__ . '/database/seeders/EventSeeder.php'
-);
+writeSeeder('EventSeeder', 'events', 'judul', $events, __DIR__ . '/database/seeders/EventSeeder.php');
 echo "✅ EventSeeder.php   — " . count($events) . " data\n";
 
 // ─────────────────────────────────────────────
 // 3. BeritaSeeder
 // ─────────────────────────────────────────────
 $beritas = DB::table('beritas')->orderBy('id')->get()->toArray();
-writeSeeder(
-    'BeritaSeeder',
-    'beritas',
-    'judul',
-    $beritas,
-    __DIR__ . '/database/seeders/BeritaSeeder.php'
-);
+writeSeeder('BeritaSeeder', 'beritas', 'judul', $beritas, __DIR__ . '/database/seeders/BeritaSeeder.php');
 echo "✅ BeritaSeeder.php  — " . count($beritas) . " data\n";
 
 echo "\n--- Langkah selanjutnya ---\n";
-echo "git add database/seeders/ storage/app/public/event/ storage/app/public/berita/\n";
-echo "git commit -m \"feat: update data event & berita\"\n";
-echo "git push\n\n";
+echo "Jalankan: sync.bat push\n\n";

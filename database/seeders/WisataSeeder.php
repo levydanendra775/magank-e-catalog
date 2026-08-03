@@ -8,8 +8,10 @@ use Illuminate\Support\Facades\DB;
 class WisataSeeder extends Seeder
 {
     /**
-     * Sync data ke tabel `wisatas`.
-     * Aman dijalankan berulang kali — tidak duplikat (updateOrInsert).
+     * Sync PENUH data ke tabel `wisatas`.
+     * - Tambah data baru  ✅
+     * - Update data lama  ✅
+     * - Hapus data yang dihapus dari seeder  ✅
      *
      * Generate ulang file ini:
      *   php generate_seeders.php
@@ -280,6 +282,31 @@ Spot foto',
             ],
         ];
 
+        // ── Hapus data yang sudah tidak ada di seeder ──
+        $activeKeys = array (
+  0 => 'telaga-sarangan',
+  1 => 'mojosemi-forest-park',
+  2 => 'taman-wisata-genilangit',
+  3 => 'sgodean-kolam-renang-cafe',
+  4 => 'situs-candi-sadon-candi-reog',
+  5 => 'masjid-agung-baitussalam-magetan',
+  6 => 'magetan-park',
+  7 => 'kampung-susu-lawu-singolangu',
+  8 => 'sentra-kuliner-ayam-panggang-gandu',
+  9 => 'wisata-paralayang-gunung-blego',
+  10 => 'air-terjun-tirtosari',
+  11 => 'taman-bunga-refugia',
+  12 => 'telaga-wahyu',
+  13 => 'lawu-green-forest-lgf-magetan',
+);
+        $deleted = DB::table('wisatas')
+            ->whereNotIn('slug', $activeKeys)
+            ->delete();
+        if ($deleted > 0) {
+            $this->command->warn("  ⚠ Dihapus {$deleted} data lama dari `wisatas`.");
+        }
+
+        // ── Tambah / update data dari seeder ──
         foreach ($data as $item) {
             DB::table('wisatas')->updateOrInsert(
                 ['slug' => $item['slug']],
@@ -287,6 +314,6 @@ Spot foto',
             );
         }
 
-        $this->command->info('✓ WisataSeeder: ' . count($data) . ' data berhasil disinkronisasi.');
+        $this->command->info('✓ WisataSeeder: ' . count($data) . ' data aktif di database.');
     }
 }

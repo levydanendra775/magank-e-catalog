@@ -8,8 +8,10 @@ use Illuminate\Support\Facades\DB;
 class EventSeeder extends Seeder
 {
     /**
-     * Sync data ke tabel `events`.
-     * Aman dijalankan berulang kali — tidak duplikat (updateOrInsert).
+     * Sync PENUH data ke tabel `events`.
+     * - Tambah data baru  ✅
+     * - Update data lama  ✅
+     * - Hapus data yang dihapus dari seeder  ✅
      *
      * Generate ulang file ini:
      *   php generate_seeders.php
@@ -20,18 +22,6 @@ class EventSeeder extends Seeder
     public function run(): void
     {
         $data = [
-            [
-                'judul'                => 'Festival Telaga Sarangan 2026',
-                'poster'               => 'event/4kZvqqMlkzmI9LOoUvl3mk131ISVV58NE8CfVtnW.jpg',
-                'lokasi'               => 'Telaga Sarangan, Plaosan, Kabupaten Magetan',
-                'tanggal'              => '2026-07-12',
-                'jam'                  => '20:00:00',
-                'deskripsi'            => 'Festival Telaga Sarangan merupakan agenda wisata tahunan Kabupaten Magetan yang menampilkan pertunjukan seni tradisional, kirab budaya, pameran UMKM, kuliner khas Magetan, pertunjukan musik, serta hiburan rakyat di kawasan wisata Telaga Sarangan.',
-                'link_pendaftaran'     => NULL,
-                'status'               => 1,
-                'created_at'           => '2026-07-28 13:56:01',
-                'updated_at'           => '2026-07-28 13:56:01',
-            ],
             [
                 'judul'                => 'Gebyar UMKM Magetan',
                 'poster'               => 'event/8RV7q7xe0U52YMkJO3RNTf7PFLmPjFSoiMX1AwsS.jpg',
@@ -56,8 +46,34 @@ class EventSeeder extends Seeder
                 'created_at'           => '2026-07-30 09:25:03',
                 'updated_at'           => '2026-07-30 09:25:03',
             ],
+            [
+                'judul'                => 'Festival Telaga Sarangan 2026',
+                'poster'               => 'event/4kZvqqMlkzmI9LOoUvl3mk131ISVV58NE8CfVtnW.jpg',
+                'lokasi'               => 'Telaga Sarangan, Plaosan, Kabupaten Magetan',
+                'tanggal'              => '2026-07-12',
+                'jam'                  => '20:00:00',
+                'deskripsi'            => 'Festival Telaga Sarangan merupakan agenda wisata tahunan Kabupaten Magetan yang menampilkan pertunjukan seni tradisional, kirab budaya, pameran UMKM, kuliner khas Magetan, pertunjukan musik, serta hiburan rakyat di kawasan wisata Telaga Sarangan.',
+                'link_pendaftaran'     => NULL,
+                'status'               => 1,
+                'created_at'           => '2026-07-28 13:56:01',
+                'updated_at'           => '2026-07-28 13:56:01',
+            ],
         ];
 
+        // ── Hapus data yang sudah tidak ada di seeder ──
+        $activeKeys = array (
+  0 => 'Gebyar UMKM Magetan',
+  1 => 'Wisata Alam Gunung Lawu',
+  2 => 'Festival Telaga Sarangan 2026',
+);
+        $deleted = DB::table('events')
+            ->whereNotIn('judul', $activeKeys)
+            ->delete();
+        if ($deleted > 0) {
+            $this->command->warn("  ⚠ Dihapus {$deleted} data lama dari `events`.");
+        }
+
+        // ── Tambah / update data dari seeder ──
         foreach ($data as $item) {
             DB::table('events')->updateOrInsert(
                 ['judul' => $item['judul']],
@@ -65,6 +81,6 @@ class EventSeeder extends Seeder
             );
         }
 
-        $this->command->info('✓ EventSeeder: ' . count($data) . ' data berhasil disinkronisasi.');
+        $this->command->info('✓ EventSeeder: ' . count($data) . ' data aktif di database.');
     }
 }
