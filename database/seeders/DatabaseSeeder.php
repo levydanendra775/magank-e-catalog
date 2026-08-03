@@ -36,9 +36,11 @@ class DatabaseSeeder extends Seeder
         
         $petugas->assignRole($petugasRole);
 
-        // Sync data wisata (aman dijalankan berulang kali - menggunakan updateOrInsert)
+        // Sync semua data konten (aman dijalankan berulang kali - menggunakan updateOrInsert)
         $this->call([
             WisataSeeder::class,
+            EventSeeder::class,
+            BeritaSeeder::class,
         ]);
     }
 }
