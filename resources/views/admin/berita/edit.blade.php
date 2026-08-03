@@ -1,17 +1,36 @@
 @extends('layouts.admin')
 @section('title', 'Edit Berita')
 @section('content')
-<div class="card border-0 shadow-sm" style="border-radius:12px; max-width:700px;">
-    <div class="card-body p-4">
-        <h5 class="fw-bold mb-4">Edit Berita</h5>
-        <form action="{{ route('admin.berita.update', $berita) }}" method="POST" enctype="multipart/form-data">
-            @csrf @method('PUT')
-            @include('admin.berita._form')
-            <div class="mt-4">
-                <button type="submit" class="btn btn-primary me-2">Update</button>
-                <a href="{{ route('admin.berita.index') }}" class="btn btn-outline-secondary">Batal</a>
-            </div>
-        </form>
+
+<div class="d-flex flex-column flex-md-row align-items-md-center justify-content-between gap-3 mb-4">
+    <div>
+        <div class="text-muted small mb-1">
+            <a href="{{ route('admin.berita.index') }}" class="text-decoration-none text-muted">
+                <i class="fa-regular fa-newspaper me-1"></i> Data Berita
+            </a>
+            <i class="fa-solid fa-chevron-right mx-2 text-muted small"></i>
+            <span class="text-dark font-mono">Edit Berita</span>
+        </div>
+        <h4 class="fw-bold mb-0" style="color:var(--primary);">Edit Berita: {{ Str::limit($berita->judul, 40) }}</h4>
+    </div>
+
+    <div>
+        <a href="{{ route('admin.berita.index') }}" class="btn btn-outline-secondary px-4 me-2">
+            <i class="fa-solid fa-arrow-left me-1"></i> Kembali
+        </a>
     </div>
 </div>
+
+<form action="{{ route('admin.berita.update', $berita) }}" method="POST" enctype="multipart/form-data">
+    @csrf @method('PUT')
+    @include('admin.berita._form')
+
+    <div class="mt-4 d-flex align-items-center justify-content-end gap-2 p-3 bg-white border rounded-4 shadow-sm">
+        <a href="{{ route('admin.berita.index') }}" class="btn btn-light border px-4 fw-semibold">Batal</a>
+        <button type="submit" class="btn btn-primary px-5 fw-bold shadow-sm">
+            <i class="fa-solid fa-pen-to-square me-1.5"></i> Update Berita
+        </button>
+    </div>
+</form>
+
 @endsection
