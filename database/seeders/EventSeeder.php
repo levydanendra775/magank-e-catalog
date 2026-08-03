@@ -23,18 +23,6 @@ class EventSeeder extends Seeder
     {
         $data = [
             [
-                'judul'                => 'Festival Budaya Magetan 2026',
-                'poster'               => 'event/8RV7q7xe0U52YMkJO3RNTf7PFLmPjFSoiMX1AwsS.jpg',
-                'lokasi'               => 'Alun-Alun Magetan',
-                'tanggal'              => '2026-08-10',
-                'jam'                  => '08:00:00',
-                'deskripsi'            => 'Festival budaya tahunan Kabupaten Magetan yang menampilkan berbagai pertunjukan seni dan budaya lokal.',
-                'link_pendaftaran'     => NULL,
-                'status'               => 1,
-                'created_at'           => '2026-07-30 09:25:03',
-                'updated_at'           => '2026-07-30 09:25:03',
-            ],
-            [
                 'judul'                => 'Gebyar UMKM Magetan',
                 'poster'               => 'event/8RV7q7xe0U52YMkJO3RNTf7PFLmPjFSoiMX1AwsS.jpg',
                 'lokasi'               => 'GOR Ki Mageti Magetan',
@@ -70,14 +58,26 @@ class EventSeeder extends Seeder
                 'created_at'           => '2026-07-28 13:56:01',
                 'updated_at'           => '2026-07-28 13:56:01',
             ],
+            [
+                'judul'                => 'Festival Budaya Magetan 2026',
+                'poster'               => 'event/8RV7q7xe0U52YMkJO3RNTf7PFLmPjFSoiMX1AwsS.jpg',
+                'lokasi'               => 'Alun-Alun Magetan',
+                'tanggal'              => '2026-08-10',
+                'jam'                  => '08:00:00',
+                'deskripsi'            => 'Festival budaya tahunan Kabupaten Magetan yang menampilkan berbagai pertunjukan seni dan budaya lokal.',
+                'link_pendaftaran'     => NULL,
+                'status'               => 1,
+                'created_at'           => '2026-07-30 09:25:03',
+                'updated_at'           => '2026-07-30 09:25:03',
+            ],
         ];
 
         // ── Hapus data yang sudah tidak ada di seeder ──
         $activeKeys = array (
-  0 => 'Festival Budaya Magetan 2026',
-  1 => 'Gebyar UMKM Magetan',
-  2 => 'Wisata Alam Gunung Lawu',
-  3 => 'Festival Telaga Sarangan 2026',
+  0 => 'Gebyar UMKM Magetan',
+  1 => 'Wisata Alam Gunung Lawu',
+  2 => 'Festival Telaga Sarangan 2026',
+  3 => 'Festival Budaya Magetan 2026',
 );
         $deleted = DB::table('events')
             ->whereNotIn('judul', $activeKeys)
