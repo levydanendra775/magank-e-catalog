@@ -21,16 +21,16 @@ class EventSeeder extends Seeder
     {
         $data = [
             [
-                'judul'                => 'Festival Budaya Magetan 2026',
+                'judul'                => 'Festival Telaga Sarangan 2026',
                 'poster'               => 'event/4kZvqqMlkzmI9LOoUvl3mk131ISVV58NE8CfVtnW.jpg',
-                'lokasi'               => 'Alun-Alun Magetan',
-                'tanggal'              => '2026-08-10',
-                'jam'                  => '08:00:00',
-                'deskripsi'            => 'Festival budaya tahunan Kabupaten Magetan yang menampilkan berbagai pertunjukan seni dan budaya lokal.',
+                'lokasi'               => 'Telaga Sarangan, Plaosan, Kabupaten Magetan',
+                'tanggal'              => '2026-07-12',
+                'jam'                  => '20:00:00',
+                'deskripsi'            => 'Festival Telaga Sarangan merupakan agenda wisata tahunan Kabupaten Magetan yang menampilkan pertunjukan seni tradisional, kirab budaya, pameran UMKM, kuliner khas Magetan, pertunjukan musik, serta hiburan rakyat di kawasan wisata Telaga Sarangan.',
                 'link_pendaftaran'     => NULL,
                 'status'               => 1,
-                'created_at'           => '2026-07-30 09:25:03',
-                'updated_at'           => '2026-07-30 09:25:03',
+                'created_at'           => '2026-07-28 13:56:01',
+                'updated_at'           => '2026-07-28 13:56:01',
             ],
             [
                 'judul'                => 'Gebyar UMKM Magetan',
