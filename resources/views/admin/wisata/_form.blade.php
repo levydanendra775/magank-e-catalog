@@ -11,7 +11,7 @@
                 <div class="col-md-8">
                     <label class="form-label fw-semibold">Nama Destinasi Wisata <span class="text-danger">*</span></label>
                     <input type="text" name="nama" class="form-control @error('nama') is-invalid @enderror" value="{{ old('nama', $w?->nama) }}" placeholder="Contoh: Telaga Sarangan" required>
-                    @error('nama')<div class="invalid-feedback">{{ $message }}</div>@error
+                    @error('nama')<div class="invalid-feedback">{{ $message }}</div>@enderror
                 </div>
 
                 <div class="col-md-4">

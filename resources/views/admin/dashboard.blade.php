@@ -31,63 +31,154 @@
     </div>
 </div>
 
+@push('styles')
+<style>
+    .stat-hover-card {
+        position: relative;
+        overflow: hidden;
+        transition: all 0.3s cubic-bezier(0.2, 0.6, 0.2, 1);
+        cursor: pointer;
+    }
+    .stat-hover-card::before {
+        content: '';
+        position: absolute;
+        inset: 0;
+        background: linear-gradient(135deg, rgba(255, 255, 255, 0.35) 0%, transparent 60%);
+        opacity: 0;
+        transition: opacity 0.25s ease;
+        pointer-events: none;
+    }
+    .stat-hover-card:hover {
+        transform: translateY(-4px);
+        box-shadow: 0 16px 36px rgba(0, 0, 0, 0.08) !important;
+    }
+    .stat-hover-card:hover::before {
+        opacity: 1;
+    }
+
+    /* Icon box base & transitions */
+    .stat-icon-box {
+        width: 62px;
+        height: 62px;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transition: all 0.3s cubic-bezier(0.2, 0.6, 0.2, 1);
+        position: relative;
+        overflow: hidden;
+    }
+    .stat-icon-box::before {
+        content: '';
+        position: absolute;
+        inset: 0;
+        background: linear-gradient(135deg, rgba(255, 255, 255, 0.3) 0%, transparent 60%);
+        opacity: 0;
+        transition: opacity 0.25s ease;
+        pointer-events: none;
+    }
+    .stat-hover-card:hover .stat-icon-box::before {
+        opacity: 1;
+    }
+
+    /* Wisata Logo Hover Effect */
+    .stat-icon-wisata {
+        background: #EAF0EC;
+        color: #1F3A34;
+    }
+    .stat-hover-card:hover .stat-icon-wisata {
+        background: #1F3A34 !important;
+        color: #E5C16C !important;
+        transform: translateY(-3px) scale(1.1) rotate(4deg);
+        box-shadow: 0 8px 24px rgba(31, 58, 52, 0.4);
+    }
+
+    /* Event Logo Hover Effect */
+    .stat-icon-event {
+        background: rgba(200, 155, 60, 0.15);
+        color: #C89B3C;
+    }
+    .stat-hover-card:hover .stat-icon-event {
+        background: linear-gradient(135deg, #C89B3C 0%, #E5C16C 100%) !important;
+        color: #14261F !important;
+        transform: translateY(-3px) scale(1.1) rotate(-4deg);
+        box-shadow: 0 8px 24px rgba(200, 155, 60, 0.5);
+    }
+
+    /* Berita Logo Hover Effect */
+    .stat-icon-berita {
+        background: rgba(122, 59, 46, 0.12);
+        color: #7A3B2E;
+    }
+    .stat-hover-card:hover .stat-icon-berita {
+        background: linear-gradient(135deg, #7A3B2E 0%, #A04D3C 100%) !important;
+        color: #ffffff !important;
+        transform: translateY(-3px) scale(1.1) rotate(4deg);
+        box-shadow: 0 8px 24px rgba(122, 59, 46, 0.4);
+    }
+</style>
+@endpush
+
 <!-- Stat Cards Grid -->
 <div class="row g-4 mb-4">
     <!-- Wisata Card -->
     <div class="col-xl-4 col-md-6">
-        <div class="card border-0 h-100 p-3" style="border-radius: 16px !important; border-left: 5px solid #1F3A34 !important;">
-            <div class="card-body d-flex align-items-center justify-content-between p-2">
-                <div>
-                    <span class="text-uppercase font-mono fw-bold text-muted small" style="letter-spacing: 0.5px; font-size: 0.75rem;">Destinasi Wisata</span>
-                    <h2 class="fw-bold mb-0 mt-1" style="font-family: 'Fraunces', serif; color: #1F3A34; font-size: 2.2rem;">{{ $stats['wisata'] }}</h2>
-                    <span class="badge mt-2" style="background: #EAF0EC; color: #1F3A34; font-weight: 600; font-size: 0.73rem;">
-                        <i class="fa-solid fa-location-dot me-1"></i> Terdaftar di Magetan
-                    </span>
-                </div>
-                <div class="rounded-circle d-flex align-items-center justify-content-center" 
-                     style="width: 62px; height: 62px; background: #EAF0EC; color: #1F3A34;">
-                    <i class="fa-solid fa-map-location-dot fa-xl"></i>
+        <a href="{{ route('admin.wisata.index') }}" class="text-decoration-none d-block h-100" title="Kelola Destinasi Wisata">
+            <div class="card border-0 h-100 p-3 stat-hover-card" style="border-radius: 16px !important; border-left: 5px solid #1F3A34 !important;">
+                <div class="card-body d-flex align-items-center justify-content-between p-2">
+                    <div>
+                        <span class="text-uppercase font-mono fw-bold text-muted small" style="letter-spacing: 0.5px; font-size: 0.75rem;">Destinasi Wisata</span>
+                        <h2 class="fw-bold mb-0 mt-1" style="font-family: 'Fraunces', serif; color: #1F3A34; font-size: 2.2rem;">{{ $stats['wisata'] }}</h2>
+                        <span class="badge mt-2" style="background: #EAF0EC; color: #1F3A34; font-weight: 600; font-size: 0.73rem;">
+                            <i class="fa-solid fa-location-dot me-1"></i> Terdaftar di Magetan
+                        </span>
+                    </div>
+                    <div class="stat-icon-box stat-icon-wisata">
+                        <i class="fa-solid fa-map-location-dot fa-xl"></i>
+                    </div>
                 </div>
             </div>
-        </div>
+        </a>
     </div>
 
     <!-- Event Card -->
     <div class="col-xl-4 col-md-6">
-        <div class="card border-0 h-100 p-3" style="border-radius: 16px !important; border-left: 5px solid #C89B3C !important;">
-            <div class="card-body d-flex align-items-center justify-content-between p-2">
-                <div>
-                    <span class="text-uppercase font-mono fw-bold text-muted small" style="letter-spacing: 0.5px; font-size: 0.75rem;">Event Mendatang</span>
-                    <h2 class="fw-bold mb-0 mt-1" style="font-family: 'Fraunces', serif; color: #9C7726; font-size: 2.2rem;">{{ $stats['event'] }}</h2>
-                    <span class="badge mt-2" style="background: rgba(200, 155, 60, 0.15); color: #9C7726; font-weight: 600; font-size: 0.73rem;">
-                        <i class="fa-solid fa-calendar-check me-1"></i> Agenda Aktif
-                    </span>
-                </div>
-                <div class="rounded-circle d-flex align-items-center justify-content-center" 
-                     style="width: 62px; height: 62px; background: rgba(200, 155, 60, 0.15); color: #C89B3C;">
-                    <i class="fa-solid fa-calendar-days fa-xl"></i>
+        <a href="{{ route('admin.event.index') }}" class="text-decoration-none d-block h-100" title="Kelola Agenda Event">
+            <div class="card border-0 h-100 p-3 stat-hover-card" style="border-radius: 16px !important; border-left: 5px solid #C89B3C !important;">
+                <div class="card-body d-flex align-items-center justify-content-between p-2">
+                    <div>
+                        <span class="text-uppercase font-mono fw-bold text-muted small" style="letter-spacing: 0.5px; font-size: 0.75rem;">Event Mendatang</span>
+                        <h2 class="fw-bold mb-0 mt-1" style="font-family: 'Fraunces', serif; color: #9C7726; font-size: 2.2rem;">{{ $stats['event'] }}</h2>
+                        <span class="badge mt-2" style="background: rgba(200, 155, 60, 0.15); color: #9C7726; font-weight: 600; font-size: 0.73rem;">
+                            <i class="fa-solid fa-calendar-check me-1"></i> Agenda Aktif
+                        </span>
+                    </div>
+                    <div class="stat-icon-box stat-icon-event">
+                        <i class="fa-solid fa-calendar-days fa-xl"></i>
+                    </div>
                 </div>
             </div>
-        </div>
+        </a>
     </div>
 
     <!-- Berita Card -->
     <div class="col-xl-4 col-md-6">
-        <div class="card border-0 h-100 p-3" style="border-radius: 16px !important; border-left: 5px solid #7A3B2E !important;">
-            <div class="card-body d-flex align-items-center justify-content-between p-2">
-                <div>
-                    <span class="text-uppercase font-mono fw-bold text-muted small" style="letter-spacing: 0.5px; font-size: 0.75rem;">Berita Publikasi</span>
-                    <h2 class="fw-bold mb-0 mt-1" style="font-family: 'Fraunces', serif; color: #7A3B2E; font-size: 2.2rem;">{{ $stats['berita'] }}</h2>
-                    <span class="badge mt-2" style="background: rgba(122, 59, 46, 0.12); color: #7A3B2E; font-weight: 600; font-size: 0.73rem;">
-                        <i class="fa-solid fa-newspaper me-1"></i> Artikel Terbit
-                    </span>
-                </div>
-                <div class="rounded-circle d-flex align-items-center justify-content-center" 
-                     style="width: 62px; height: 62px; background: rgba(122, 59, 46, 0.12); color: #7A3B2E;">
-                    <i class="fa-regular fa-newspaper fa-xl"></i>
+        <a href="{{ route('admin.berita.index') }}" class="text-decoration-none d-block h-100" title="Kelola Berita Publikasi">
+            <div class="card border-0 h-100 p-3 stat-hover-card" style="border-radius: 16px !important; border-left: 5px solid #7A3B2E !important;">
+                <div class="card-body d-flex align-items-center justify-content-between p-2">
+                    <div>
+                        <span class="text-uppercase font-mono fw-bold text-muted small" style="letter-spacing: 0.5px; font-size: 0.75rem;">Berita Publikasi</span>
+                        <h2 class="fw-bold mb-0 mt-1" style="font-family: 'Fraunces', serif; color: #7A3B2E; font-size: 2.2rem;">{{ $stats['berita'] }}</h2>
+                        <span class="badge mt-2" style="background: rgba(122, 59, 46, 0.12); color: #7A3B2E; font-weight: 600; font-size: 0.73rem;">
+                            <i class="fa-solid fa-newspaper me-1"></i> Artikel Terbit
+                        </span>
+                    </div>
+                    <div class="stat-icon-box stat-icon-berita">
+                        <i class="fa-regular fa-newspaper fa-xl"></i>
+                    </div>
                 </div>
             </div>
-        </div>
+        </a>
     </div>
 </div>
 
