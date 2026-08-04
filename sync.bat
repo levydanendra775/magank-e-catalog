@@ -28,18 +28,14 @@ echo [1/3] Generate ulang semua seeder dari database lokal...
 if errorlevel 1 ( echo ERROR: Gagal generate seeder! & goto END )
 
 echo.
-echo [2/3] Menambahkan semua file ke git...
-git add database/seeders/WisataSeeder.php
-git add database/seeders/EventSeeder.php
-git add database/seeders/BeritaSeeder.php
-git add storage/app/public/wisata/
-git add storage/app/public/event/
-git add storage/app/public/berita/
+echo [2/3] Menambahkan semua file dan seeder ke git...
+git add .
 
 echo.
 echo [3/3] Commit dan push ke GitHub...
-set /p MSG="Pesan commit (contoh: tambah event baru): "
-git commit -m "feat: %MSG%"
+set /p MSG="Pesan commit (contoh: tambah event baru / update fitur): "
+if "%MSG%"=="" set MSG=sinkronisasi data dan update kode
+git commit -m "%MSG%"
 git push
 
 echo.
