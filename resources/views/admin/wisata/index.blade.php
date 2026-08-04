@@ -95,6 +95,7 @@
                         <th>Kategori</th>
                         <th>Kecamatan</th>
                         <th>Status</th>
+                        <th style="width: 100px;">Sematkan</th>
                         <th class="text-end" style="width: 140px;">Aksi</th>
                     </tr>
                 </thead>
@@ -112,7 +113,12 @@
                         @endif
                     </td>
                     <td>
-                        <div class="fw-bold text-dark mb-0">{{ $w->nama }}</div>
+                        <div class="fw-bold text-dark mb-0">
+                            @if($w->is_pinned)
+                                <i class="fa-solid fa-thumbtack me-1" style="color:#C89B3C;" title="Disematkan"></i>
+                            @endif
+                            {{ $w->nama }}
+                        </div>
                         @if($w->harga_tiket)
                             <div class="small text-muted font-mono"><i class="fa-solid fa-tag me-1 text-warning"></i>Rp {{ number_format($w->harga_tiket, 0, ',', '.') }}</div>
                         @else
@@ -139,6 +145,17 @@
                                 <i class="fa-solid fa-circle-xmark me-1 small"></i> Draft
                             </span>
                         @endif
+                    </td>
+                    <td class="text-center">
+                        <form action="{{ route('admin.wisata.pin', $w) }}" method="POST" class="d-inline">
+                            @csrf
+                            <button type="submit"
+                                class="btn btn-sm {{ $w->is_pinned ? 'btn-warning' : 'btn-outline-secondary' }}"
+                                title="{{ $w->is_pinned ? 'Batal Sematkan' : 'Sematkan Wisata Ini' }}"
+                                style="border-radius: 8px; transition: all 0.2s;">
+                                <i class="fa-solid fa-thumbtack {{ $w->is_pinned ? '' : 'opacity-50' }}"></i>
+                            </button>
+                        </form>
                     </td>
                     <td class="text-end">
                         <div class="d-inline-flex gap-1">

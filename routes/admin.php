@@ -21,6 +21,7 @@ Route::middleware(['auth', 'role:Admin|Petugas'])->prefix('admin')->name('admin.
     Route::get('/laporan/umkm/excel', [LaporanController::class, 'exportUmkmExcel'])->name('laporan.umkm.excel');
     
     Route::resource('wisata', WisataController::class);
+    Route::post('/wisata/{wisatum}/pin', [WisataController::class, 'togglePin'])->name('wisata.pin');
     Route::resource('event', EventController::class);
     Route::resource('berita', BeritaController::class);
     Route::resource('banner', BannerController::class);

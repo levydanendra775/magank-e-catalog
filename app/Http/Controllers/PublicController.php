@@ -13,13 +13,20 @@ class PublicController extends Controller
 {
     public function home()
     {
-        $banners    = Banner::orderBy('urutan')->get();
-        $wisata     = Wisata::where('status_publish', true)->latest()->take(6)->get();
-        $umkm       = Umkm::latest()->take(6)->get();
-        $events     = Event::where('status', true)->where('tanggal', '>=', now()->toDateString())->orderBy('tanggal')->take(4)->get();
-        $berita     = Berita::where('status', true)->latest()->take(3)->get();
+        $banners       = Banner::orderBy('urutan')->get();
+        $wisataPinned  = Wisata::where('status_publish', true)
+                            ->where('is_pinned', true)
+                            ->withAvg('ratings', 'rating')
+                            ->withCount('ratings')
+                            ->orderBy('pinned_at', 'asc')
+                            ->orderBy('id', 'asc')
+                            ->get();
+        $wisata        = Wisata::where('status_publish', true)->latest()->take(6)->get();
+        $umkm          = Umkm::latest()->take(6)->get();
+        $events        = Event::where('status', true)->where('tanggal', '>=', now()->toDateString())->orderBy('tanggal')->take(4)->get();
+        $berita        = Berita::where('status', true)->latest()->take(3)->get();
 
-        return view('public.home', compact('banners', 'wisata', 'umkm', 'events', 'berita'));
+        return view('public.home', compact('banners', 'wisata', 'wisataPinned', 'umkm', 'events', 'berita'));
     }
 
     public function wisata(Request $request)
@@ -40,7 +47,7 @@ class PublicController extends Controller
         $query->where('kecamatan', $request->kecamatan);
     }
 
-    $wisata = $query->latest()->paginate(12)->withQueryString();
+    $wisata = $query->orderBy('is_pinned', 'desc')->orderBy('pinned_at', 'asc')->orderBy('id', 'asc')->paginate(12)->withQueryString();
 
     $kategoriList = ['Alam', 'Budaya', 'Religi', 'Buatan', 'Edukasi', 'Kuliner', 'Olahraga'];
     $kecamatanList = ['Magetan', 'Maospati', 'Karas', 'Panekan', 'Plaosan', 'Sidorejo', 'Parang', 'Barat', 'Sukomoro', 'Ngariboyo', 'Kartoharjo', 'Kawedanan', 'Takeran', 'Nguntoronadi', 'Lembeyan', 'Bancikan', 'Poncol', 'Karangrejo', 'Satu Atap'];

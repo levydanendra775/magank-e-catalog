@@ -366,6 +366,237 @@
     }
 
     /* =============================================
+       WISATA UNGGULAN — Featured Pin Section
+    ============================================= */
+    .section-unggulan {
+        background: linear-gradient(135deg, #0a2012 0%, #0f2e1c 50%, #071810 100%);
+        padding: 80px 0;
+        position: relative;
+        overflow: hidden;
+    }
+
+    .section-unggulan::before {
+        content: '';
+        position: absolute;
+        top: -30%;
+        left: -10%;
+        width: 70vw; height: 70vh;
+        background: radial-gradient(ellipse at center, rgba(200,155,60,0.12) 0%, transparent 70%);
+        filter: blur(60px);
+        pointer-events: none;
+    }
+
+    .section-unggulan::after {
+        content: '';
+        position: absolute;
+        bottom: -20%;
+        right: -5%;
+        width: 50vw; height: 50vh;
+        background: radial-gradient(ellipse at center, rgba(26,107,58,0.18) 0%, transparent 70%);
+        filter: blur(50px);
+        pointer-events: none;
+    }
+
+    .unggulan-scroll-wrap {
+        display: flex;
+        gap: 24px;
+        overflow-x: auto;
+        padding-bottom: 16px;
+        scrollbar-width: thin;
+        scrollbar-color: rgba(200,155,60,0.35) transparent;
+        scroll-snap-type: x mandatory;
+        -webkit-overflow-scrolling: touch;
+    }
+
+    .unggulan-scroll-wrap::-webkit-scrollbar { height: 4px; }
+    .unggulan-scroll-wrap::-webkit-scrollbar-track { background: transparent; }
+    .unggulan-scroll-wrap::-webkit-scrollbar-thumb {
+        background: rgba(200,155,60,0.4);
+        border-radius: 10px;
+    }
+
+    .ug-card {
+        flex: 0 0 320px;
+        height: 420px;
+        border-radius: 22px;
+        overflow: hidden;
+        position: relative;
+        cursor: pointer;
+        border: 1.5px solid rgba(200,155,60,0.35);
+        box-shadow: 0 0 0 1px rgba(200,155,60,0.15),
+                    0 12px 40px rgba(0,0,0,0.45);
+        transition: transform 0.4s cubic-bezier(0.2,0.6,0.2,1),
+                    box-shadow 0.4s ease,
+                    border-color 0.3s ease;
+        scroll-snap-align: start;
+    }
+
+    .ug-card:hover {
+        transform: translateY(-10px) scale(1.02);
+        border-color: rgba(200,155,60,0.75);
+        box-shadow: 0 0 0 1px rgba(200,155,60,0.45),
+                    0 24px 60px rgba(0,0,0,0.55),
+                    0 0 40px rgba(200,155,60,0.2);
+    }
+
+    .ug-card img.ug-img {
+        position: absolute;
+        inset: 0;
+        width: 100%; height: 100%;
+        object-fit: cover;
+        transition: transform 0.7s cubic-bezier(0.2,0.6,0.2,1);
+    }
+
+    .ug-card:hover img.ug-img { transform: scale(1.1); }
+
+    .ug-nophoto {
+        position: absolute;
+        inset: 0;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: linear-gradient(135deg, #0f2e1c, #071810);
+        color: rgba(200,155,60,0.3);
+        font-size: 3.5rem;
+    }
+
+    .ug-overlay {
+        position: absolute;
+        inset: 0;
+        background: linear-gradient(
+            180deg,
+            rgba(5,15,10,0.3) 0%,
+            rgba(5,15,10,0.1) 35%,
+            rgba(5,15,10,0.6) 65%,
+            rgba(5,15,10,0.97) 100%
+        );
+        z-index: 2;
+    }
+
+    .ug-pin-badge {
+        position: absolute;
+        top: 16px;
+        left: 16px;
+        z-index: 5;
+        display: inline-flex;
+        align-items: center;
+        gap: 5px;
+        background: linear-gradient(135deg, #C89B3C, #f5c842);
+        color: #1a1a1a;
+        font-size: 0.7rem;
+        font-weight: 800;
+        text-transform: uppercase;
+        letter-spacing: 0.7px;
+        padding: 5px 12px;
+        border-radius: 100px;
+        box-shadow: 0 4px 16px rgba(200,155,60,0.55);
+        animation: pinPulse 2.5s ease-in-out infinite;
+    }
+
+    @keyframes pinPulse {
+        0%, 100% { box-shadow: 0 4px 16px rgba(200,155,60,0.55); }
+        50%       { box-shadow: 0 4px 28px rgba(200,155,60,1); }
+    }
+
+    .ug-content {
+        position: absolute;
+        bottom: 0;
+        left: 0; right: 0;
+        z-index: 4;
+        padding: 20px 20px 22px;
+    }
+
+    .ug-category {
+        font-size: 0.72rem;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 0.6px;
+        color: rgba(255,255,255,0.75);
+        margin-bottom: 6px;
+        display: block;
+    }
+
+    .ug-name {
+        font-family: 'Fraunces', 'Plus Jakarta Sans', serif;
+        font-size: 1.25rem;
+        font-weight: 700;
+        color: #fff;
+        line-height: 1.3;
+        margin-bottom: 6px;
+        text-shadow: 0 2px 12px rgba(0,0,0,0.7);
+    }
+
+    .ug-loc {
+        font-size: 0.82rem;
+        color: rgba(255,255,255,0.7);
+        display: flex;
+        align-items: center;
+        gap: 5px;
+        margin-bottom: 14px;
+    }
+
+    .ug-loc i { color: #C89B3C; }
+
+    .ug-footer {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        border-top: 1px solid rgba(255,255,255,0.12);
+        padding-top: 12px;
+    }
+
+    .ug-rating {
+        display: inline-flex;
+        align-items: center;
+        gap: 4px;
+        background: rgba(0,0,0,0.4);
+        backdrop-filter: blur(8px);
+        border: 1px solid rgba(255,255,255,0.12);
+        padding: 3px 10px;
+        border-radius: 100px;
+        font-size: 0.75rem;
+        font-weight: 600;
+        color: #fff;
+    }
+
+    .ug-price {
+        font-family: 'IBM Plex Mono', monospace;
+        font-size: 0.9rem;
+        font-weight: 700;
+        color: #f5c842;
+    }
+
+    .ug-detail-btn {
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        background: rgba(255,255,255,0.12);
+        backdrop-filter: blur(8px);
+        border: 1px solid rgba(255,255,255,0.22);
+        color: #fff;
+        font-size: 0.8rem;
+        font-weight: 600;
+        padding: 7px 16px;
+        border-radius: 100px;
+        text-decoration: none;
+        transition: all 0.3s ease;
+        position: relative;
+        z-index: 6;
+    }
+
+    .ug-card:hover .ug-detail-btn {
+        background: #C89B3C;
+        color: #0f2018;
+        border-color: #C89B3C;
+    }
+
+    .ug-hitbox {
+        position: absolute;
+        inset: 0;
+        z-index: 3;
+    }
+
+    /* =============================================
        WISATA CARD — 21st.dev "3D Card" Style
     ============================================= */
     .wisata-card-3d {
@@ -1120,6 +1351,90 @@
 })();
 </script>
 @endpush
+
+<!-- ===== WISATA UNGGULAN (DISEMATKAN) ===== -->
+@if(isset($wisataPinned) && $wisataPinned->count())
+<section class="section-unggulan">
+    <div class="container position-relative" style="z-index:5;">
+        {{-- Section Header --}}
+        <div class="d-flex justify-content-between align-items-end mb-5">
+            <div data-aos="fade-up">
+                <div class="section-badge" style="background:rgba(200,155,60,0.15);color:#C89B3C;border:1px solid rgba(200,155,60,0.3);">
+                    <i class="fa-solid fa-thumbtack me-2"></i>Wisata Unggulan
+                </div>
+                <h2 class="section-title mb-2" style="color:#fff;">Destinasi Ikonik Magetan</h2>
+                <p class="mb-0" style="color:rgba(255,255,255,0.6);">Wisata pilihan admin yang wajib Anda kunjungi</p>
+            </div>
+            <a href="{{ route('public.wisata') }}" class="btn d-none d-md-inline-flex align-items-center gap-2" style="background:rgba(200,155,60,0.15);border:1px solid rgba(200,155,60,0.4);color:#f5c842;border-radius:50px;padding:10px 22px;font-weight:600;transition:all 0.3s;" onmouseover="this.style.background='rgba(200,155,60,0.3)'" onmouseout="this.style.background='rgba(200,155,60,0.15)'" data-aos="fade-left">
+                Lihat Semua <i class="fa-solid fa-arrow-right ms-1"></i>
+            </a>
+        </div>
+
+        {{-- Scrollable Cards --}}
+        <div class="unggulan-scroll-wrap" data-aos="fade-up" data-aos-delay="100">
+            @foreach($wisataPinned as $wp)
+            <div class="ug-card">
+                {{-- Image --}}
+                @if($wp->thumbnail)
+                    <img class="ug-img" src="{{ Storage::url($wp->thumbnail) }}" alt="{{ $wp->nama }}" loading="lazy">
+                @else
+                    <div class="ug-nophoto"><i class="fa-solid fa-mountain-sun"></i></div>
+                @endif
+
+                {{-- Dark gradient overlay --}}
+                <div class="ug-overlay"></div>
+
+                {{-- Pin badge --}}
+                <span class="ug-pin-badge">
+                    <i class="fa-solid fa-thumbtack"></i> Unggulan
+                </span>
+
+                {{-- Content --}}
+                <div class="ug-content">
+                    <span class="ug-category">{{ $wp->kategori }}</span>
+                    <h3 class="ug-name">{{ $wp->nama }}</h3>
+                    <div class="ug-loc">
+                        <i class="fa-solid fa-location-dot"></i>
+                        <span>{{ $wp->kecamatan }}, Magetan</span>
+                    </div>
+                    <div class="ug-footer">
+                        <div class="d-flex align-items-center gap-2">
+                            @if($wp->ratings_avg_rating)
+                            <span class="ug-rating">
+                                <i class="fa-solid fa-star text-warning"></i>
+                                {{ number_format($wp->ratings_avg_rating, 1) }}
+                                @if($wp->ratings_count)
+                                <small style="opacity:0.7;">({{ $wp->ratings_count }})</small>
+                                @endif
+                            </span>
+                            @endif
+                            @if($wp->harga_tiket > 0)
+                            <span class="ug-price">Rp {{ number_format($wp->harga_tiket, 0, ',', '.') }}</span>
+                            @else
+                            <span class="ug-price" style="color:rgba(255,255,255,0.6);">Gratis</span>
+                            @endif
+                        </div>
+                        <a href="{{ route('public.wisata.detail', $wp->slug) }}" class="ug-detail-btn">
+                            Detail <i class="fa-solid fa-arrow-right"></i>
+                        </a>
+                    </div>
+                </div>
+
+                {{-- Full card hitbox --}}
+                <a href="{{ route('public.wisata.detail', $wp->slug) }}" class="ug-hitbox" aria-label="{{ $wp->nama }}"></a>
+            </div>
+            @endforeach
+        </div>
+
+        {{-- Mobile: lihat semua button --}}
+        <div class="text-center mt-4 d-md-none">
+            <a href="{{ route('public.wisata') }}" class="btn" style="background:rgba(200,155,60,0.15);border:1px solid rgba(200,155,60,0.4);color:#f5c842;border-radius:50px;padding:10px 28px;font-weight:600;">
+                Lihat Semua Wisata <i class="fa-solid fa-arrow-right ms-1"></i>
+            </a>
+        </div>
+    </div>
+</section>
+@endif
 
 <!-- ===== DESTINASI WISATA ===== -->
 <section class="section-py">

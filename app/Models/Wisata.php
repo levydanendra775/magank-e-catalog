@@ -12,7 +12,12 @@ class Wisata extends Model
     protected $fillable = [
         'nama', 'slug', 'kategori', 'kecamatan', 'alamat',
         'latitude', 'longitude', 'maps', 'harga_tiket', 'jam_operasional',
-        'deskripsi', 'fasilitas', 'thumbnail', 'status_publish',
+        'deskripsi', 'fasilitas', 'thumbnail', 'status_publish', 'is_pinned', 'pinned_at',
+    ];
+
+    protected $casts = [
+        'is_pinned' => 'boolean',
+        'pinned_at' => 'datetime',
     ];
 
     public function galleries()

@@ -249,6 +249,36 @@
     z-index: 4;
     text-decoration: none;
 }
+
+/* === Pin Badge (Unggulan) === */
+.wc-pinned-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    background: linear-gradient(135deg, #C89B3C, #f5c842);
+    color: #1a1a1a;
+    font-size: 0.7rem;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 0.6px;
+    padding: 4px 10px;
+    border-radius: 100px;
+    box-shadow: 0 3px 12px rgba(200, 155, 60, 0.5);
+    z-index: 6;
+    position: relative;
+    animation: pinPulse 2.5s ease-in-out infinite;
+}
+
+@keyframes pinPulse {
+    0%, 100% { box-shadow: 0 3px 12px rgba(200, 155, 60, 0.5); }
+    50%       { box-shadow: 0 3px 20px rgba(200, 155, 60, 0.9); }
+}
+
+/* Pinned card golden border glow */
+.wisata-card-21st.is-pinned {
+    border-color: rgba(200, 155, 60, 0.55);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2), 0 0 0 1px rgba(200, 155, 60, 0.3);
+}
 </style>
 @endpush
 
@@ -329,7 +359,7 @@
     <div class="row g-4">
         @forelse($wisata as $w)
         <div class="col-md-6 col-xl-4" data-aos="fade-up" data-aos-delay="{{ $loop->iteration * 80 }}">
-            <div class="wisata-card-21st" data-tilt>
+            <div class="wisata-card-21st {{ $w->is_pinned ? 'is-pinned' : '' }}" data-tilt>
                 {{-- Image Background --}}
                 <div class="wc-img-wrapper">
                     @if($w->thumbnail)
@@ -344,9 +374,16 @@
 
                 {{-- Top Floating Bar --}}
                 <div class="wc-top-bar">
-                    <span class="wc-badge-category">
-                        {{ $w->kategori }}
-                    </span>
+                    <div class="d-flex flex-column gap-2 align-items-start">
+                        <span class="wc-badge-category">
+                            {{ $w->kategori }}
+                        </span>
+                        @if($w->is_pinned)
+                        <span class="wc-pinned-badge">
+                            <i class="fa-solid fa-thumbtack"></i> Unggulan
+                        </span>
+                        @endif
+                    </div>
 
                     {{-- Like / Wishlist Button --}}
                     @auth

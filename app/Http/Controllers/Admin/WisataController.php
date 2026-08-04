@@ -12,7 +12,7 @@ class WisataController extends Controller
 {
     public function index()
     {
-        $wisata = Wisata::latest()->paginate(10);
+        $wisata = Wisata::orderBy('is_pinned', 'desc')->orderBy('pinned_at', 'asc')->orderBy('id', 'asc')->paginate(10);
         return view('admin.wisata.index', compact('wisata'));
     }
 
@@ -104,5 +104,19 @@ class WisataController extends Controller
         $wisatum->delete();
 
         return redirect()->route('admin.wisata.index')->with('success', 'Data wisata berhasil dihapus!');
+    }
+
+    public function togglePin(Wisata $wisatum)
+    {
+        $newPinnedState = !$wisatum->is_pinned;
+        $wisatum->update([
+            'is_pinned' => $newPinnedState,
+            'pinned_at' => $newPinnedState ? now() : null,
+        ]);
+
+        $status = $newPinnedState ? 'disematkan' : 'batal disematkan';
+
+        return redirect()->route('admin.wisata.index')
+            ->with('success', "Wisata \"" . $wisatum->nama . "\" berhasil $status!");
     }
 }
