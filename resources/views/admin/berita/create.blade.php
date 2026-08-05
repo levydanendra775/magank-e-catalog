@@ -15,8 +15,13 @@
     </div>
 
     <div>
-        <a href="{{ route('admin.berita.index') }}" class="btn btn-outline-secondary px-4 me-2">
-            <i class="fa-solid fa-arrow-left me-1"></i> Kembali
+        <a href="{{ route('admin.berita.index') }}" class="btn-interactive btn-interactive-forest btn-interactive-md">
+            <span class="btn-text-initial">Kembali</span>
+            <div class="btn-text-hover">
+                <i class="fa-solid fa-arrow-left"></i>
+                <span>Kembali</span>
+            </div>
+            <div class="btn-bubble"></div>
         </a>
     </div>
 </div>

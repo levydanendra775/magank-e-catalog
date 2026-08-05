@@ -330,10 +330,13 @@
                    style="border-radius:10px;font-weight:600;background:#7A3B2E;border-color:#7A3B2E;">
                     <i class="fa-solid fa-map-location-dot me-2"></i>Buka di Google Maps
                 </a>
-                <a href="{{ route('public.wisata') }}"
-                   class="btn btn-outline-secondary px-4 py-2"
-                   style="border-radius:10px;font-weight:600;">
-                    <i class="fa-solid fa-arrow-left me-2"></i>Kembali
+                <a href="{{ route('public.wisata') }}" class="btn-interactive btn-interactive-forest btn-interactive-md">
+                    <span class="btn-text-initial">Kembali</span>
+                    <div class="btn-text-hover">
+                        <i class="fa-solid fa-arrow-left"></i>
+                        <span>Kembali</span>
+                    </div>
+                    <div class="btn-bubble"></div>
                 </a>
             </div>
         </div>

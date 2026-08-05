@@ -443,9 +443,13 @@
                             </span>
                         </div>
 
-                        <a href="{{ route('public.wisata.detail', $w->slug) }}" class="wc-explore-btn">
-                            <span>Detail</span>
-                            <i class="fa-solid fa-arrow-right"></i>
+                        <a href="{{ route('public.wisata.detail', $w->slug) }}" class="btn-interactive btn-interactive-card btn-interactive-sm">
+                            <span class="btn-text-initial">Detail</span>
+                            <div class="btn-text-hover">
+                                <span>Detail</span>
+                                <i class="fa-solid fa-arrow-right"></i>
+                            </div>
+                            <div class="btn-bubble"></div>
                         </a>
                     </div>
                 </div>

@@ -88,8 +88,13 @@
             <hr class="my-5">
 
             <div class="d-flex justify-content-between align-items-center">
-                <a href="{{ route('public.event') }}" class="btn btn-outline-secondary px-4 py-2" style="border-radius:10px;font-weight:600;">
-                    <i class="fa-solid fa-arrow-left me-2"></i>Kembali ke Daftar Event
+                <a href="{{ route('public.event') }}" class="btn-interactive btn-interactive-forest btn-interactive-lg">
+                    <span class="btn-text-initial">Kembali ke Daftar Event</span>
+                    <div class="btn-text-hover">
+                        <i class="fa-solid fa-arrow-left"></i>
+                        <span>Kembali ke Daftar Event</span>
+                    </div>
+                    <div class="btn-bubble"></div>
                 </a>
             </div>
 

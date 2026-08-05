@@ -1365,8 +1365,13 @@
                 <h2 class="section-title mb-2" style="color:#fff;">Destinasi Ikonik Magetan</h2>
                 <p class="mb-0" style="color:rgba(255,255,255,0.6);">Wisata pilihan admin yang wajib Anda kunjungi</p>
             </div>
-            <a href="{{ route('public.wisata') }}" class="btn d-none d-md-inline-flex align-items-center gap-2" style="background:rgba(200,155,60,0.15);border:1px solid rgba(200,155,60,0.4);color:#f5c842;border-radius:50px;padding:10px 22px;font-weight:600;transition:all 0.3s;" onmouseover="this.style.background='rgba(200,155,60,0.3)'" onmouseout="this.style.background='rgba(200,155,60,0.15)'" data-aos="fade-left">
-                Lihat Semua <i class="fa-solid fa-arrow-right ms-1"></i>
+            <a href="{{ route('public.wisata') }}" class="btn-interactive btn-interactive-gold btn-interactive-md d-none d-md-inline-flex" data-aos="fade-left">
+                <span class="btn-text-initial">Lihat Semua</span>
+                <div class="btn-text-hover">
+                    <span>Lihat Semua</span>
+                    <i class="fa-solid fa-arrow-right"></i>
+                </div>
+                <div class="btn-bubble"></div>
             </a>
         </div>
 
@@ -1414,8 +1419,13 @@
                             <span class="ug-price" style="color:rgba(255,255,255,0.6);">Gratis</span>
                             @endif
                         </div>
-                        <a href="{{ route('public.wisata.detail', $wp->slug) }}" class="ug-detail-btn">
-                            Detail <i class="fa-solid fa-arrow-right"></i>
+                        <a href="{{ route('public.wisata.detail', $wp->slug) }}" class="btn-interactive btn-interactive-card btn-interactive-sm">
+                            <span class="btn-text-initial">Detail</span>
+                            <div class="btn-text-hover">
+                                <span>Detail</span>
+                                <i class="fa-solid fa-arrow-right"></i>
+                            </div>
+                            <div class="btn-bubble"></div>
                         </a>
                     </div>
                 </div>
@@ -1428,8 +1438,13 @@
 
         {{-- Mobile: lihat semua button --}}
         <div class="text-center mt-4 d-md-none">
-            <a href="{{ route('public.wisata') }}" class="btn" style="background:rgba(200,155,60,0.15);border:1px solid rgba(200,155,60,0.4);color:#f5c842;border-radius:50px;padding:10px 28px;font-weight:600;">
-                Lihat Semua Wisata <i class="fa-solid fa-arrow-right ms-1"></i>
+            <a href="{{ route('public.wisata') }}" class="btn-interactive btn-interactive-gold btn-interactive-lg">
+                <span class="btn-text-initial">Lihat Semua Wisata</span>
+                <div class="btn-text-hover">
+                    <span>Lihat Semua Wisata</span>
+                    <i class="fa-solid fa-arrow-right"></i>
+                </div>
+                <div class="btn-bubble"></div>
             </a>
         </div>
     </div>
@@ -1445,7 +1460,14 @@
                 <h2 class="section-title mb-2">Tempat Wisata Unggulan</h2>
                 <p class="text-muted mb-0">Keindahan alam dan budaya Kabupaten Magetan yang memukau</p>
             </div>
-            <a href="{{ route('public.wisata') }}" class="btn-outline-custom d-none d-md-inline-block" data-aos="fade-left">Lihat Semua <i class="fa-solid fa-arrow-right ms-1"></i></a>
+            <a href="{{ route('public.wisata') }}" class="btn-interactive btn-interactive-forest btn-interactive-md d-none d-md-inline-flex" data-aos="fade-left">
+                <span class="btn-text-initial">Lihat Semua</span>
+                <div class="btn-text-hover">
+                    <span>Lihat Semua</span>
+                    <i class="fa-solid fa-arrow-right"></i>
+                </div>
+                <div class="btn-bubble"></div>
+            </a>
         </div>
 
         @if($wisata->count())
@@ -1521,7 +1543,14 @@
         @endif
 
         <div class="text-center mt-5 d-md-none">
-            <a href="{{ route('public.wisata') }}" class="btn-outline-custom">Lihat Semua Wisata</a>
+            <a href="{{ route('public.wisata') }}" class="btn-interactive btn-interactive-forest btn-interactive-lg">
+                <span class="btn-text-initial">Lihat Semua Wisata</span>
+                <div class="btn-text-hover">
+                    <span>Lihat Semua Wisata</span>
+                    <i class="fa-solid fa-arrow-right"></i>
+                </div>
+                <div class="btn-bubble"></div>
+            </a>
         </div>
     </div>
 </section>
@@ -1572,7 +1601,14 @@ document.querySelectorAll('[data-tilt]').forEach(card => {
                 <h2 class="section-title mb-2">Event Mendatang</h2>
                 <p class="text-muted mb-0">Jangan lewatkan event seru di Kabupaten Magetan</p>
             </div>
-            <a href="{{ route('public.event') }}" class="btn-outline-custom d-none d-md-inline-block" data-aos="fade-left">Lihat Semua <i class="fa-solid fa-arrow-right ms-1"></i></a>
+            <a href="{{ route('public.event') }}" class="btn-interactive btn-interactive-forest btn-interactive-md d-none d-md-inline-flex" data-aos="fade-left">
+                <span class="btn-text-initial">Lihat Semua</span>
+                <div class="btn-text-hover">
+                    <span>Lihat Semua</span>
+                    <i class="fa-solid fa-arrow-right"></i>
+                </div>
+                <div class="btn-bubble"></div>
+            </a>
         </div>
 
         <div class="row g-4">
@@ -1637,7 +1673,14 @@ document.querySelectorAll('[data-tilt]').forEach(card => {
                 <h2 class="section-title mb-2">Kabar Pariwisata Magetan</h2>
                 <p class="text-muted mb-0">Informasi terbaru seputar wisata dan UMKM Magetan</p>
             </div>
-            <a href="{{ route('public.berita') }}" class="btn-outline-custom d-none d-md-inline-block" data-aos="fade-left">Lihat Semua <i class="fa-solid fa-arrow-right ms-1"></i></a>
+            <a href="{{ route('public.berita') }}" class="btn-interactive btn-interactive-forest btn-interactive-md d-none d-md-inline-flex" data-aos="fade-left">
+                <span class="btn-text-initial">Lihat Semua</span>
+                <div class="btn-text-hover">
+                    <span>Lihat Semua</span>
+                    <i class="fa-solid fa-arrow-right"></i>
+                </div>
+                <div class="btn-bubble"></div>
+            </a>
         </div>
 
         <div class="row g-4">

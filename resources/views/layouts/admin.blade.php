@@ -491,6 +491,147 @@
                 padding: 16px;
             }
         }
+
+        /* 21st.dev Interactive Hover Button */
+        .btn-interactive {
+            position: relative;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 9999px;
+            border: 1.5px solid transparent;
+            cursor: pointer;
+            overflow: hidden;
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            font-weight: 600;
+            text-decoration: none !important;
+            user-select: none;
+            vertical-align: middle;
+            transition: border-color 0.35s ease, box-shadow 0.35s ease, transform 0.25s ease, background 0.35s ease;
+            white-space: nowrap;
+            letter-spacing: 0.2px;
+        }
+
+        .btn-interactive:active {
+            transform: scale(0.97) !important;
+        }
+
+        .btn-interactive-sm {
+            min-width: 96px;
+            height: 36px;
+            padding: 0 16px;
+            font-size: 0.8rem;
+        }
+
+        .btn-interactive-md {
+            min-width: 120px;
+            height: 38px;
+            padding: 0 20px;
+            font-size: 0.86rem;
+        }
+
+        .btn-interactive-lg {
+            min-width: 160px;
+            height: 44px;
+            padding: 0 24px;
+            font-size: 0.92rem;
+        }
+
+        .btn-interactive .btn-text-initial {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            transform: translateX(4px);
+            opacity: 1;
+            transition: transform 0.35s cubic-bezier(0.2, 0.8, 0.2, 1), opacity 0.3s ease;
+            z-index: 2;
+        }
+
+        .btn-interactive:hover .btn-text-initial {
+            transform: translateX(28px);
+            opacity: 0;
+        }
+
+        .btn-interactive .btn-text-hover {
+            position: absolute;
+            inset: 0;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            transform: translateX(28px);
+            opacity: 0;
+            transition: transform 0.35s cubic-bezier(0.2, 0.8, 0.2, 1), opacity 0.3s ease;
+            z-index: 3;
+            font-weight: 700;
+        }
+
+        .btn-interactive:hover .btn-text-hover {
+            transform: translateX(0);
+            opacity: 1;
+        }
+
+        .btn-interactive .btn-text-hover i,
+        .btn-interactive .btn-text-hover svg {
+            font-size: 0.85em;
+            transition: transform 0.3s ease;
+        }
+
+        .btn-interactive:hover .btn-text-hover i:not(.fa-arrow-left),
+        .btn-interactive:hover .btn-text-hover svg:not(.arrow-left) {
+            transform: translateX(3px);
+        }
+
+        .btn-interactive:hover .btn-text-hover i.fa-arrow-left,
+        .btn-interactive:hover .btn-text-hover svg.arrow-left {
+            transform: translateX(-3px);
+        }
+
+        .btn-interactive .btn-bubble {
+            position: absolute;
+            left: 14px;
+            top: 50%;
+            transform: translateY(-50%) scale(1);
+            width: 7px;
+            height: 7px;
+            border-radius: 50%;
+            transition: left 0.35s cubic-bezier(0.2, 0.8, 0.2, 1),
+                        top 0.35s cubic-bezier(0.2, 0.8, 0.2, 1),
+                        width 0.35s cubic-bezier(0.2, 0.8, 0.2, 1),
+                        height 0.35s cubic-bezier(0.2, 0.8, 0.2, 1),
+                        transform 0.35s cubic-bezier(0.2, 0.8, 0.2, 1),
+                        border-radius 0.35s cubic-bezier(0.2, 0.8, 0.2, 1),
+                        background 0.35s ease;
+            z-index: 1;
+        }
+
+        .btn-interactive:hover .btn-bubble {
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            transform: translateY(0) scale(1);
+            border-radius: 9999px;
+        }
+
+        .btn-interactive-forest {
+            background: #ffffff;
+            border-color: rgba(31, 58, 52, 0.25);
+            color: #1F3A34 !important;
+            box-shadow: 0 2px 8px rgba(31, 58, 52, 0.06);
+        }
+        .btn-interactive-forest .btn-bubble {
+            background: #1F3A34;
+        }
+        .btn-interactive-forest .btn-text-hover {
+            color: #ffffff !important;
+        }
+        .btn-interactive-forest:hover {
+            border-color: #1F3A34;
+            box-shadow: 0 6px 18px rgba(31, 58, 52, 0.2);
+        }
     </style>
     @stack('styles')
     @yield('styles')
