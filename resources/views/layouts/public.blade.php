@@ -647,7 +647,7 @@
         <div class="container position-relative" style="z-index: 1;">
             <div class="row g-4">
                 <div class="col-md-4 pe-md-5">
-                    <h5 class="brand-title mb-3">E-Catalog Magetan</h5>
+                    <h5 class="brand-title mb-3">E-Catalog Wisata & Event Magetan</h5>
                     <p class="small" style="line-height:1.8; color:#94a3b8;">Portal informasi dan promosi pariwisata Kabupaten Magetan yang dikelola oleh Bidang Pemasaran Dinas Pariwisata dan Kebudayaan.</p>
                 </div>
                 <div class="col-md-2">
