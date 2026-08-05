@@ -8,9 +8,10 @@ use App\Http\Controllers\Admin\BeritaController;
 use App\Http\Controllers\Admin\BannerController;
 use App\Http\Controllers\Admin\GaleriController;
 use App\Http\Controllers\Admin\UlasanController;
-use App\Http\Controllers\Admin\LaporanController;
+use App\Http\Controllers\Auth\AuthenticatedSessionController;
 
-Route::middleware(['auth', 'role:Admin|Petugas'])->prefix('admin')->name('admin.')->group(function () {
+Route::middleware(['auth:admin', 'role:Admin|Petugas'])->prefix('admin')->name('admin.')->group(function () {
+    Route::post('/logout', [AuthenticatedSessionController::class, 'destroyAdmin'])->name('logout');
     Route::get('/', [DashboardController::class, 'index'])->name('dashboard');
     
     // Laporan Routes

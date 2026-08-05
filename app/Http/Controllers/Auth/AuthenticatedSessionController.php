@@ -28,24 +28,34 @@ class AuthenticatedSessionController extends Controller
 
         $request->session()->regenerate();
 
-        if ($request->user()->hasAnyRole(['Admin', 'Petugas'])) {
-            return redirect()->intended(route('admin.dashboard', absolute: false));
+        if (Auth::guard('admin')->check()) {
+            return redirect()->route('admin.dashboard');
         }
 
-        return redirect()->intended(route('home', absolute: false));
+        return redirect()->route('home');
     }
 
     /**
-     * Destroy an authenticated session.
+     * Destroy an authenticated web (user) session.
      */
     public function destroy(Request $request): RedirectResponse
     {
         Auth::guard('web')->logout();
 
-        $request->session()->invalidate();
-
         $request->session()->regenerateToken();
 
         return redirect('/');
+    }
+
+    /**
+     * Destroy an authenticated admin session.
+     */
+    public function destroyAdmin(Request $request): RedirectResponse
+    {
+        Auth::guard('admin')->logout();
+
+        $request->session()->regenerateToken();
+
+        return redirect()->route('login')->with('status', 'Anda telah logout dari Dashboard Admin.');
     }
 }

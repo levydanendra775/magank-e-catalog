@@ -515,41 +515,71 @@
                     <a href="{{ route('public.berita') }}"
                        class="nav-link-custom {{ request()->routeIs('public.berita*') ? 'active' : '' }}">Berita</a>
 
-                    @auth
+                    @php
+                        $webUser = Auth::guard('web')->user();
+                        $adminUser = Auth::guard('admin')->user();
+                        $publicUser = $webUser ?? $adminUser;
+                    @endphp
+
+                    @if($publicUser)
                         <div class="dropdown ms-2">
                             <button class="btn-primary-custom dropdown-toggle d-flex align-items-center gap-2" type="button"
                                     data-bs-toggle="dropdown" aria-expanded="false"
                                     style="border-radius:10px; padding:9px 18px; font-size:0.88rem;">
                                 <i class="fa-solid fa-circle-user" style="font-size:1.05rem;"></i>
-                                <span>Akun</span>
+                                <span>{{ Str::limit($publicUser->name, 12) }}</span>
                             </button>
                             <ul class="dropdown-menu dropdown-menu-end shadow border-0 mt-2"
-                                style="border-radius:14px; background:rgba(18,36,29,0.96); backdrop-filter:blur(18px); -webkit-backdrop-filter:blur(18px); border:1px solid rgba(255,255,255,0.12) !important; min-width:230px; padding:8px;">
+                                style="border-radius:14px; background:rgba(18,36,29,0.96); backdrop-filter:blur(18px); -webkit-backdrop-filter:blur(18px); border:1px solid rgba(255,255,255,0.12) !important; min-width:240px; padding:8px;">
                                 <li class="px-3 py-2 text-white-50 small border-bottom border-secondary border-opacity-25 mb-1">
-                                    <div class="fw-bold text-white text-truncate">{{ auth()->user()->name }}</div>
-                                    <div class="text-truncate" style="font-size:0.75rem;">{{ auth()->user()->email }}</div>
+                                    <div class="fw-bold text-white text-truncate">{{ $publicUser->name }}</div>
+                                    <div class="text-truncate" style="font-size:0.75rem;">{{ $publicUser->email }}</div>
+                                    @if($adminUser && $webUser)
+                                        <span class="badge bg-warning text-dark mt-1" style="font-size:0.68rem;"><i class="fa-solid fa-layer-group me-1"></i>Sesi Concurrent (Admin & User)</span>
+                                    @elseif($adminUser)
+                                        <span class="badge bg-success mt-1" style="font-size:0.68rem;"><i class="fa-solid fa-user-shield me-1"></i>Sesi Admin Aktif</span>
+                                    @endif
                                 </li>
-                                @if(auth()->user()->hasAnyRole(['Admin', 'Petugas']))
+                                @if($adminUser || ($webUser && $webUser->hasAnyRole(['Admin', 'Petugas'])))
                                 <li><a class="dropdown-item py-2 px-3 rounded-2" href="{{ route('admin.dashboard') }}"
                                        style="color:rgba(255,255,255,0.9); font-size:0.88rem; transition: background 0.2s;">
                                     <i class="fa-solid fa-gauge me-2" style="color:var(--accent);"></i>Dashboard Admin
                                 </a></li>
                                 @endif
+                                @if($webUser)
                                 <li><a class="dropdown-item py-2 px-3 rounded-2 d-flex align-items-center justify-content-between" href="{{ route('wishlist.index') }}"
                                        style="color:rgba(255,255,255,0.9); font-size:0.88rem; transition: background 0.2s;">
                                     <span><i class="fa-solid fa-heart me-2" style="color:#ff6b6b;"></i>Wisata Disukai</span>
-                                    <span class="badge bg-danger rounded-pill navbar-wishlist-count" style="font-size:0.7rem;">{{ auth()->user()->wishlist()->count() }}</span>
+                                    <span class="badge bg-danger rounded-pill navbar-wishlist-count" style="font-size:0.7rem;">{{ $webUser->wishlist()->count() }}</span>
+                                </a></li>
+                                @endif
+                                <li><a class="dropdown-item py-2 px-3 rounded-2" href="{{ route('login') }}"
+                                       style="color:rgba(255,255,255,0.9); font-size:0.88rem; transition: background 0.2s;">
+                                    <i class="fa-solid fa-user-plus me-2" style="color:#60a5fa;"></i>Login / Ganti Akun
                                 </a></li>
                                 <li><hr class="dropdown-divider my-2" style="border-color:rgba(255,255,255,0.1);"></li>
+                                @if($webUser)
                                 <li>
                                     <form method="POST" action="{{ route('logout') }}">
                                         @csrf
                                         <button type="submit" class="dropdown-item py-2 px-3 rounded-2 fw-semibold"
                                                 style="color:#ff6b6b; font-size:0.88rem;">
-                                            <i class="fa-solid fa-right-from-bracket me-2"></i>Logout / Ganti Akun
+                                            <i class="fa-solid fa-right-from-bracket me-2"></i>Logout Sesi User
                                         </button>
                                     </form>
                                 </li>
+                                @endif
+                                @if($adminUser)
+                                <li>
+                                    <form method="POST" action="{{ route('admin.logout') }}">
+                                        @csrf
+                                        <button type="submit" class="dropdown-item py-2 px-3 rounded-2 fw-semibold"
+                                                style="color:#fb923c; font-size:0.88rem;">
+                                            <i class="fa-solid fa-power-off me-2"></i>Logout Sesi Admin
+                                        </button>
+                                    </form>
+                                </li>
+                                @endif
                             </ul>
                         </div>
                     @else
@@ -557,7 +587,7 @@
                            style="border-radius:10px; padding:9px 20px; font-size:0.88rem;">
                             <i class="fa-solid fa-right-to-bracket me-1"></i>Login
                         </a>
-                    @endauth
+                    @endif
                 </div>
             </div>
 
@@ -568,31 +598,41 @@
                         <a href="{{ route('public.wisata') }}" class="nav-link-custom">Wisata</a>
                         <a href="{{ route('public.event') }}" class="nav-link-custom">Event</a>
                         <a href="{{ route('public.berita') }}" class="nav-link-custom">Berita</a>
-                        @auth
+                        @if($publicUser)
                             <hr style="border-color:rgba(255,255,255,0.12); margin:8px 0;">
                             <div class="px-2 py-1 text-white-50 small">
-                                Halo, <strong class="text-white">{{ auth()->user()->name }}</strong>
+                                Halo, <strong class="text-white">{{ $publicUser->name }}</strong>
                             </div>
-                            @if(auth()->user()->hasAnyRole(['Admin', 'Petugas']))
+                            @if($adminUser || ($webUser && $webUser->hasAnyRole(['Admin', 'Petugas'])))
                             <a href="{{ route('admin.dashboard') }}" class="nav-link-custom fw-bold">
                                 <i class="fa-solid fa-gauge me-2" style="color:var(--accent);"></i>Dashboard Admin
                             </a>
                             @endif
+                            @if($webUser)
                             <a href="{{ route('wishlist.index') }}" class="nav-link-custom fw-bold d-flex align-items-center justify-content-between">
                                 <span><i class="fa-solid fa-heart me-2" style="color:#ff6b6b;"></i>Wisata Disukai</span>
-                                <span class="badge bg-danger rounded-pill navbar-wishlist-count">{{ auth()->user()->wishlist()->count() }}</span>
+                                <span class="badge bg-danger rounded-pill navbar-wishlist-count">{{ $webUser->wishlist()->count() }}</span>
                             </a>
-                            <form method="POST" action="{{ route('logout') }}" class="mt-2 mb-2">
+                            <form method="POST" action="{{ route('logout') }}" class="mt-2 mb-1">
                                 @csrf
-                                <button type="submit" class="btn btn-danger w-100" style="border-radius:10px; font-weight:600;">
-                                    <i class="fa-solid fa-right-from-bracket me-2"></i>Logout
+                                <button type="submit" class="btn btn-outline-danger w-100" style="border-radius:10px; font-weight:600;">
+                                    <i class="fa-solid fa-right-from-bracket me-2"></i>Logout Sesi User
                                 </button>
                             </form>
+                            @endif
+                            @if($adminUser)
+                            <form method="POST" action="{{ route('admin.logout') }}" class="mt-1 mb-2">
+                                @csrf
+                                <button type="submit" class="btn btn-warning w-100" style="border-radius:10px; font-weight:600;">
+                                    <i class="fa-solid fa-power-off me-2"></i>Logout Sesi Admin
+                                </button>
+                            </form>
+                            @endif
                         @else
                             <a href="{{ route('login') }}" class="btn-primary-custom mt-2 text-center">
                                 <i class="fa-solid fa-right-to-bracket me-1"></i>Login
                             </a>
-                        @endauth
+                        @endif
                     </div>
                 </div>
             </div>

@@ -308,9 +308,19 @@
             </div>
 
             <div>
-                <h1 class="title">Kelola Katalog Magetan</h1>
-                <p class="subtitle">Masuk dengan kredensial admin Anda untuk melanjutkan.</p>
+                <h1 class="title">Masuk Katalog Magetan</h1>
+                <p class="subtitle">Masuk dengan email dan kata sandi Anda untuk melanjutkan.</p>
             </div>
+
+            @if(Auth::guard('admin')->check())
+                <div style="background: rgba(200, 155, 60, 0.2); border-left: 4px solid #C89B3C; color: #fce3a7; padding: 12px 16px; font-size: 13px; border-radius: 8px; margin-bottom: 24px;">
+                    <i class="fa-solid fa-user-shield me-1"></i> Saat ini Anda sedang login sebagai Admin: <strong>{{ Auth::guard('admin')->user()->name }}</strong>. Anda dapat login ke akun User di bawah ini tanpa mengeluarkan (logout) sesi Admin.
+                </div>
+            @elseif(Auth::guard('web')->check())
+                <div style="background: rgba(59, 130, 246, 0.2); border-left: 4px solid #60a5fa; color: #93c5fd; padding: 12px 16px; font-size: 13px; border-radius: 8px; margin-bottom: 24px;">
+                    <i class="fa-solid fa-user me-1"></i> Saat ini Anda sedang login sebagai User: <strong>{{ Auth::guard('web')->user()->name }}</strong>. Anda dapat login ke akun Admin di bawah ini tanpa mengeluarkan (logout) sesi User.
+                </div>
+            @endif
 
             @if (session('status'))
                 <div class="alert">

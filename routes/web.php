@@ -19,11 +19,11 @@ Route::get('/tentang', [PublicController::class, 'tentang'])->name('public.tenta
 
 // ===== Auth Dashboard Redirect =====
 Route::get('/dashboard', function () {
-    if (auth()->user()->hasAnyRole(['Admin', 'Petugas'])) {
+    if (Illuminate\Support\Facades\Auth::guard('admin')->check()) {
         return redirect()->route('admin.dashboard');
     }
     return redirect()->route('home');
-})->middleware(['auth', 'verified'])->name('dashboard');
+})->name('dashboard');
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');

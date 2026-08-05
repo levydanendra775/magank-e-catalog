@@ -603,17 +603,18 @@
                     </ul>
                 </div>
 
+                @php $adminUser = Auth::guard('admin')->user() ?? Auth::user(); @endphp
                 <span class="user-badge ms-2">
                     <i class="fa-solid fa-user-shield" style="color:var(--accent);"></i>
-                    {{ Auth::user()->roles->pluck('name')->first() ?? 'Admin' }}
+                    {{ $adminUser->roles->pluck('name')->first() ?? 'Admin' }}
                 </span>
 
-                <span class="fw-semibold text-dark small d-none d-sm-inline me-2">{{ Auth::user()->name ?? 'Admin' }}</span>
+                <span class="fw-semibold text-dark small d-none d-sm-inline me-2">{{ $adminUser->name ?? 'Admin' }}</span>
 
-                <form method="POST" action="{{ route('logout') }}" class="d-inline">
+                <form method="POST" action="{{ route('admin.logout') }}" class="d-inline">
                     @csrf
                     <button type="submit" class="btn btn-sm btn-outline-danger px-3">
-                        <i class="fa-solid fa-right-from-bracket me-1"></i> Logout
+                        <i class="fa-solid fa-right-from-bracket me-1"></i> Logout Admin
                     </button>
                 </form>
             </div>
