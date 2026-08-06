@@ -17,9 +17,9 @@
         to   { opacity: 1; transform: none; }
     }
     @keyframes glow-pulse {
-        0%   { transform: translate(-50%,-50%) scale(1);    opacity: 1; }
-        50%  { transform: translate(-49%,-51%) scale(1.07); opacity: 0.8; }
-        100% { transform: translate(-50%,-50%) scale(1);    opacity: 1; }
+        0%   { opacity: 0.9; }
+        50%  { opacity: 0.6; }
+        100% { opacity: 0.9; }
     }
     @keyframes float-particle {
         0%,100% { transform: translateY(0px) translateX(0px); opacity: 0.4; }
@@ -43,47 +43,51 @@
         min-height: 80vh;
         background:
             linear-gradient(rgba(15, 26, 22, 0.60), rgba(15, 26, 22, 0.75)),
-            url('/images/hero-telaga-sarangan.jpg') center/cover no-repeat;
+            url('/images/hero-telaga-sarangan.jpg') center/cover no-repeat fixed;
         display: flex;
         align-items: center;
         position: relative;
         overflow: hidden;
     }
 
-    /* Animated radial glow — main */
+    /* Disable parallax on mobile — major perf killer on iOS/Android */
+    @media (max-width: 768px) {
+        .hero-section {
+            background-attachment: scroll;
+        }
+    }
+
+    /* Animated radial glow — main (GPU-promoted, cheaper animation) */
     .hero-glow-main {
         position: absolute;
         left: 50%; top: 60%;
-        width: 160vw; height: 180vh;
+        width: 140vw; height: 140vh;
         transform: translate(-50%, -50%);
         background:
-            radial-gradient(50% 50% at 50% 50%, rgba(31,58,52,0.9) 0%, transparent 70%),
-            radial-gradient(38% 44% at 30% 40%, rgba(200,155,60,0.28) 0%, transparent 65%),
-            radial-gradient(30% 38% at 72% 30%, rgba(31,58,52,0.6) 0%, transparent 65%);
-        filter: blur(52px);
-        animation: glow-pulse 12s ease-in-out infinite;
+            radial-gradient(50% 50% at 50% 50%, rgba(31,58,52,0.85) 0%, transparent 70%),
+            radial-gradient(38% 44% at 30% 40%, rgba(200,155,60,0.22) 0%, transparent 65%),
+            radial-gradient(30% 38% at 72% 30%, rgba(31,58,52,0.55) 0%, transparent 65%);
+        filter: blur(48px);
+        /* Only animate opacity — no transform mutation = no layout/paint thrashing */
+        animation: glow-pulse 14s ease-in-out infinite;
         pointer-events: none;
         z-index: 0;
+        will-change: opacity;
+        contain: layout paint;
     }
 
-    /* Subtle green accent glow top-left */
+    /* Subtle accent glow top-left — static, no animation needed */
     .hero-glow-accent {
         position: absolute;
         top: -10%; left: -5%;
-        width: 60vw; height: 60vh;
-        background: radial-gradient(ellipse at center, rgba(200,155,60,0.10) 0%, transparent 70%);
-        filter: blur(40px);
+        width: 55vw; height: 55vh;
+        background: radial-gradient(ellipse at center, rgba(200,155,60,0.08) 0%, transparent 70%);
+        filter: blur(36px);
         pointer-events: none;
         z-index: 0;
+        /* Static — no animation */
     }
 
-    /* Particles canvas */
-    #hero-particles {
-        position: absolute;
-        inset: 0;
-        z-index: 1;
-        pointer-events: none;
-    }
 
     /* Noise grain overlay */
     .hero-grain {
@@ -137,13 +141,14 @@
     .hero-title .highlight {
         color: var(--accent);
         font-style: italic;
-        /* shimmer on accent text */
+        /* shimmer on accent text — slowed to reduce repaints */
         background: linear-gradient(90deg, #C89B3C 0%, #F5D08A 35%, #C89B3C 60%, #9C7726 100%);
         background-size: 200% auto;
         -webkit-background-clip: text;
         -webkit-text-fill-color: transparent;
         background-clip: text;
-        animation: shimmer-line 4s linear infinite;
+        animation: shimmer-line 7s linear infinite;
+        will-change: background-position;
     }
 
     /* ── Subtitle ── */
@@ -1151,8 +1156,6 @@
     <!-- Animated glow layers -->
     <div class="hero-glow-main"></div>
     <div class="hero-glow-accent"></div>
-    <!-- Particles canvas -->
-    <canvas id="hero-particles"></canvas>
     <!-- Grain texture -->
     <div class="hero-grain"></div>
 
@@ -1295,62 +1298,7 @@
     </div>
 </section>
 
-@push('scripts')
-<script>
-// ── Particles animation ──
-(function() {
-    const canvas = document.getElementById('hero-particles');
-    if (!canvas) return;
-    const ctx = canvas.getContext('2d');
-    let particles = [];
-    const COLORS = ['rgba(200,155,60,', 'rgba(255,255,255,', 'rgba(31,58,52,'];
 
-    function resize() {
-        canvas.width = canvas.offsetWidth;
-        canvas.height = canvas.offsetHeight;
-    }
-
-    function createParticle() {
-        return {
-            x: Math.random() * canvas.width,
-            y: Math.random() * canvas.height,
-            r: Math.random() * 1.8 + 0.3,
-            vx: (Math.random() - 0.5) * 0.25,
-            vy: (Math.random() - 0.5) * 0.25 - 0.1,
-            alpha: Math.random() * 0.5 + 0.1,
-            color: COLORS[Math.floor(Math.random() * COLORS.length)],
-            life: 0,
-            maxLife: Math.random() * 300 + 150,
-        };
-    }
-
-    function init() {
-        resize();
-        for (let i = 0; i < 60; i++) particles.push(createParticle());
-    }
-
-    function draw() {
-        ctx.clearRect(0, 0, canvas.width, canvas.height);
-        particles.forEach((p, i) => {
-            p.x += p.vx; p.y += p.vy; p.life++;
-            const progress = p.life / p.maxLife;
-            const fade = progress < 0.2 ? progress / 0.2 : progress > 0.8 ? (1 - progress) / 0.2 : 1;
-            ctx.beginPath();
-            ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
-            ctx.fillStyle = p.color + (p.alpha * fade) + ')';
-            ctx.fill();
-            if (p.life >= p.maxLife || p.y < -10 || p.y > canvas.height + 10) {
-                particles[i] = createParticle();
-            }
-        });
-        requestAnimationFrame(draw);
-    }
-
-    window.addEventListener('resize', () => { resize(); });
-    init(); draw();
-})();
-</script>
-@endpush
 
 <!-- ===== WISATA UNGGULAN (DISEMATKAN) ===== -->
 @if(isset($wisataPinned) && $wisataPinned->count())

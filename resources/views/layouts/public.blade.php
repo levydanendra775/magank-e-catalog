@@ -120,57 +120,53 @@
             letter-spacing: 0.2px;
         }
 
-        /* Divider between logos */
-        .nav-logo-divider {
-            width: 1px;
-            height: 36px;
-            background: rgba(255,255,255,0.2);
-            margin: 0 6px;
-            transition: background 0.3s;
-        }
-        .navbar-public.nav-glass .nav-logo-divider {
-            background: rgba(255,255,255,0.15);
-        }
-
-        /* Nav links — with animated underline indicator */
+        /* Nav links — sliding pill indicator (gaya glass navbar referensi #3) */
         .nav-link-custom {
             color: rgba(255,255,255,0.72) !important;
+            text-decoration: none !important; /* fix: underline default browser sebelumnya menutupi
+                                                   indikator custom */
             font-weight: 600;
             font-size: 0.9rem;
             padding: 6px 14px !important;
             border-radius: 8px;
-            transition: color 0.2s ease, background 0.2s ease;
+            transition: color 0.2s ease;
             position: relative;
+            z-index: 1; /* teks selalu di atas pill */
             letter-spacing: 0.01em;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+        }
+        .nav-link-custom i {
+            font-size: 0.82rem;
+            opacity: 0.8;
         }
 
-        /* Underline indicator */
-        .nav-link-custom::after {
-            content: '';
-            position: absolute;
-            bottom: 2px;
-            left: 50%;
-            transform: translateX(-50%) scaleX(0);
-            width: calc(100% - 28px);
-            height: 2px;
-            background: var(--accent);
-            border-radius: 2px;
-            transition: transform 0.25s cubic-bezier(0.2,0.6,0.2,1);
-        }
-
-        .nav-link-custom:hover {
-            color: #fff !important;
-            background: rgba(255,255,255,0.07);
-        }
-
-        .nav-link-custom:hover::after,
-        .nav-link-custom.active::after {
-            transform: translateX(-50%) scaleX(1);
-        }
-
+        .nav-link-custom:hover,
         .nav-link-custom.active {
             color: #fff !important;
-            background: rgba(255,255,255,0.05);
+        }
+
+        /* Wadah 3 link — jadi acuan posisi pill (hanya link, tanpa tombol akun) */
+        .nav-links-wrap {
+            position: relative;
+        }
+
+        /* Pill yang meluncur mengikuti hover / halaman aktif */
+        .nav-pill {
+            position: absolute;
+            top: 0;
+            left: 0;
+            height: 100%;
+            border-radius: 8px;
+            background: rgba(200,155,60,0.16);
+            border: 1px solid rgba(200,155,60,0.3);
+            opacity: 0;
+            z-index: 0;
+            pointer-events: none;
+            transition: transform 0.35s cubic-bezier(0.2,0.6,0.2,1),
+                        width 0.35s cubic-bezier(0.2,0.6,0.2,1),
+                        opacity 0.2s ease;
         }
 
         /* ===== SECTION HEADERS ===== */
@@ -397,13 +393,17 @@
             opacity: 0.85;
         }
 
-        /* Divider between logos */
+        /* Divider between logos — tint gold supaya senada dengan tombol/accent, bukan abu-abu netral */
         .nav-logo-divider-line {
             width: 1px;
             height: 36px;
-            background: rgba(255,255,255,0.18);
+            background: rgba(200,155,60,0.35);
             margin: 0 4px;
             flex-shrink: 0;
+            transition: background 0.3s;
+        }
+        .navbar-public.nav-glass .nav-logo-divider-line {
+            background: rgba(200,155,60,0.25);
         }
 
         /* Wishlist button */
@@ -655,6 +655,112 @@
             box-shadow: 0 6px 20px rgba(200, 155, 60, 0.5);
             transform: translateY(-1px);
         }
+
+        /* =========================================================
+           21st.dev / shadcn PAGINATION COMPONENT
+           Inspired by: 21st.dev / @reui_io
+           ========================================================= */
+        .pagination-21st-nav {
+            display: flex;
+            width: 100%;
+            justify-content: center;
+            align-items: center;
+            margin: 0 auto;
+        }
+
+        .pagination-21st-content {
+            display: inline-flex;
+            flex-direction: row;
+            align-items: center;
+            gap: 6px;
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .pagination-21st-content li[data-slot="pagination-item"] {
+            list-style: none;
+            display: inline-flex;
+            align-items: center;
+            margin: 0;
+            padding: 0;
+        }
+
+        /* Base button */
+        .btn-pagination-21st {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            font-size: 0.875rem;
+            font-weight: 500;
+            line-height: 1;
+            color: #475569;
+            background: transparent;
+            border: 1px solid transparent;
+            border-radius: 8px;
+            text-decoration: none !important;
+            cursor: pointer;
+            user-select: none;
+            transition: all 0.18s cubic-bezier(0.4, 0, 0.2, 1);
+            outline: none;
+        }
+
+        /* Ghost hover */
+        .btn-pagination-21st:hover:not(.disabled):not(.active) {
+            background-color: #f1f5f9;
+            color: #0f172a;
+            border-color: transparent;
+        }
+
+        /* Icon / numeric square mode */
+        .btn-pagination-21st.btn-pagination-icon {
+            width: 38px;
+            height: 38px;
+            padding: 0;
+            min-width: 38px;
+        }
+
+        /* Previous / Next button mode */
+        .btn-pagination-21st.btn-pagination-nav {
+            height: 38px;
+            padding: 0 14px;
+            gap: 8px;
+            font-size: 0.875rem;
+        }
+
+        /* Active Page (Outline Variant in shadcn) */
+        .btn-pagination-21st.active {
+            background-color: #ffffff;
+            color: #0f172a;
+            border: 1.5px solid #e2e8f0;
+            font-weight: 600;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
+            cursor: default;
+        }
+
+        /* Disabled state */
+        .btn-pagination-21st.disabled {
+            color: #94a3b8;
+            opacity: 0.45;
+            cursor: not-allowed;
+            pointer-events: none;
+            background: transparent;
+            border-color: transparent;
+        }
+
+        /* Ellipsis */
+        .pagination-21st-ellipsis {
+            display: inline-flex;
+            width: 38px;
+            height: 38px;
+            align-items: center;
+            justify-content: center;
+            color: #94a3b8;
+            font-size: 0.875rem;
+        }
     </style>
 
     @stack('styles')
@@ -699,12 +805,18 @@
 
                 <!-- Nav links desktop -->
                 <div class="d-none d-md-flex align-items-center gap-1">
-                    <a href="{{ route('public.wisata') }}"
-                       class="nav-link-custom {{ request()->routeIs('public.wisata*') ? 'active' : '' }}">Wisata</a>
-                    <a href="{{ route('public.event') }}"
-                       class="nav-link-custom {{ request()->routeIs('public.event') ? 'active' : '' }}">Event</a>
-                    <a href="{{ route('public.berita') }}"
-                       class="nav-link-custom {{ request()->routeIs('public.berita*') ? 'active' : '' }}">Berita</a>
+                    <div class="nav-links-wrap d-flex align-items-center gap-1" id="navLinksWrap">
+                        <span class="nav-pill" id="navPill"></span>
+                        <a href="{{ route('public.wisata') }}"
+                           class="nav-link-custom {{ request()->routeIs('public.wisata*') ? 'active' : '' }}">
+                            <i class="fa-solid fa-map-location-dot"></i>Wisata</a>
+                        <a href="{{ route('public.event') }}"
+                           class="nav-link-custom {{ request()->routeIs('public.event') ? 'active' : '' }}">
+                            <i class="fa-solid fa-calendar-days"></i>Event</a>
+                        <a href="{{ route('public.berita') }}"
+                           class="nav-link-custom {{ request()->routeIs('public.berita*') ? 'active' : '' }}">
+                            <i class="fa-regular fa-newspaper"></i>Berita</a>
+                    </div>
 
                     @php
                         $webUser = Auth::guard('web')->user();
@@ -786,9 +898,9 @@
             <div class="d-md-none" id="navMenuMobile" style="display:none !important; overflow:hidden; max-height:0; transition: max-height 0.35s cubic-bezier(0.2,0.6,0.2,1);">
                 <div style="padding: 12px 0 8px; border-top: 1px solid rgba(255,255,255,0.1); margin-top: 12px;">
                     <div class="d-flex flex-column gap-1">
-                        <a href="{{ route('public.wisata') }}" class="nav-link-custom">Wisata</a>
-                        <a href="{{ route('public.event') }}" class="nav-link-custom">Event</a>
-                        <a href="{{ route('public.berita') }}" class="nav-link-custom">Berita</a>
+                        <a href="{{ route('public.wisata') }}" class="nav-link-custom"><i class="fa-solid fa-map-location-dot"></i>Wisata</a>
+                        <a href="{{ route('public.event') }}" class="nav-link-custom"><i class="fa-solid fa-calendar-days"></i>Event</a>
+                        <a href="{{ route('public.berita') }}" class="nav-link-custom"><i class="fa-regular fa-newspaper"></i>Berita</a>
                         @if($publicUser)
                             <hr style="border-color:rgba(255,255,255,0.12); margin:8px 0;">
                             <div class="px-2 py-1 text-white-50 small">
@@ -898,25 +1010,17 @@
     (function() {
         const nav = document.getElementById('mainNavbar');
         if (!nav) return;
-        let lastY = window.scrollY;
         let ticking = false;
 
         function updateNav() {
             const currentY = window.scrollY;
-            const scrollingDown = currentY > lastY;
             const pastThreshold = currentY > 60;
 
-            // Glass morph effect
+            // Glass morph effect saja — navbar tetap selalu tampil,
+            // tidak disembunyikan saat scroll ke bawah (lebih cocok
+            // untuk katalog yang dijelajah bolak-balik, bukan dibaca linear).
             nav.classList.toggle('nav-glass', pastThreshold);
 
-            // Hide/reveal on scroll direction
-            if (pastThreshold) {
-                nav.classList.toggle('nav-hidden', scrollingDown);
-            } else {
-                nav.classList.remove('nav-hidden');
-            }
-
-            lastY = currentY <= 0 ? 0 : currentY;
             ticking = false;
         }
 
@@ -926,6 +1030,32 @@
                 ticking = true;
             }
         }, { passive: true });
+    })();
+
+    /* Nav pill — meluncur mengikuti hover, balik ke halaman aktif saat mouse keluar */
+    (function() {
+        const wrap = document.getElementById('navLinksWrap');
+        const pill = document.getElementById('navPill');
+        if (!wrap || !pill) return;
+
+        const links = wrap.querySelectorAll('.nav-link-custom');
+        const activeLink = wrap.querySelector('.nav-link-custom.active');
+
+        function moveTo(el) {
+            if (!el) { pill.style.opacity = '0'; return; }
+            pill.style.opacity = '1';
+            pill.style.width = el.offsetWidth + 'px';
+            pill.style.transform = `translateX(${el.offsetLeft}px)`;
+        }
+
+        moveTo(activeLink); // posisi awal: di halaman yang sedang dibuka
+
+        links.forEach(link => {
+            link.addEventListener('mouseenter', () => moveTo(link));
+        });
+        wrap.addEventListener('mouseleave', () => moveTo(activeLink));
+
+        window.addEventListener('resize', () => moveTo(activeLink));
     })();
 
     /* Mobile menu custom toggle */

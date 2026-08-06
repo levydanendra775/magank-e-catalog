@@ -21,8 +21,9 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        // Gunakan Bootstrap 5 untuk tampilan pagination
-        Paginator::useBootstrapFive();
+        // Gunakan 21st.dev / shadcn style untuk tampilan pagination
+        Paginator::defaultView('vendor.pagination.custom');
+        Paginator::defaultSimpleView('vendor.pagination.custom-simple');
 
         // Set Carbon locale to Indonesian for translatedFormat
         Carbon::setLocale('id');

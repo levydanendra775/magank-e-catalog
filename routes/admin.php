@@ -8,6 +8,7 @@ use App\Http\Controllers\Admin\BeritaController;
 use App\Http\Controllers\Admin\BannerController;
 use App\Http\Controllers\Admin\GaleriController;
 use App\Http\Controllers\Admin\UlasanController;
+use App\Http\Controllers\Admin\LaporanController;
 use App\Http\Controllers\Auth\AuthenticatedSessionController;
 
 Route::middleware(['auth:admin', 'role:Admin|Petugas'])->prefix('admin')->name('admin.')->group(function () {

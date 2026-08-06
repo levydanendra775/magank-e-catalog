@@ -632,6 +632,112 @@
             border-color: #1F3A34;
             box-shadow: 0 6px 18px rgba(31, 58, 52, 0.2);
         }
+
+        /* =========================================================
+           21st.dev / shadcn PAGINATION COMPONENT
+           Inspired by: 21st.dev / @reui_io
+           ========================================================= */
+        .pagination-21st-nav {
+            display: flex;
+            width: 100%;
+            justify-content: center;
+            align-items: center;
+            margin: 0 auto;
+        }
+
+        .pagination-21st-content {
+            display: inline-flex;
+            flex-direction: row;
+            align-items: center;
+            gap: 6px;
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .pagination-21st-content li[data-slot="pagination-item"] {
+            list-style: none;
+            display: inline-flex;
+            align-items: center;
+            margin: 0;
+            padding: 0;
+        }
+
+        /* Base button */
+        .btn-pagination-21st {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            font-size: 0.85rem;
+            font-weight: 500;
+            line-height: 1;
+            color: var(--text-muted, #5B6B62);
+            background: transparent;
+            border: 1px solid transparent;
+            border-radius: 8px;
+            text-decoration: none !important;
+            cursor: pointer;
+            user-select: none;
+            transition: all 0.18s cubic-bezier(0.4, 0, 0.2, 1);
+            outline: none;
+        }
+
+        /* Ghost hover */
+        .btn-pagination-21st:hover:not(.disabled):not(.active) {
+            background-color: var(--primary-light, #EAF0EC);
+            color: var(--primary, #1F3A34);
+            border-color: transparent;
+        }
+
+        /* Icon / numeric square mode */
+        .btn-pagination-21st.btn-pagination-icon {
+            width: 36px;
+            height: 36px;
+            padding: 0;
+            min-width: 36px;
+        }
+
+        /* Previous / Next button mode */
+        .btn-pagination-21st.btn-pagination-nav {
+            height: 36px;
+            padding: 0 12px;
+            gap: 6px;
+            font-size: 0.85rem;
+        }
+
+        /* Active Page (Outline Variant in shadcn) */
+        .btn-pagination-21st.active {
+            background-color: #ffffff;
+            color: var(--primary, #1F3A34);
+            border: 1.5px solid var(--border-color, #DCE4DD);
+            font-weight: 700;
+            box-shadow: 0 1px 3px rgba(31, 58, 52, 0.08);
+            cursor: default;
+        }
+
+        /* Disabled state */
+        .btn-pagination-21st.disabled {
+            color: #94a3b8;
+            opacity: 0.45;
+            cursor: not-allowed;
+            pointer-events: none;
+            background: transparent;
+            border-color: transparent;
+        }
+
+        /* Ellipsis */
+        .pagination-21st-ellipsis {
+            display: inline-flex;
+            width: 36px;
+            height: 36px;
+            align-items: center;
+            justify-content: center;
+            color: #94a3b8;
+            font-size: 0.85rem;
+        }
     </style>
     @stack('styles')
     @yield('styles')
