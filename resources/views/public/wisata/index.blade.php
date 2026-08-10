@@ -362,6 +362,149 @@
     justify-content: center;
     font-size: 0.95rem;
 }
+
+/* ── 21st.dev Animated Dropdown (Magetan Theme) ── */
+.dd21-wrapper {
+    position: relative;
+    width: 100%;
+}
+
+.dd21-trigger {
+    width: 100%;
+    height: 44px;
+    padding: 0 14px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 8px;
+    border-radius: 12px;
+    border: 1px solid rgba(0,0,0,0.12);
+    background: #ffffff;
+    color: #374151;
+    font-size: 0.925rem;
+    font-weight: 500;
+    cursor: pointer;
+    box-shadow: 0 1px 2px rgba(0,0,0,0.05);
+    transition: all 0.2s cubic-bezier(0.4,0,0.2,1);
+    user-select: none;
+    -webkit-user-select: none;
+}
+
+.dd21-trigger:hover {
+    border-color: #1a6b3a;
+    box-shadow: 0 0 0 2px rgba(26,107,58,0.1);
+}
+
+.dd21-trigger.is-open {
+    border-color: #1a6b3a;
+    box-shadow: 0 0 0 3px rgba(26,107,58,0.15);
+}
+
+.dd21-trigger-text {
+    flex: 1;
+    text-align: left;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.dd21-trigger-text.placeholder {
+    color: #9ca3af;
+    font-weight: 400;
+}
+
+.dd21-chevron {
+    flex-shrink: 0;
+    color: #6b7280;
+    font-size: 0.75rem;
+    transition: transform 0.3s cubic-bezier(0.4,0,0.2,1);
+}
+
+.dd21-trigger.is-open .dd21-chevron {
+    transform: rotate(180deg);
+}
+
+.dd21-menu {
+    position: absolute;
+    top: calc(100% + 6px);
+    left: 0;
+    right: 0;
+    background: #ffffff;
+    border: 1px solid rgba(26,107,58,0.25);
+    border-radius: 14px;
+    box-shadow: 0 8px 24px rgba(0,0,0,0.12), 0 2px 8px rgba(0,0,0,0.06);
+    overflow: hidden;
+    z-index: 9999;
+    transform-origin: top center;
+    transform: scaleY(0.92) translateY(-6px);
+    opacity: 0;
+    pointer-events: none;
+    transition: transform 0.22s cubic-bezier(0.4,0,0.2,1),
+                opacity 0.2s cubic-bezier(0.4,0,0.2,1);
+}
+
+.dd21-menu.is-open {
+    transform: scaleY(1) translateY(0);
+    opacity: 1;
+    pointer-events: auto;
+}
+
+.dd21-option {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px 14px;
+    font-size: 0.9rem;
+    color: #1f2937;
+    cursor: pointer;
+    border-bottom: 1px solid rgba(0,0,0,0.05);
+    transition: background 0.18s ease, color 0.18s ease;
+    gap: 8px;
+    animation: dd21FadeIn 0.18s ease both;
+}
+
+.dd21-option:last-child {
+    border-bottom: none;
+}
+
+.dd21-option:hover {
+    background: linear-gradient(135deg, #0a3d1f, #1a6b3a);
+    color: #ffffff;
+}
+
+.dd21-option.is-selected {
+    background: rgba(26,107,58,0.08);
+    font-weight: 600;
+    color: #1a6b3a;
+}
+
+.dd21-option.is-selected:hover {
+    background: linear-gradient(135deg, #0a3d1f, #1a6b3a);
+    color: #ffffff;
+}
+
+.dd21-check {
+    flex-shrink: 0;
+    font-size: 0.75rem;
+    color: #1a6b3a;
+    opacity: 0;
+    transform: scale(0.5);
+    transition: opacity 0.2s ease, transform 0.25s cubic-bezier(0.34,1.56,0.64,1);
+}
+
+.dd21-option.is-selected .dd21-check {
+    opacity: 1;
+    transform: scale(1);
+}
+
+.dd21-option:hover .dd21-check {
+    color: rgba(255,255,255,0.8);
+}
+
+@keyframes dd21FadeIn {
+    from { opacity: 0; transform: translateX(-6px); }
+    to   { opacity: 1; transform: translateX(0); }
+}
 </style>
 @endpush
 
@@ -418,22 +561,56 @@
                         </button>
                     </div>
                 </div>
+                {{-- ── Dropdown Kategori (21st.dev style) ── --}}
                 <div class="col-lg-3 col-md-4">
-                    <select name="kategori" class="form-select py-2" style="border-radius:10px;">
-                        <option value="">Semua Kategori</option>
-                        @foreach($kategoriList ?? [] as $kat)
-                            <option value="{{ $kat }}" {{ request('kategori') == $kat ? 'selected' : '' }}>{{ $kat }}</option>
-                        @endforeach
-                    </select>
+                    <input type="hidden" name="kategori" id="kategori-input" value="{{ request('kategori') }}">
+                    <div class="dd21-wrapper" id="dd-kategori">
+                        <button type="button" class="dd21-trigger {{ request('kategori') ? 'is-selected-trigger' : '' }}" aria-haspopup="listbox" aria-expanded="false">
+                            <span class="dd21-trigger-text {{ !request('kategori') ? 'placeholder' : '' }}" id="dd-kategori-label">
+                                {{ request('kategori') ?: 'Semua Kategori' }}
+                            </span>
+                            <i class="fa-solid fa-chevron-down dd21-chevron"></i>
+                        </button>
+                        <div class="dd21-menu" role="listbox">
+                            <div class="dd21-option {{ !request('kategori') ? 'is-selected' : '' }}" data-value="" role="option">
+                                <span>Semua Kategori</span>
+                                <i class="fa-solid fa-check dd21-check"></i>
+                            </div>
+                            @foreach($kategoriList ?? [] as $kat)
+                            <div class="dd21-option {{ request('kategori') == $kat ? 'is-selected' : '' }}" data-value="{{ $kat }}" role="option">
+                                <span>{{ $kat }}</span>
+                                <i class="fa-solid fa-check dd21-check"></i>
+                            </div>
+                            @endforeach
+                        </div>
+                    </div>
                 </div>
+
+                {{-- ── Dropdown Kecamatan (21st.dev style) ── --}}
                 <div class="col-lg-3 col-md-4">
-                    <select name="kecamatan" class="form-select py-2" style="border-radius:10px;">
-                        <option value="">Semua Kecamatan</option>
-                        @foreach($kecamatanList ?? [] as $kec)
-                            <option value="{{ $kec }}" {{ request('kecamatan') == $kec ? 'selected' : '' }}>{{ $kec }}</option>
-                        @endforeach
-                    </select>
+                    <input type="hidden" name="kecamatan" id="kecamatan-input" value="{{ request('kecamatan') }}">
+                    <div class="dd21-wrapper" id="dd-kecamatan">
+                        <button type="button" class="dd21-trigger" aria-haspopup="listbox" aria-expanded="false">
+                            <span class="dd21-trigger-text {{ !request('kecamatan') ? 'placeholder' : '' }}" id="dd-kecamatan-label">
+                                {{ request('kecamatan') ?: 'Semua Kecamatan' }}
+                            </span>
+                            <i class="fa-solid fa-chevron-down dd21-chevron"></i>
+                        </button>
+                        <div class="dd21-menu" role="listbox">
+                            <div class="dd21-option {{ !request('kecamatan') ? 'is-selected' : '' }}" data-value="" role="option">
+                                <span>Semua Kecamatan</span>
+                                <i class="fa-solid fa-check dd21-check"></i>
+                            </div>
+                            @foreach($kecamatanList ?? [] as $kec)
+                            <div class="dd21-option {{ request('kecamatan') == $kec ? 'is-selected' : '' }}" data-value="{{ $kec }}" role="option">
+                                <span>{{ $kec }}</span>
+                                <i class="fa-solid fa-check dd21-check"></i>
+                            </div>
+                            @endforeach
+                        </div>
+                    </div>
                 </div>
+
                 <div class="col-lg-2 col-md-4 d-grid">
                     <button type="submit" class="btn btn-warning fw-bold py-2" style="border-radius:10px;">
                         <i class="fa-solid fa-magnifying-glass me-2"></i>Filter
@@ -672,6 +849,85 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     }
 });
+</script>
+
+<script>
+/* ── 21st.dev Animated Dropdown Logic ── */
+(function () {
+    function initDropdown(wrapperId, inputId, labelId) {
+        const wrapper = document.getElementById(wrapperId);
+        if (!wrapper) return;
+
+        const trigger  = wrapper.querySelector('.dd21-trigger');
+        const menu     = wrapper.querySelector('.dd21-menu');
+        const label    = document.getElementById(labelId);
+        const input    = document.getElementById(inputId);
+        const options  = wrapper.querySelectorAll('.dd21-option');
+
+        function open() {
+            trigger.classList.add('is-open');
+            menu.classList.add('is-open');
+            trigger.setAttribute('aria-expanded', 'true');
+        }
+
+        function close() {
+            trigger.classList.remove('is-open');
+            menu.classList.remove('is-open');
+            trigger.setAttribute('aria-expanded', 'false');
+        }
+
+        trigger.addEventListener('click', function (e) {
+            e.stopPropagation();
+            menu.classList.contains('is-open') ? close() : open();
+        });
+
+        options.forEach(function (opt) {
+            opt.addEventListener('click', function () {
+                const val  = opt.getAttribute('data-value');
+                const text = opt.querySelector('span').textContent.trim();
+
+                // Update hidden input
+                input.value = val;
+
+                // Update label
+                label.textContent = text;
+                if (val === '') {
+                    label.classList.add('placeholder');
+                } else {
+                    label.classList.remove('placeholder');
+                }
+
+                // Update selected state
+                options.forEach(function (o) { o.classList.remove('is-selected'); });
+                opt.classList.add('is-selected');
+
+                close();
+
+                // Auto-submit the form
+                const form = wrapper.closest('form');
+                if (form) {
+                    // Small delay for visual feedback
+                    setTimeout(function () { form.submit(); }, 180);
+                }
+            });
+        });
+
+        // Close on outside click
+        document.addEventListener('click', function (e) {
+            if (!wrapper.contains(e.target)) close();
+        });
+
+        // Keyboard: Escape to close
+        document.addEventListener('keydown', function (e) {
+            if (e.key === 'Escape') close();
+        });
+    }
+
+    document.addEventListener('DOMContentLoaded', function () {
+        initDropdown('dd-kategori',  'kategori-input',  'dd-kategori-label');
+        initDropdown('dd-kecamatan', 'kecamatan-input', 'dd-kecamatan-label');
+    });
+})();
 </script>
 @endpush
 @endsection
