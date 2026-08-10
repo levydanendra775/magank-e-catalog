@@ -438,10 +438,12 @@
     left: 0;
     right: 0;
     background: #ffffff;
-    border: 1px solid rgba(26,107,58,0.25);
+    border: 1.5px solid rgba(26,107,58,0.25);
     border-radius: 14px;
-    box-shadow: 0 8px 24px rgba(0,0,0,0.12), 0 2px 8px rgba(0,0,0,0.06);
-    overflow: hidden;
+    box-shadow: 0 12px 32px rgba(10,40,20,0.15), 0 2px 8px rgba(0,0,0,0.06);
+    max-height: 240px;
+    overflow-y: auto;
+    padding: 6px;
     z-index: 9999;
     transform-origin: top center;
     transform: scaleY(0.92) translateY(-6px);
@@ -457,43 +459,62 @@
     pointer-events: auto;
 }
 
+/* Custom Scrollbar for Dropdown Menu */
+.dd21-menu::-webkit-scrollbar {
+    width: 6px;
+}
+.dd21-menu::-webkit-scrollbar-track {
+    background: #f1f5f9;
+    border-radius: 10px;
+}
+.dd21-menu::-webkit-scrollbar-thumb {
+    background: #cbd5e1;
+    border-radius: 10px;
+}
+.dd21-menu::-webkit-scrollbar-thumb:hover {
+    background: #1a6b3a;
+}
+
 .dd21-option {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding: 10px 14px;
-    font-size: 0.9rem;
-    color: #1f2937;
+    padding: 9px 12px;
+    font-size: 0.88rem;
+    font-weight: 500;
+    color: #374151;
+    border-radius: 8px;
     cursor: pointer;
-    border-bottom: 1px solid rgba(0,0,0,0.05);
-    transition: background 0.18s ease, color 0.18s ease;
+    transition: all 0.15s ease;
     gap: 8px;
+    margin-bottom: 2px;
     animation: dd21FadeIn 0.18s ease both;
 }
 
 .dd21-option:last-child {
-    border-bottom: none;
+    margin-bottom: 0;
 }
 
 .dd21-option:hover {
-    background: linear-gradient(135deg, #0a3d1f, #1a6b3a);
-    color: #ffffff;
+    background: rgba(26,107,58,0.08);
+    color: #1a6b3a;
+    font-weight: 600;
 }
 
 .dd21-option.is-selected {
-    background: rgba(26,107,58,0.08);
-    font-weight: 600;
+    background: rgba(26,107,58,0.12);
+    font-weight: 700;
     color: #1a6b3a;
 }
 
 .dd21-option.is-selected:hover {
-    background: linear-gradient(135deg, #0a3d1f, #1a6b3a);
-    color: #ffffff;
+    background: rgba(26,107,58,0.18);
+    color: #1a6b3a;
 }
 
 .dd21-check {
     flex-shrink: 0;
-    font-size: 0.75rem;
+    font-size: 0.8rem;
     color: #1a6b3a;
     opacity: 0;
     transform: scale(0.5);
@@ -506,7 +527,7 @@
 }
 
 .dd21-option:hover .dd21-check {
-    color: rgba(255,255,255,0.8);
+    color: #1a6b3a;
 }
 
 @keyframes dd21FadeIn {
@@ -576,7 +597,7 @@
                         <button type="button" class="dd21-trigger" aria-haspopup="listbox" aria-expanded="false"
                             style="background:#ffffff !important; background-color:#ffffff !important; color:#374151 !important;">
                             <span class="dd21-trigger-text {{ !request('kategori') ? 'dd21-is-placeholder' : '' }}" id="dd-kategori-label">
-                                {{ request('kategori') ?: 'SEMUA KATEGORI' }}
+                                {{ request('kategori') ?: 'Semua Kategori' }}
                             </span>
                             <i class="fa-solid fa-chevron-down dd21-chevron"></i>
                         </button>
@@ -602,7 +623,7 @@
                         <button type="button" class="dd21-trigger" aria-haspopup="listbox" aria-expanded="false"
                             style="background:#ffffff !important; background-color:#ffffff !important; color:#374151 !important;">
                             <span class="dd21-trigger-text {{ !request('kecamatan') ? 'dd21-is-placeholder' : '' }}" id="dd-kecamatan-label">
-                                {{ request('kecamatan') ?: 'SEMUA KECAMATAN' }}
+                                {{ request('kecamatan') ?: 'Semua Kecamatan' }}
                             </span>
                             <i class="fa-solid fa-chevron-down dd21-chevron"></i>
                         </button>
