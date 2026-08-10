@@ -376,7 +376,20 @@
                 <div class="wc-top-bar">
                     <div class="d-flex flex-column gap-2 align-items-start">
                         <span class="wc-badge-category">
-                            {{ $w->kategori }}
+                            @php
+                            $katIcon = match($w->kategori) {
+                                'Alam'     => 'fa-solid fa-tree',
+                                'Budaya'   => 'fa-solid fa-landmark',
+                                'Religi'   => 'fa-solid fa-mosque',
+                                'Buatan'   => 'fa-solid fa-city',
+                                'Edukasi'  => 'fa-solid fa-graduation-cap',
+                                'Kuliner'  => 'fa-solid fa-utensils',
+                                'Olahraga' => 'fa-solid fa-person-running',
+                                'Desa'     => 'fa-solid fa-house-chimney-window',
+                                default    => 'fa-solid fa-map-pin',
+                            };
+                            @endphp
+                            <i class="{{ $katIcon }}" style="margin-right:5px;font-size:0.7rem;"></i>{{ $w->kategori }}
                         </span>
                         @if($w->is_pinned)
                         <span class="wc-pinned-badge">

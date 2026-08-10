@@ -6,6 +6,16 @@
     <title>@yield('title', 'Beranda') — E-Catalog Magetan</title>
     <meta name="description" content="@yield('meta_description', 'Temukan destinasi wisata, event menarik, dan berita seputar Kabupaten Magetan.')">
 
+    <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}">
+    <link rel="apple-touch-icon" href="{{ asset('images/lambang-magetan.png') }}">
+
+    <meta property="og:type" content="website">
+    <meta property="og:site_name" content="E-Catalog Magetan">
+    <meta property="og:title" content="@yield('title', 'Beranda — E-Catalog Magetan')">
+    <meta property="og:description" content="@yield('meta_description', 'Temukan destinasi wisata, event menarik, dan berita seputar Kabupaten Magetan.')">
+    <meta property="og:image" content="@yield('og_image', asset('images/hero-telaga-sarangan.jpg'))">
+    <meta property="og:url" content="{{ url()->current() }}">
+
     <!-- Bootstrap 5 -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <!-- FontAwesome -->
@@ -657,8 +667,8 @@
         }
 
         /* =========================================================
-           21st.dev / shadcn PAGINATION COMPONENT
-           Inspired by: 21st.dev / @reui_io
+           PAGINATION — di-recolor ke palet forest-green/gold situs
+           (sebelumnya masih warna asli referensi shadcn: slate/putih)
            ========================================================= */
         .pagination-21st-nav {
             display: flex;
@@ -697,7 +707,7 @@
             font-size: 0.875rem;
             font-weight: 500;
             line-height: 1;
-            color: #475569;
+            color: var(--text-muted);
             background: transparent;
             border: 1px solid transparent;
             border-radius: 8px;
@@ -708,10 +718,10 @@
             outline: none;
         }
 
-        /* Ghost hover */
+        /* Ghost hover — tint hijau muda, bukan abu netral */
         .btn-pagination-21st:hover:not(.disabled):not(.active) {
-            background-color: #f1f5f9;
-            color: #0f172a;
+            background-color: var(--primary-light);
+            color: var(--primary);
             border-color: transparent;
         }
 
@@ -731,20 +741,20 @@
             font-size: 0.875rem;
         }
 
-        /* Active Page (Outline Variant in shadcn) */
+        /* Active Page — solid gold, senada tombol CTA situs */
         .btn-pagination-21st.active {
-            background-color: #ffffff;
-            color: #0f172a;
-            border: 1.5px solid #e2e8f0;
-            font-weight: 600;
-            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
+            background-color: var(--accent);
+            color: #fff;
+            border: 1.5px solid var(--accent-dark);
+            font-weight: 700;
+            box-shadow: 0 3px 10px rgba(200, 155, 60, 0.4);
             cursor: default;
         }
 
         /* Disabled state */
         .btn-pagination-21st.disabled {
-            color: #94a3b8;
-            opacity: 0.45;
+            color: var(--text-muted);
+            opacity: 0.4;
             cursor: not-allowed;
             pointer-events: none;
             background: transparent;
@@ -758,7 +768,7 @@
             height: 38px;
             align-items: center;
             justify-content: center;
-            color: #94a3b8;
+            color: var(--text-muted);
             font-size: 0.875rem;
         }
     </style>
@@ -770,7 +780,7 @@
 
 <body>
 
-    <!-- NAVBAR — 21st.dev Floating Style -->
+    <!-- NAVBAR — Floating Style -->
     <nav class="navbar-public" id="mainNavbar">
         <div class="container">
             <div class="d-flex justify-content-between align-items-center">
@@ -969,17 +979,17 @@
                 <div class="col-md-4">
                     <h5 class="fs-6">Kontak</h5>
                     <div class="small" style="line-height:1.6;">
-                        <a href="https://www.google.com/maps/search/?api=1&query=Plaza+Ndoyo%2C+Jl.+Hasanudin+No.20%2C+Terbono%2C+Selosari%2C+Kec.+Magetan%2C+Kabupaten+Magetan%2C+Jawa+Timur" target="_blank" rel="noopener noreferrer" class="contact-text text-decoration-none w-100">
+                        <a href="{{ config('kontak.alamat_maps_url') }}" target="_blank" rel="noopener noreferrer" class="contact-text text-decoration-none w-100">
                             <div class="contact-icon"><i class="fa-solid fa-location-dot"></i></div>
-                            <div class="mt-1">Plaza Ndoyo, Jl. Hasanudin No.20, Terbono, Selosari, Kec. Magetan, Kabupaten Magetan, Jawa Timur</div>
+                            <div class="mt-1">{{ config('kontak.alamat') }}</div>
                         </a>
                         <div class="contact-text w-100">
                             <div class="contact-icon"><i class="fa-solid fa-phone"></i></div>
-                            <div class="mt-1">(0351) 891831</div>
+                            <div class="mt-1">{{ config('kontak.telepon') }}</div>
                         </div>
                         <div class="contact-text w-100">
                             <div class="contact-icon"><i class="fa-solid fa-envelope"></i></div>
-                            <div class="mt-1">disparbudpora01@gmail.com</div>
+                            <div class="mt-1">{{ config('kontak.email') }}</div>
                         </div>
                     </div>
                 </div>
@@ -1003,9 +1013,8 @@
 
     <script>
     /* =====================================================
-       NAVBAR — Floating glass behavior (21st.dev inspired)
-       - Transparent → glass on scroll
-       - Hide on scroll down, reveal on scroll up
+       NAVBAR — Floating glass behavior
+       - Transparan → glass saat scroll (selalu tampil, tidak disembunyikan)
     ===================================================== */
     (function() {
         const nav = document.getElementById('mainNavbar');

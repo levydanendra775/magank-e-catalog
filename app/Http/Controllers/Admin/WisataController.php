@@ -40,6 +40,7 @@ class WisataController extends Controller
         ]);
 
         $validated['slug'] = Str::slug($request->nama);
+        $validated['harga_tiket'] = $request->filled('harga_tiket') ? (float) $request->harga_tiket : 0;
 
         if ($request->hasFile('thumbnail')) {
             $validated['thumbnail'] = $request->file('thumbnail')->store('wisata', 'public');
@@ -80,6 +81,7 @@ class WisataController extends Controller
         ]);
 
         $validated['slug'] = Str::slug($request->nama);
+        $validated['harga_tiket'] = $request->filled('harga_tiket') ? (float) $request->harga_tiket : 0;
 
         if ($request->hasFile('thumbnail')) {
             if ($wisatum->thumbnail) {

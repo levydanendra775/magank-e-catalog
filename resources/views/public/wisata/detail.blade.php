@@ -1,5 +1,34 @@
 @extends('layouts.public')
 @section('title', $wisata->nama.' — E-Catalog Magetan')
+
+@push('styles')
+<style>
+    /* Star rating input — pengganti <select> angka, bisa diklik langsung */
+    .star-rating-input {
+        display: flex;
+        flex-direction: row-reverse; /* trik CSS: DOM 5..1, tampil 1..5 kiri ke kanan */
+        gap: 4px;
+    }
+    .star-rating-input input {
+        display: none;
+    }
+    .star-rating-input label {
+        cursor: pointer;
+        font-size: 1.35rem;
+        color: var(--border);
+        transition: color 0.15s ease, transform 0.1s ease;
+    }
+    .star-rating-input label:hover {
+        transform: scale(1.15);
+    }
+    .star-rating-input input:checked ~ label,
+    .star-rating-input label:hover,
+    .star-rating-input label:hover ~ label {
+        color: var(--accent);
+    }
+</style>
+@endpush
+
 @section('content')
 @php
     // Siapkan URL Google Maps yang selalu valid berdasarkan nama + alamat + kecamatan
@@ -194,9 +223,9 @@
 
                 @if($myRating)
                 {{-- User sudah punya ulasan: tampilkan ulasan dengan tombol hapus saja --}}
-                <div class="mb-4 p-3 rounded-3" style="background:#f8f9fa; border:1px solid #e2e8f0;">
+                <div class="mb-4 p-3 rounded-3" style="background:var(--bg-light); border:1px solid var(--border);">
                     <div class="d-flex justify-content-between align-items-center mb-2">
-                        <p class="fw-semibold small mb-0" style="color:#1F3A34;"><i class="fa-solid fa-circle-check me-1"></i>Ulasan Anda Sudah Terkirim</p>
+                        <p class="fw-semibold small mb-0" style="color:var(--primary);"><i class="fa-solid fa-circle-check me-1"></i>Ulasan Anda Sudah Terkirim</p>
                         <form action="{{ route('rating.destroy', $wisata) }}" method="POST"
                               onsubmit="return confirm('Hapus ulasan Anda?');">
                             @csrf @method('DELETE')
@@ -207,7 +236,7 @@
                     </div>
                     <div class="d-flex align-items-center gap-1 mb-2">
                         @for($i = 1; $i <= 5; $i++)
-                            <i class="fa-{{ $i <= $myRating->rating ? 'solid' : 'regular' }} fa-star" style="color:#C89B3C; font-size:0.85rem;"></i>
+                            <i class="fa-{{ $i <= $myRating->rating ? 'solid' : 'regular' }} fa-star" style="color:var(--accent); font-size:0.85rem;"></i>
                         @endfor
                         <span class="text-muted ms-1" style="font-size:0.78rem;">({{ $myRating->rating }}/5)</span>
                     </div>
@@ -219,28 +248,29 @@
                 </div>
                 @else
                 {{-- Belum ada ulasan: form kirim baru --}}
-                <form action="{{ route('rating.store', $wisata) }}" method="POST" class="mb-4 p-3 rounded-3" style="background:#f8f9fa; border:1px solid #e2e8f0;">
+                <form action="{{ route('rating.store', $wisata) }}" method="POST" class="mb-4 p-3 rounded-3" style="background:var(--bg-light); border:1px solid var(--border);">
                     @csrf
-                    <p class="fw-semibold small mb-2" style="color:#1F3A34;"><i class="fa-solid fa-pen-to-square me-1"></i>Tulis Ulasan Anda</p>
+                    <p class="fw-semibold small mb-2" style="color:var(--primary);"><i class="fa-solid fa-pen-to-square me-1"></i>Tulis Ulasan Anda</p>
                     <div class="d-flex align-items-center gap-2 mb-2">
                         <label class="small fw-semibold mb-0 text-muted">Rating:</label>
-                        <select name="rating" class="form-select form-select-sm" required style="max-width:120px;">
+                        <div class="star-rating-input" role="radiogroup" aria-label="Pilih rating">
                             @for ($i = 5; $i >= 1; $i--)
-                                <option value="{{ $i }}">{{ $i }} ⭐</option>
+                                <input type="radio" name="rating" id="star{{ $i }}" value="{{ $i }}" required>
+                                <label for="star{{ $i }}" title="{{ $i }} bintang"><i class="fa-solid fa-star"></i></label>
                             @endfor
-                        </select>
+                        </div>
                     </div>
                     <textarea name="komentar" class="form-control mb-2" rows="3" placeholder="Tulis ulasanmu..." style="font-size:0.9rem;"></textarea>
-                    <button type="submit" class="btn btn-sm" style="background:#1F3A34;color:#fff;font-size:0.85rem;">
+                    <button type="submit" class="btn btn-sm" style="background:var(--primary);color:#fff;font-size:0.85rem;border-radius:8px;">
                         <i class="fa-solid fa-paper-plane me-1"></i>Kirim Ulasan
                     </button>
                 </form>
                 @endif
 
                 @else
-                <div class="mb-4 p-3 rounded-3 text-center" style="background:#f8f9fa; border:1px dashed #ccc;">
+                <div class="mb-4 p-3 rounded-3 text-center" style="background:var(--bg-light); border:1px dashed var(--border);">
                     <p class="text-muted mb-0 small">
-                        <a href="{{ route('login') }}" style="color:#1F3A34; font-weight:600;">Login</a> terlebih dahulu untuk memberikan ulasan.
+                        <a href="{{ route('login') }}" style="color:var(--primary); font-weight:600;">Login</a> terlebih dahulu untuk memberikan ulasan.
                     </p>
                 </div>
                 @endauth

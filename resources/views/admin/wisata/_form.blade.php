@@ -18,7 +18,7 @@
                     <label class="form-label fw-semibold">Kategori <span class="text-danger">*</span></label>
                     <select name="kategori" class="form-select @error('kategori') is-invalid @enderror" required>
                         <option value="">Pilih Kategori Wisata</option>
-                        @foreach(['Alam', 'Budaya', 'Religi', 'Buatan', 'Edukasi', 'Kuliner', 'Olahraga'] as $kat)
+                        @foreach(['Alam', 'Budaya', 'Religi', 'Buatan', 'Edukasi', 'Kuliner', 'Olahraga', 'Desa'] as $kat)
                             <option value="{{ $kat }}" {{ old('kategori', $w?->kategori) == $kat ? 'selected' : '' }}>{{ $kat }}</option>
                         @endforeach
                     </select>
