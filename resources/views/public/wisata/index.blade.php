@@ -570,7 +570,8 @@
                 <div class="col-lg-3 col-md-4">
                     <input type="hidden" name="kategori" id="kategori-input" value="{{ request('kategori') }}">
                     <div class="dd21-wrapper" id="dd-kategori">
-                        <button type="button" class="dd21-trigger" aria-haspopup="listbox" aria-expanded="false">
+                        <button type="button" class="dd21-trigger" aria-haspopup="listbox" aria-expanded="false"
+                            style="background:#ffffff !important; background-color:#ffffff !important; color:#374151 !important;">
                             <span class="dd21-trigger-text placeholder" id="dd-kategori-label">
                                 {{ request('kategori') ?: 'SEMUA KATEGORI' }}
                             </span>
@@ -595,7 +596,8 @@
                 <div class="col-lg-3 col-md-4">
                     <input type="hidden" name="kecamatan" id="kecamatan-input" value="{{ request('kecamatan') }}">
                     <div class="dd21-wrapper" id="dd-kecamatan">
-                        <button type="button" class="dd21-trigger" aria-haspopup="listbox" aria-expanded="false">
+                        <button type="button" class="dd21-trigger" aria-haspopup="listbox" aria-expanded="false"
+                            style="background:#ffffff !important; background-color:#ffffff !important; color:#374151 !important;">
                             <span class="dd21-trigger-text placeholder" id="dd-kecamatan-label">
                                 {{ request('kecamatan') ?: 'SEMUA KECAMATAN' }}
                             </span>
