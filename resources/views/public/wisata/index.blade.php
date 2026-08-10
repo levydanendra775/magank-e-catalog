@@ -456,7 +456,7 @@
                             </span>
                         </div>
 
-                        <a href="{{ route('public.wisata.detail', $w->slug) }}" class="btn-interactive btn-interactive-card btn-interactive-sm">
+                        <a href="{{ route('public.wisata.detail', array_merge(['slug' => $w->slug], request()->query())) }}" class="btn-interactive btn-interactive-card btn-interactive-sm">
                             <span class="btn-text-initial">Detail</span>
                             <div class="btn-text-hover">
                                 <span>Detail</span>
@@ -468,7 +468,7 @@
                 </div>
 
                 {{-- Full card clickable hitbox --}}
-                <a href="{{ route('public.wisata.detail', $w->slug) }}" class="wc-hitbox" aria-label="{{ $w->nama }}"></a>
+                <a href="{{ route('public.wisata.detail', array_merge(['slug' => $w->slug], request()->query())) }}" class="wc-hitbox" aria-label="{{ $w->nama }}"></a>
             </div>
         </div>
         @empty

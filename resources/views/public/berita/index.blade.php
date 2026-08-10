@@ -136,7 +136,7 @@
                 </div>
 
                 {{-- Hitbox --}}
-                <a href="{{ route('public.berita.detail', $b->id) }}" class="position-absolute inset-0 w-100 h-100" style="z-index:4;" aria-label="{{ $b->judul }}"></a>
+                <a href="{{ route('public.berita.detail', array_merge(['id' => $b->id], request()->query())) }}" class="position-absolute inset-0 w-100 h-100" style="z-index:4;" aria-label="{{ $b->judul }}"></a>
             </div>
         </div>
         @empty

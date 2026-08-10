@@ -32,8 +32,16 @@
 
             <hr class="my-5">
 
+            @php
+                $backUrl = route('public.berita');
+                if (request()->has('page')) {
+                    $backUrl = route('public.berita', request()->query());
+                } elseif (url()->previous() && url()->previous() !== url()->current() && str_contains(url()->previous(), '/berita')) {
+                    $backUrl = url()->previous();
+                }
+            @endphp
             <div class="d-flex justify-content-between align-items-center">
-                <a href="{{ route('public.berita') }}" class="btn-interactive btn-interactive-forest btn-interactive-lg">
+                <a href="{{ $backUrl }}" onclick="if(document.referrer && document.referrer.includes('/berita')){ history.back(); return false; }" class="btn-interactive btn-interactive-forest btn-interactive-lg">
                     <span class="btn-text-initial">Kembali ke Daftar Berita</span>
                     <div class="btn-text-hover">
                         <i class="fa-solid fa-arrow-left"></i>

@@ -109,6 +109,15 @@
     </div>
 @endif
 
+@php
+    $backUrl = route('public.wisata');
+    if (request()->has('page') || request()->has('q') || request()->has('kategori') || request()->has('kecamatan')) {
+        $backUrl = route('public.wisata', request()->query());
+    } elseif (url()->previous() && url()->previous() !== url()->current() && str_contains(url()->previous(), '/wisata')) {
+        $backUrl = url()->previous();
+    }
+@endphp
+
 <div class="container py-5">
     <div class="row g-4">
 
@@ -119,7 +128,7 @@
             <nav aria-label="breadcrumb" class="mb-4">
                 <ol class="breadcrumb">
                     <li class="breadcrumb-item"><a href="{{ route('home') }}" class="text-decoration-none" style="color:#1F3A34;">Beranda</a></li>
-                    <li class="breadcrumb-item"><a href="{{ route('public.wisata') }}" class="text-decoration-none" style="color:#1F3A34;">Wisata</a></li>
+                    <li class="breadcrumb-item"><a href="{{ $backUrl }}" class="text-decoration-none" style="color:#1F3A34;">Wisata</a></li>
                     <li class="breadcrumb-item active text-muted">{{ $wisata->nama }}</li>
                 </ol>
             </nav>
@@ -360,7 +369,7 @@
                    style="border-radius:10px;font-weight:600;background:#7A3B2E;border-color:#7A3B2E;">
                     <i class="fa-solid fa-map-location-dot me-2"></i>Buka di Google Maps
                 </a>
-                <a href="{{ route('public.wisata') }}" class="btn-interactive btn-interactive-forest btn-interactive-md">
+                <a href="{{ $backUrl }}" onclick="if(document.referrer && document.referrer.includes('/wisata')){ history.back(); return false; }" class="btn-interactive btn-interactive-forest btn-interactive-md">
                     <span class="btn-text-initial">Kembali</span>
                     <div class="btn-text-hover">
                         <i class="fa-solid fa-arrow-left"></i>

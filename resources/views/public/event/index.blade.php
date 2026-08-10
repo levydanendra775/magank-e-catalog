@@ -147,7 +147,7 @@
                 </div>
 
                 {{-- Hitbox --}}
-                <a href="{{ route('public.event.detail', $event->id) }}" class="position-absolute inset-0 w-100 h-100" style="z-index:4;" aria-label="{{ $event->judul }}"></a>
+                <a href="{{ route('public.event.detail', array_merge(['id' => $event->id], request()->query())) }}" class="position-absolute inset-0 w-100 h-100" style="z-index:4;" aria-label="{{ $event->judul }}"></a>
             </div>
         </div>
         @empty
