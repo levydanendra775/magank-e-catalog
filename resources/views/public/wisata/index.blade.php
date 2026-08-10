@@ -378,13 +378,13 @@
     justify-content: space-between;
     gap: 8px;
     border-radius: 12px;
-    border: 1.5px solid rgba(26,107,58,0.35);
-    background: linear-gradient(135deg, rgba(26,107,58,0.06) 0%, rgba(10,61,31,0.04) 100%);
+    border: 1.5px solid rgba(26,107,58,0.3);
+    background: #ffffff;
     color: #1a3d25;
     font-size: 0.925rem;
     font-weight: 500;
     cursor: pointer;
-    box-shadow: 0 1px 4px rgba(26,107,58,0.08), inset 0 1px 0 rgba(255,255,255,0.8);
+    box-shadow: 0 1px 3px rgba(0,0,0,0.06);
     transition: all 0.22s cubic-bezier(0.4,0,0.2,1);
     user-select: none;
     -webkit-user-select: none;
@@ -392,13 +392,11 @@
 
 .dd21-trigger:hover {
     border-color: #1a6b3a;
-    background: linear-gradient(135deg, rgba(26,107,58,0.12) 0%, rgba(10,61,31,0.08) 100%);
-    box-shadow: 0 0 0 3px rgba(26,107,58,0.12), 0 2px 8px rgba(26,107,58,0.1);
+    box-shadow: 0 0 0 3px rgba(26,107,58,0.12), 0 2px 8px rgba(26,107,58,0.08);
 }
 
 .dd21-trigger.is-open {
     border-color: #1a6b3a;
-    background: linear-gradient(135deg, rgba(26,107,58,0.15) 0%, rgba(10,61,31,0.10) 100%);
     box-shadow: 0 0 0 3px rgba(26,107,58,0.18);
 }
 
@@ -411,8 +409,9 @@
 }
 
 .dd21-trigger-text.placeholder {
-    color: #5a8a6a;
+    color: #9ca3af;
     font-weight: 400;
+    font-style: italic;
 }
 
 .dd21-chevron {
@@ -567,9 +566,9 @@
                 <div class="col-lg-3 col-md-4">
                     <input type="hidden" name="kategori" id="kategori-input" value="{{ request('kategori') }}">
                     <div class="dd21-wrapper" id="dd-kategori">
-                        <button type="button" class="dd21-trigger {{ request('kategori') ? 'is-selected-trigger' : '' }}" aria-haspopup="listbox" aria-expanded="false">
-                            <span class="dd21-trigger-text {{ !request('kategori') ? 'placeholder' : '' }}" id="dd-kategori-label">
-                                {{ request('kategori') ?: 'Semua Kategori' }}
+                        <button type="button" class="dd21-trigger" aria-haspopup="listbox" aria-expanded="false">
+                            <span class="dd21-trigger-text placeholder" id="dd-kategori-label">
+                                {{ request('kategori') ?: 'PILIH OPSI' }}
                             </span>
                             <i class="fa-solid fa-chevron-down dd21-chevron"></i>
                         </button>
@@ -593,8 +592,8 @@
                     <input type="hidden" name="kecamatan" id="kecamatan-input" value="{{ request('kecamatan') }}">
                     <div class="dd21-wrapper" id="dd-kecamatan">
                         <button type="button" class="dd21-trigger" aria-haspopup="listbox" aria-expanded="false">
-                            <span class="dd21-trigger-text {{ !request('kecamatan') ? 'placeholder' : '' }}" id="dd-kecamatan-label">
-                                {{ request('kecamatan') ?: 'Semua Kecamatan' }}
+                            <span class="dd21-trigger-text placeholder" id="dd-kecamatan-label">
+                                {{ request('kecamatan') ?: 'PILIH OPSI' }}
                             </span>
                             <i class="fa-solid fa-chevron-down dd21-chevron"></i>
                         </button>
@@ -892,10 +891,11 @@ document.addEventListener('DOMContentLoaded', function() {
                 input.value = val;
 
                 // Update label
-                label.textContent = text;
                 if (val === '') {
+                    label.textContent = 'PILIH OPSI';
                     label.classList.add('placeholder');
                 } else {
+                    label.textContent = text;
                     label.classList.remove('placeholder');
                 }
 
