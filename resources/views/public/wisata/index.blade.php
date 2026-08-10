@@ -379,8 +379,9 @@
     gap: 8px;
     border-radius: 12px;
     border: 1.5px solid rgba(26,107,58,0.3);
-    background: #ffffff;
-    color: #1a3d25;
+    background: #ffffff !important;
+    background-color: #ffffff !important;
+    color: #374151;
     font-size: 0.925rem;
     font-weight: 500;
     cursor: pointer;
@@ -388,6 +389,9 @@
     transition: all 0.22s cubic-bezier(0.4,0,0.2,1);
     user-select: none;
     -webkit-user-select: none;
+    -webkit-appearance: none;
+    appearance: none;
+    outline: none;
 }
 
 .dd21-trigger:hover {
@@ -406,12 +410,12 @@
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
+    color: #374151;
 }
 
 .dd21-trigger-text.placeholder {
-    color: #9ca3af;
+    color: #6b7280;
     font-weight: 400;
-    font-style: italic;
 }
 
 .dd21-chevron {
@@ -568,7 +572,7 @@
                     <div class="dd21-wrapper" id="dd-kategori">
                         <button type="button" class="dd21-trigger" aria-haspopup="listbox" aria-expanded="false">
                             <span class="dd21-trigger-text placeholder" id="dd-kategori-label">
-                                {{ request('kategori') ?: 'PILIH OPSI' }}
+                                {{ request('kategori') ?: 'SEMUA KATEGORI' }}
                             </span>
                             <i class="fa-solid fa-chevron-down dd21-chevron"></i>
                         </button>
@@ -593,7 +597,7 @@
                     <div class="dd21-wrapper" id="dd-kecamatan">
                         <button type="button" class="dd21-trigger" aria-haspopup="listbox" aria-expanded="false">
                             <span class="dd21-trigger-text placeholder" id="dd-kecamatan-label">
-                                {{ request('kecamatan') ?: 'PILIH OPSI' }}
+                                {{ request('kecamatan') ?: 'SEMUA KECAMATAN' }}
                             </span>
                             <i class="fa-solid fa-chevron-down dd21-chevron"></i>
                         </button>
@@ -892,7 +896,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
                 // Update label
                 if (val === '') {
-                    label.textContent = 'PILIH OPSI';
+                    label.textContent = (inputId === 'kategori-input') ? 'SEMUA KATEGORI' : 'SEMUA KECAMATAN';
                     label.classList.add('placeholder');
                 } else {
                     label.textContent = text;
