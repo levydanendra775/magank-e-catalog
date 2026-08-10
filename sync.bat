@@ -48,21 +48,34 @@ goto END
 :PULL
 :: ─────────────────────────────────────────────────────
 echo.
-echo [1/4] Pull data terbaru dari GitHub...
+echo [1/7] Pull data terbaru dari GitHub...
 git pull
 if errorlevel 1 ( echo ERROR: Gagal git pull! & goto END )
 
 echo.
-echo [2/4] Sync data Wisata ke database lokal...
+echo [2/7] Sync data Wisata ke database lokal...
 %PHP% artisan db:seed --class=WisataSeeder
 
 echo.
-echo [3/4] Sync data Event ke database lokal...
+echo [3/7] Sync data Event ke database lokal...
 %PHP% artisan db:seed --class=EventSeeder
 
 echo.
-echo [4/4] Sync data Berita ke database lokal...
+echo [4/7] Sync data Berita ke database lokal...
 %PHP% artisan db:seed --class=BeritaSeeder
+
+echo.
+echo [5/7] Membersihkan cache konfigurasi...
+%PHP% artisan config:clear
+
+echo.
+echo [6/7] Membersihkan cache tampilan (blade)...
+%PHP% artisan view:clear
+
+echo.
+echo [7/7] Memastikan storage link aktif...
+%PHP% artisan storage:link 2>nul
+echo     (Storage link sudah aktif atau baru dibuat)
 
 echo.
 echo ============================================
