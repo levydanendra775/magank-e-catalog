@@ -489,6 +489,7 @@ Spot foto',
             );
         }
 
-        $this->command->info('✓ WisataSeeder: ' . count($data) . ' data aktif di database.');
+        $this->command->info('✓ WisataSeeder: ' . count($data) . ' data aktif di database (21 data).');
     }
 }
+

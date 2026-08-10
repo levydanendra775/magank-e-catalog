@@ -7,7 +7,10 @@
 ::   sync.bat pull   → Pull dari GitHub + jalankan semua seeder
 :: ============================================================
 
-set PHP=C:\laragon\bin\php\php-8.4.21-Win32-vs17-x64\php.exe
+set PHP=php
+if exist "C:\laragon\bin\php\php-8.4.21-Win32-vs17-x64\php.exe" (
+    set PHP="C:\laragon\bin\php\php-8.4.21-Win32-vs17-x64\php.exe"
+)
 
 if "%1"=="push" goto PUSH
 if "%1"=="pull" goto PULL
