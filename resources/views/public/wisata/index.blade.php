@@ -410,12 +410,15 @@
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
-    color: #374151;
+    color: #374151 !important;
+    background: transparent !important;
+    background-color: transparent !important;
+    opacity: 1 !important;
 }
 
-.dd21-trigger-text.placeholder {
-    color: #6b7280;
-    font-weight: 400;
+.dd21-trigger-text.dd21-is-placeholder {
+    color: #6b7280 !important;
+    font-weight: 500;
 }
 
 .dd21-chevron {
@@ -572,7 +575,7 @@
                     <div class="dd21-wrapper" id="dd-kategori">
                         <button type="button" class="dd21-trigger" aria-haspopup="listbox" aria-expanded="false"
                             style="background:#ffffff !important; background-color:#ffffff !important; color:#374151 !important;">
-                            <span class="dd21-trigger-text placeholder" id="dd-kategori-label">
+                            <span class="dd21-trigger-text {{ !request('kategori') ? 'dd21-is-placeholder' : '' }}" id="dd-kategori-label">
                                 {{ request('kategori') ?: 'SEMUA KATEGORI' }}
                             </span>
                             <i class="fa-solid fa-chevron-down dd21-chevron"></i>
@@ -598,7 +601,7 @@
                     <div class="dd21-wrapper" id="dd-kecamatan">
                         <button type="button" class="dd21-trigger" aria-haspopup="listbox" aria-expanded="false"
                             style="background:#ffffff !important; background-color:#ffffff !important; color:#374151 !important;">
-                            <span class="dd21-trigger-text placeholder" id="dd-kecamatan-label">
+                            <span class="dd21-trigger-text {{ !request('kecamatan') ? 'dd21-is-placeholder' : '' }}" id="dd-kecamatan-label">
                                 {{ request('kecamatan') ?: 'SEMUA KECAMATAN' }}
                             </span>
                             <i class="fa-solid fa-chevron-down dd21-chevron"></i>
@@ -899,10 +902,10 @@ document.addEventListener('DOMContentLoaded', function() {
                 // Update label
                 if (val === '') {
                     label.textContent = (inputId === 'kategori-input') ? 'SEMUA KATEGORI' : 'SEMUA KECAMATAN';
-                    label.classList.add('placeholder');
+                    label.classList.add('dd21-is-placeholder');
                 } else {
                     label.textContent = text;
-                    label.classList.remove('placeholder');
+                    label.classList.remove('dd21-is-placeholder');
                 }
 
                 // Update selected state
