@@ -378,26 +378,28 @@
     justify-content: space-between;
     gap: 8px;
     border-radius: 12px;
-    border: 1px solid rgba(0,0,0,0.12);
-    background: #ffffff;
-    color: #374151;
+    border: 1.5px solid rgba(26,107,58,0.35);
+    background: linear-gradient(135deg, rgba(26,107,58,0.06) 0%, rgba(10,61,31,0.04) 100%);
+    color: #1a3d25;
     font-size: 0.925rem;
     font-weight: 500;
     cursor: pointer;
-    box-shadow: 0 1px 2px rgba(0,0,0,0.05);
-    transition: all 0.2s cubic-bezier(0.4,0,0.2,1);
+    box-shadow: 0 1px 4px rgba(26,107,58,0.08), inset 0 1px 0 rgba(255,255,255,0.8);
+    transition: all 0.22s cubic-bezier(0.4,0,0.2,1);
     user-select: none;
     -webkit-user-select: none;
 }
 
 .dd21-trigger:hover {
     border-color: #1a6b3a;
-    box-shadow: 0 0 0 2px rgba(26,107,58,0.1);
+    background: linear-gradient(135deg, rgba(26,107,58,0.12) 0%, rgba(10,61,31,0.08) 100%);
+    box-shadow: 0 0 0 3px rgba(26,107,58,0.12), 0 2px 8px rgba(26,107,58,0.1);
 }
 
 .dd21-trigger.is-open {
     border-color: #1a6b3a;
-    box-shadow: 0 0 0 3px rgba(26,107,58,0.15);
+    background: linear-gradient(135deg, rgba(26,107,58,0.15) 0%, rgba(10,61,31,0.10) 100%);
+    box-shadow: 0 0 0 3px rgba(26,107,58,0.18);
 }
 
 .dd21-trigger-text {
@@ -409,13 +411,13 @@
 }
 
 .dd21-trigger-text.placeholder {
-    color: #9ca3af;
+    color: #5a8a6a;
     font-weight: 400;
 }
 
 .dd21-chevron {
     flex-shrink: 0;
-    color: #6b7280;
+    color: #1a6b3a;
     font-size: 0.75rem;
     transition: transform 0.3s cubic-bezier(0.4,0,0.2,1);
 }
