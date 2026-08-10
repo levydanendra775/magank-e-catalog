@@ -274,10 +274,93 @@
     50%       { box-shadow: 0 3px 20px rgba(200, 155, 60, 0.9); }
 }
 
-/* Pinned card golden border glow */
-.wisata-card-21st.is-pinned {
-    border-color: rgba(200, 155, 60, 0.55);
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2), 0 0 0 1px rgba(200, 155, 60, 0.3);
+/* Origin UI Search Component Style (21st.dev inspired) */
+.origin-ui-search-wrapper {
+    position: relative;
+    width: 100%;
+}
+
+.origin-ui-input {
+    width: 100%;
+    height: 44px;
+    padding-left: 2.75rem !important;
+    padding-right: 2.75rem !important;
+    border-radius: 12px !important;
+    border: 1px solid rgba(0, 0, 0, 0.12) !important;
+    background-color: #ffffff !important;
+    color: #1f2937 !important;
+    font-size: 0.925rem;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+    transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1) !important;
+}
+
+.origin-ui-input::placeholder {
+    color: #9ca3af;
+}
+
+.origin-ui-input:focus {
+    border-color: #16a34a !important;
+    box-shadow: 0 0 0 3px rgba(22, 163, 74, 0.2) !important;
+    outline: none !important;
+}
+
+.origin-ui-input::-webkit-search-cancel-button,
+.origin-ui-input::-webkit-search-decoration,
+.origin-ui-input::-webkit-search-results-button,
+.origin-ui-input::-webkit-search-results-decoration {
+    -webkit-appearance: none;
+    appearance: none;
+}
+
+.origin-ui-mic-btn {
+    position: absolute;
+    top: 50%;
+    right: 6px;
+    transform: translateY(-50%);
+    width: 32px;
+    height: 32px;
+    border-radius: 8px;
+    border: none;
+    background: transparent;
+    color: #6b7280;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.9rem;
+    transition: all 0.2s ease;
+    cursor: pointer;
+    z-index: 5;
+}
+
+.origin-ui-mic-btn:hover {
+    color: #16a34a;
+    background-color: rgba(22, 163, 74, 0.1);
+}
+
+.origin-ui-mic-btn.listening {
+    color: #dc2626;
+    background-color: rgba(220, 38, 38, 0.12);
+    animation: micPulse 1.2s infinite ease-in-out;
+}
+
+@keyframes micPulse {
+    0% { transform: translateY(-50%) scale(1); }
+    50% { transform: translateY(-50%) scale(1.18); }
+    100% { transform: translateY(-50%) scale(1); }
+}
+
+.origin-ui-left-icon {
+    position: absolute;
+    top: 50%;
+    left: 14px;
+    transform: translateY(-50%);
+    color: #6b7280;
+    pointer-events: none;
+    z-index: 5;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.95rem;
 }
 </style>
 @endpush
@@ -306,11 +389,33 @@
         <form action="{{ route('public.wisata') }}" method="GET">
             <div class="row g-3 align-items-center">
                 <div class="col-lg-4 col-md-12">
-                    <div class="input-group">
-                        <span class="input-group-text bg-light border-end-0" style="border-radius:10px 0 0 10px;">
-                            <i class="fa-solid fa-magnifying-glass text-muted"></i>
-                        </span>
-                        <input type="text" name="q" class="form-control border-start-0 py-2" style="border-radius:0 10px 10px 0;" placeholder="Cari nama wisata atau alamat..." value="{{ request('q') }}">
+                    <div class="origin-ui-search-wrapper">
+                        <label for="search-input" class="visually-hidden">Search input</label>
+                        <input 
+                            type="search" 
+                            id="search-input" 
+                            name="q" 
+                            class="form-control origin-ui-input" 
+                            placeholder="Cari nama wisata atau alamat..." 
+                            value="{{ request('q') }}"
+                            autocomplete="off"
+                        >
+                        {{-- Left side search icon / spin loader --}}
+                        <div class="origin-ui-left-icon">
+                            <i id="search-spinner" class="fa-solid fa-circle-notch fa-spin text-success d-none"></i>
+                            <i id="search-icon" class="fa-solid fa-magnifying-glass"></i>
+                        </div>
+                        
+                        {{-- Right side microphone button for voice search --}}
+                        <button 
+                            type="button" 
+                            id="mic-search-btn" 
+                            class="origin-ui-mic-btn" 
+                            aria-label="Press to speak"
+                            title="Cari dengan suara (Bicara)"
+                        >
+                            <i class="fa-solid fa-microphone"></i>
+                        </button>
                     </div>
                 </div>
                 <div class="col-lg-3 col-md-4">
@@ -489,4 +594,84 @@
         {{ $wisata->links() }}
     </div>
 </div>
+
+@push('scripts')
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const searchInput = document.getElementById('search-input');
+    const searchIcon = document.getElementById('search-icon');
+    const searchSpinner = document.getElementById('search-spinner');
+    const micBtn = document.getElementById('mic-search-btn');
+    let typingTimer;
+
+    if (searchInput) {
+        searchInput.addEventListener('input', function() {
+            if (this.value.trim().length > 0) {
+                searchIcon.classList.add('d-none');
+                searchSpinner.classList.remove('d-none');
+
+                clearTimeout(typingTimer);
+                typingTimer = setTimeout(function() {
+                    searchSpinner.classList.add('d-none');
+                    searchIcon.classList.remove('d-none');
+                }, 400);
+            } else {
+                searchSpinner.classList.add('d-none');
+                searchIcon.classList.remove('d-none');
+            }
+        });
+    }
+
+    // Voice Search Feature (Web Speech API)
+    if (micBtn && searchInput) {
+        const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+        if (SpeechRecognition) {
+            const recognition = new SpeechRecognition();
+            recognition.lang = 'id-ID';
+            recognition.interimResults = false;
+            recognition.maxAlternatives = 1;
+
+            micBtn.addEventListener('click', function() {
+                if (micBtn.classList.contains('listening')) {
+                    recognition.stop();
+                } else {
+                    try {
+                        recognition.start();
+                    } catch(e) {}
+                }
+            });
+
+            recognition.onstart = function() {
+                micBtn.classList.add('listening');
+                searchInput.placeholder = 'Mendengarkan... Bicara sekarang';
+            };
+
+            recognition.onend = function() {
+                micBtn.classList.remove('listening');
+                searchInput.placeholder = 'Cari nama wisata atau alamat...';
+            };
+
+            recognition.onresult = function(event) {
+                const transcript = event.results[0][0].transcript;
+                searchInput.value = transcript;
+                searchIcon.classList.add('d-none');
+                searchSpinner.classList.remove('d-none');
+                setTimeout(() => {
+                    searchInput.form.submit();
+                }, 300);
+            };
+
+            recognition.onerror = function(event) {
+                micBtn.classList.remove('listening');
+                searchInput.placeholder = 'Cari nama wisata atau alamat...';
+            };
+        } else {
+            micBtn.addEventListener('click', function() {
+                alert('Fitur pencarian suara tidak didukung di browser ini. Silakan ketik nama wisata secara manual.');
+            });
+        }
+    }
+});
+</script>
+@endpush
 @endsection
