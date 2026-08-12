@@ -24,6 +24,8 @@ Route::middleware(['auth:admin', 'role:Admin|Petugas'])->prefix('admin')->name('
     
     Route::resource('wisata', WisataController::class);
     Route::post('/wisata/{wisatum}/pin', [WisataController::class, 'togglePin'])->name('wisata.pin');
+    Route::post('/wisata/{wisatum}/gallery', [WisataController::class, 'galleryStore'])->name('wisata.gallery.store');
+    Route::delete('/wisata/{wisatum}/gallery/{gallery}', [WisataController::class, 'galleryDestroy'])->name('wisata.gallery.destroy');
     Route::resource('event', EventController::class);
     Route::resource('berita', BeritaController::class);
     Route::resource('banner', BannerController::class);

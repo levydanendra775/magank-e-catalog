@@ -154,6 +154,7 @@
 
 <script>
     document.addEventListener('DOMContentLoaded', function() {
+        // Preview thumbnail utama
         const input = document.getElementById('thumbnailInput');
         const preview = document.getElementById('imagePreview');
 

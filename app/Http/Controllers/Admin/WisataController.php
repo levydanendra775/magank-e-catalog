@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Wisata;
+use App\Models\WisataGallery;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Storage;
@@ -60,6 +61,7 @@ class WisataController extends Controller
 
     public function edit(Wisata $wisatum)
     {
+        $wisatum->load('galleries');
         return view('admin.wisata.edit', ['wisata' => $wisatum]);
     }
 
@@ -106,6 +108,33 @@ class WisataController extends Controller
         $wisatum->delete();
 
         return redirect()->route('admin.wisata.index')->with('success', 'Data wisata berhasil dihapus!');
+    }
+
+    public function galleryStore(Request $request, Wisata $wisatum)
+    {
+        $request->validate([
+            'fotos'   => 'required|array|min:1',
+            'fotos.*' => 'image|mimes:jpg,jpeg,png,webp|max:3072',
+        ]);
+
+        foreach ($request->file('fotos') as $file) {
+            $path = $file->store('wisata/gallery', 'public');
+            $wisatum->galleries()->create(['foto' => $path]);
+        }
+
+        return redirect()
+            ->route('admin.wisata.edit', $wisatum)
+            ->with('gallery_success', count($request->file('fotos')) . ' foto galeri berhasil ditambahkan!');
+    }
+
+    public function galleryDestroy(Wisata $wisatum, WisataGallery $gallery)
+    {
+        Storage::disk('public')->delete($gallery->foto);
+        $gallery->delete();
+
+        return redirect()
+            ->route('admin.wisata.edit', $wisatum)
+            ->with('gallery_success', 'Foto galeri berhasil dihapus.');
     }
 
     public function togglePin(Wisata $wisatum)

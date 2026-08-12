@@ -26,6 +26,230 @@
     .star-rating-input label:hover ~ label {
         color: var(--accent);
     }
+
+    /* ===== PHOTO GRID (Klook Style: 1 besar kiri + 4 thumb kanan 2x2) ===== */
+    .photo-grid-outer {
+        padding-left: 12px;
+        padding-right: 12px;
+    }
+    .photo-grid-wrapper {
+        position: relative;
+        overflow: hidden;
+        border-radius: 12px;
+        margin-top: 12px;
+    }
+    .photo-grid {
+        display: grid;
+        grid-template-columns: 1.2fr 1fr 1fr;
+        grid-template-rows: 240px 240px;
+        gap: 4px;
+        height: 484px;
+    }
+    /* Gambar utama: kolom 1, span 2 baris */
+    .photo-grid .photo-main {
+        grid-column: 1;
+        grid-row: 1 / 3;
+    }
+    /* 4 thumbnail: kolom 2-3, masing-masing 1 baris */
+    .photo-grid .photo-thumb {
+        grid-column: auto;
+        grid-row: auto;
+    }
+    .photo-grid-item {
+        position: relative;
+        overflow: hidden;
+        cursor: pointer;
+        background: #0d1f1a;
+    }
+    .photo-grid-item img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        transition: transform 0.35s ease, opacity 0.25s ease;
+    }
+    .photo-grid-item:hover img {
+        transform: scale(1.05);
+        opacity: 0.88;
+    }
+    /* Overlay gelap pada thumb terakhir jika ada lebih dari 5 foto */
+    .photo-thumb-overlay {
+        position: absolute;
+        inset: 0;
+        background: rgba(0,0,0,0.52);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-direction: column;
+        gap: 4px;
+        color: #fff;
+        font-family: 'Plus Jakarta Sans', sans-serif;
+        font-weight: 700;
+        font-size: 1.1rem;
+        pointer-events: none;
+        transition: background 0.2s;
+    }
+    .photo-grid-item:hover .photo-thumb-overlay {
+        background: rgba(0,0,0,0.62);
+    }
+    /* Wishlist button */
+    .photo-grid-wishlist {
+        position: absolute;
+        top: 14px;
+        right: 14px;
+        z-index: 20;
+    }
+    /* Badge jumlah foto (pojok kanan bawah) */
+    .photo-count-badge {
+        position: absolute;
+        bottom: 14px;
+        right: 14px;
+        z-index: 20;
+        background: rgba(0,0,0,0.65);
+        color: #fff;
+        border: 2px solid rgba(255,255,255,0.85);
+        border-radius: 8px;
+        padding: 5px 12px;
+        font-size: 0.8rem;
+        font-weight: 700;
+        display: flex;
+        align-items: center;
+        gap: 6px;
+        pointer-events: none;
+        letter-spacing: 0.3px;
+    }
+    /* ===== LIGHTBOX ===== */
+    .lbox-backdrop {
+        display: none;
+        position: fixed;
+        inset: 0;
+        z-index: 9999;
+        background: rgba(0,0,0,0.92);
+        align-items: center;
+        justify-content: center;
+        flex-direction: column;
+    }
+    .lbox-backdrop.open {
+        display: flex;
+    }
+    .lbox-main-img {
+        max-width: 88vw;
+        max-height: 72vh;
+        border-radius: 10px;
+        object-fit: contain;
+        box-shadow: 0 8px 40px rgba(0,0,0,0.5);
+        transition: opacity 0.2s;
+    }
+    .lbox-thumbs {
+        display: flex;
+        gap: 8px;
+        margin-top: 16px;
+        overflow-x: auto;
+        padding-bottom: 4px;
+        max-width: 88vw;
+    }
+    .lbox-thumb {
+        width: 68px;
+        height: 52px;
+        border-radius: 6px;
+        object-fit: cover;
+        cursor: pointer;
+        opacity: 0.55;
+        border: 2px solid transparent;
+        transition: opacity 0.2s, border-color 0.2s;
+        flex-shrink: 0;
+    }
+    .lbox-thumb.active, .lbox-thumb:hover {
+        opacity: 1;
+        border-color: #fff;
+    }
+    .lbox-nav {
+        position: absolute;
+        top: 50%;
+        transform: translateY(-50%);
+        background: rgba(255,255,255,0.13);
+        border: none;
+        color: #fff;
+        width: 46px;
+        height: 46px;
+        border-radius: 50%;
+        font-size: 1.2rem;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transition: background 0.2s;
+        z-index: 10;
+    }
+    .lbox-nav:hover { background: rgba(255,255,255,0.28); }
+    .lbox-nav-left  { left: 18px; }
+    .lbox-nav-right { right: 18px; }
+    .lbox-close {
+        position: absolute;
+        top: 16px;
+        right: 20px;
+        background: rgba(255,255,255,0.13);
+        border: none;
+        color: #fff;
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        font-size: 1.1rem;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transition: background 0.2s;
+        z-index: 11;
+    }
+    .lbox-close:hover { background: rgba(255,255,255,0.28); }
+    .lbox-counter {
+        color: rgba(255,255,255,0.7);
+        font-size: 0.82rem;
+        margin-top: 10px;
+        letter-spacing: 1px;
+    }
+
+    /* Fallback: hanya 1 foto (banner penuh) */
+    .photo-banner-single {
+        height: 420px;
+        overflow: hidden;
+        position: relative;
+        border-radius: 12px;
+        margin-top: 12px;
+    }
+    .photo-banner-single img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+    }
+
+    /* Responsive */
+    @media (max-width: 900px) {
+        .photo-grid {
+            grid-template-columns: 1.2fr 1fr 1fr;
+            grid-template-rows: 170px 170px;
+            height: 344px;
+        }
+    }
+    @media (max-width: 640px) {
+        .photo-grid {
+            grid-template-columns: 1fr 1fr;
+            grid-template-rows: 150px 150px;
+            height: 304px;
+        }
+        .photo-grid .photo-main { grid-column: 1; grid-row: 1 / 3; }
+        /* Sembunyikan thumb ke-4 di layar kecil */
+        .photo-grid .photo-thumb:nth-child(5) { display: none; }
+        .photo-banner-single { height: 260px; }
+        .lbox-main-img { max-width: 97vw; max-height: 60vh; }
+    }
+    @media (max-width: 420px) {
+        .photo-grid {
+            grid-template-columns: 1fr 1fr;
+            grid-template-rows: 130px 130px;
+            height: 264px;
+        }
+    }
 </style>
 @endpush
 
@@ -55,60 +279,6 @@
     }
 @endphp
 
-{{-- Hero Banner --}}
-@if($wisata->thumbnail)
-    <div style="height:420px;overflow:hidden;position:relative;">
-        <img src="{{ Storage::url($wisata->thumbnail) }}" alt="{{ $wisata->nama }}" style="width:100%;height:100%;object-fit:cover;">
-        <div style="position:absolute;inset:0;background:linear-gradient(to top,rgba(0,0,0,0.6) 0%,transparent 55%);"></div>
-
-        @auth
-        <button type="button" class="wishlist-btn {{ auth()->user()->wishlist->contains($wisata->id) ? 'active' : '' }}"
-            data-id="{{ $wisata->id }}"
-            data-active="{{ auth()->user()->wishlist->contains($wisata->id) ? 'true' : 'false' }}"
-            title="{{ auth()->user()->wishlist->contains($wisata->id) ? 'Hapus dari Wisata Disukai' : 'Sukai Wisata Ini' }}"
-            style="position:absolute;top:24px;right:24px;z-index:10;">
-            <i class="fa-heart {{ auth()->user()->wishlist->contains($wisata->id) ? 'fa-solid' : 'fa-regular' }}"></i>
-        </button>
-        @else
-        <a href="{{ route('login') }}" class="wishlist-btn wishlist-btn-guest"
-            title="Login untuk menyukai wisata"
-            style="position:absolute;top:24px;right:24px;z-index:10;">
-            <i class="fa-regular fa-heart"></i>
-        </a>
-        @endauth
-
-        <div style="position:absolute;bottom:32px;left:0;right:0;" class="container">
-            <span class="badge mb-2" style="background:#1F3A34;font-size:0.8rem;padding:6px 14px;border-radius:6px;">{{ $wisata->kategori }}</span>
-            <h1 class="text-white fw-bold mb-1" style="font-family:'Plus Jakarta Sans',sans-serif;text-shadow:0 2px 8px rgba(0,0,0,0.4);">{{ $wisata->nama }}</h1>
-            <p class="text-white mb-0" style="opacity:0.85;"><i class="fa-solid fa-location-dot me-1"></i>{{ $wisata->alamat }}, {{ $wisata->kecamatan }}</p>
-        </div>
-    </div>
-@else
-    <div style="background:#1F3A34;padding:60px 0;position:relative;">
-        <div class="container text-white">
-            <span class="badge mb-2" style="background:rgba(255,255,255,0.2);font-size:0.8rem;padding:6px 14px;border-radius:100px;">{{ $wisata->kategori }}</span>
-            <h1 class="fw-bold mb-1" style="font-family:'Plus Jakarta Sans',sans-serif;">{{ $wisata->nama }}</h1>
-            <p class="mb-0" style="opacity:0.8;"><i class="fa-solid fa-location-dot me-1"></i>{{ $wisata->alamat }}, {{ $wisata->kecamatan }}</p>
-        </div>
-
-        @auth
-        <button type="button" class="wishlist-btn {{ auth()->user()->wishlist->contains($wisata->id) ? 'active' : '' }}"
-            data-id="{{ $wisata->id }}"
-            data-active="{{ auth()->user()->wishlist->contains($wisata->id) ? 'true' : 'false' }}"
-            title="{{ auth()->user()->wishlist->contains($wisata->id) ? 'Hapus dari Wisata Disukai' : 'Sukai Wisata Ini' }}"
-            style="position:absolute;top:24px;right:24px;z-index:10;">
-            <i class="fa-heart {{ auth()->user()->wishlist->contains($wisata->id) ? 'fa-solid' : 'fa-regular' }}"></i>
-        </button>
-        @else
-        <a href="{{ route('login') }}" class="wishlist-btn wishlist-btn-guest"
-            title="Login untuk menyukai wisata"
-            style="position:absolute;top:24px;right:24px;z-index:10;">
-            <i class="fa-regular fa-heart"></i>
-        </a>
-        @endauth
-    </div>
-@endif
-
 @php
     $backUrl = route('public.wisata');
     if (request()->has('page') || request()->has('q') || request()->has('kategori') || request()->has('kecamatan')) {
@@ -118,27 +288,231 @@
     }
 @endphp
 
-<div class="container py-5">
+<div class="container mt-4 mb-3">
+    {{-- Breadcrumb --}}
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb mb-0">
+            <li class="breadcrumb-item"><a href="{{ route('home') }}" class="text-decoration-none" style="color:#1F3A34;">Beranda</a></li>
+            <li class="breadcrumb-item"><a href="{{ $backUrl }}" class="text-decoration-none" style="color:#1F3A34;">Wisata</a></li>
+            <li class="breadcrumb-item active text-muted">{{ $wisata->nama }}</li>
+        </ol>
+    </nav>
+</div>
+
+{{-- ===== PHOTO GRID (Klook Style) ===== --}}
+@php
+    // Kumpulkan semua foto: thumbnail + galeri
+    $allPhotos = collect();
+    if ($wisata->thumbnail) {
+        $allPhotos->push(\Storage::url($wisata->thumbnail));
+    }
+    foreach ($wisata->galleries as $g) {
+        $allPhotos->push(\Storage::url($g->foto));
+    }
+    $totalPhotos = $allPhotos->count();
+    $isWishlisted = auth()->check() && auth()->user()->wishlist->contains($wisata->id);
+@endphp
+
+@if($totalPhotos >= 2)
+{{-- Grid Mode: gambar besar kiri + 4 thumbnail kanan (2×2) --}}
+<div class="container photo-grid-outer">
+<div class="photo-grid-wrapper">
+    <div class="photo-grid">
+        {{-- Gambar utama (kiri, full tinggi) --}}
+        <div class="photo-grid-item photo-main" onclick="lboxOpen(0)" role="button" aria-label="Lihat foto 1">
+            <img src="{{ $allPhotos->get(0) }}" alt="{{ $wisata->nama }} - Foto 1" loading="eager">
+        </div>
+
+        {{-- Thumbnail kanan atas-kiri (index 1) --}}
+        @if($allPhotos->get(1))
+        <div class="photo-grid-item photo-thumb" onclick="lboxOpen(1)" role="button" aria-label="Lihat foto 2">
+            <img src="{{ $allPhotos->get(1) }}" alt="{{ $wisata->nama }} - Foto 2" loading="lazy">
+        </div>
+        @endif
+
+        {{-- Thumbnail kanan atas-kanan (index 2) --}}
+        @if($allPhotos->get(2))
+        <div class="photo-grid-item photo-thumb" onclick="lboxOpen(2)" role="button" aria-label="Lihat foto 3">
+            <img src="{{ $allPhotos->get(2) }}" alt="{{ $wisata->nama }} - Foto 3" loading="lazy">
+        </div>
+        @endif
+
+        {{-- Thumbnail kanan bawah-kiri (index 3) --}}
+        @if($allPhotos->get(3))
+        <div class="photo-grid-item photo-thumb" onclick="lboxOpen(3)" role="button" aria-label="Lihat foto 4">
+            <img src="{{ $allPhotos->get(3) }}" alt="{{ $wisata->nama }} - Foto 4" loading="lazy">
+        </div>
+        @endif
+
+        {{-- Thumbnail kanan bawah-kanan (index 4) — overlay jika ada lebih dari 5 foto --}}
+        @if($allPhotos->get(4))
+        <div class="photo-grid-item photo-thumb" onclick="lboxOpen(4)" role="button" aria-label="Lihat foto 5">
+            <img src="{{ $allPhotos->get(4) }}" alt="{{ $wisata->nama }} - Foto 5" loading="lazy">
+            @if($totalPhotos > 5)
+            <div class="photo-thumb-overlay">
+                <i class="fa-regular fa-images fa-lg"></i>
+                <span>+{{ $totalPhotos - 5 }} foto</span>
+            </div>
+            @endif
+        </div>
+        @endif
+    </div>
+
+    {{-- Wishlist button --}}
+    <div class="photo-grid-wishlist">
+        @auth
+        <button type="button" class="wishlist-btn {{ $isWishlisted ? 'active' : '' }}"
+            data-id="{{ $wisata->id }}"
+            data-active="{{ $isWishlisted ? 'true' : 'false' }}"
+            title="{{ $isWishlisted ? 'Hapus dari Wisata Disukai' : 'Sukai Wisata Ini' }}">
+            <i class="fa-heart {{ $isWishlisted ? 'fa-solid' : 'fa-regular' }}"></i>
+        </button>
+        @else
+        <a href="{{ route('login') }}" class="wishlist-btn wishlist-btn-guest" title="Login untuk menyukai wisata">
+            <i class="fa-regular fa-heart"></i>
+        </a>
+        @endauth
+    </div>
+
+    {{-- Badge jumlah foto (pojok kanan bawah, klik buka lightbox) --}}
+    @if($totalPhotos > 1)
+    <div class="photo-count-badge" onclick="lboxOpen(0)" style="cursor:pointer;pointer-events:auto;">
+        <i class="fa-regular fa-images"></i>
+        {{ $totalPhotos }} foto
+    </div>
+    @endif
+</div>{{-- /photo-grid-wrapper --}}
+</div>{{-- /container photo-grid-outer --}}
+
+@elseif($totalPhotos == 1)
+{{-- Single banner mode --}}
+<div class="container photo-grid-outer">
+<div class="photo-banner-single">
+    <img src="{{ $allPhotos->get(0) }}" alt="{{ $wisata->nama }}">
+    <div style="position:absolute;inset:0;background:linear-gradient(to top,rgba(0,0,0,0.6) 0%,transparent 55%);"></div>
+
+    <div class="photo-grid-wishlist">
+        @auth
+        <button type="button" class="wishlist-btn {{ $isWishlisted ? 'active' : '' }}"
+            data-id="{{ $wisata->id }}"
+            data-active="{{ $isWishlisted ? 'true' : 'false' }}"
+            title="{{ $isWishlisted ? 'Hapus dari Wisata Disukai' : 'Sukai Wisata Ini' }}">
+            <i class="fa-heart {{ $isWishlisted ? 'fa-solid' : 'fa-regular' }}"></i>
+        </button>
+        @else
+        <a href="{{ route('login') }}" class="wishlist-btn wishlist-btn-guest" title="Login untuk menyukai wisata">
+            <i class="fa-regular fa-heart"></i>
+        </a>
+        @endauth
+    </div>
+</div>{{-- /photo-banner-single --}}
+</div>{{-- /container photo-grid-outer --}}
+
+@else
+{{-- Tidak ada foto sama sekali --}}
+<div style="background:#f8f9fa;height:120px;position:relative;border-radius:12px;margin-top:12px;" class="container photo-grid-outer d-flex align-items-center justify-content-center">
+    <div class="text-muted"><i class="fa-regular fa-image me-2"></i>Belum ada foto</div>
+    <div class="photo-grid-wishlist" style="top:14px;right:14px;position:absolute;">
+        @auth
+        <button type="button" class="wishlist-btn {{ $isWishlisted ? 'active' : '' }}"
+            data-id="{{ $wisata->id }}"
+            data-active="{{ $isWishlisted ? 'true' : 'false' }}"
+            title="{{ $isWishlisted ? 'Hapus dari Wisata Disukai' : 'Sukai Wisata Ini' }}">
+            <i class="fa-heart {{ $isWishlisted ? 'fa-solid' : 'fa-regular' }}"></i>
+        </button>
+        @else
+        <a href="{{ route('login') }}" class="wishlist-btn wishlist-btn-guest" title="Login untuk menyukai wisata">
+            <i class="fa-regular fa-heart"></i>
+        </a>
+        @endauth
+    </div>
+</div>
+@endif
+
+{{-- ===== LIGHTBOX MODAL ===== --}}
+@if($totalPhotos > 0)
+<div class="lbox-backdrop" id="lbox" role="dialog" aria-modal="true" aria-label="Galeri foto {{ $wisata->nama }}">
+    <button class="lbox-close" onclick="lboxClose()" aria-label="Tutup"><i class="fa-solid fa-xmark"></i></button>
+    <button class="lbox-nav lbox-nav-left" onclick="lboxPrev()" aria-label="Foto sebelumnya"><i class="fa-solid fa-chevron-left"></i></button>
+    <button class="lbox-nav lbox-nav-right" onclick="lboxNext()" aria-label="Foto berikutnya"><i class="fa-solid fa-chevron-right"></i></button>
+
+    <img class="lbox-main-img" id="lbox-img" src="" alt="Foto wisata">
+    <div class="lbox-counter" id="lbox-counter"></div>
+
+    <div class="lbox-thumbs" id="lbox-thumbs">
+        @foreach($allPhotos as $idx => $photo)
+        <img src="{{ $photo }}" alt="Foto {{ $idx + 1 }}" class="lbox-thumb" onclick="lboxGoto({{ $idx }})" data-idx="{{ $idx }}">
+        @endforeach
+    </div>
+</div>
+
+<script>
+    const lboxPhotos = @json($allPhotos->values());
+    let lboxCurrent = 0;
+    function lboxOpen(idx) {
+        lboxCurrent = idx;
+        document.getElementById('lbox').classList.add('open');
+        document.body.style.overflow = 'hidden';
+        lboxRender();
+    }
+    function lboxClose() {
+        document.getElementById('lbox').classList.remove('open');
+        document.body.style.overflow = '';
+    }
+    function lboxPrev() {
+        lboxCurrent = (lboxCurrent - 1 + lboxPhotos.length) % lboxPhotos.length;
+        lboxRender();
+    }
+    function lboxNext() {
+        lboxCurrent = (lboxCurrent + 1) % lboxPhotos.length;
+        lboxRender();
+    }
+    function lboxGoto(idx) {
+        lboxCurrent = idx;
+        lboxRender();
+    }
+    function lboxRender() {
+        const img = document.getElementById('lbox-img');
+        img.style.opacity = '0';
+        setTimeout(() => {
+            img.src = lboxPhotos[lboxCurrent];
+            img.alt = 'Foto ' + (lboxCurrent + 1);
+            img.style.opacity = '1';
+        }, 100);
+        document.getElementById('lbox-counter').textContent = (lboxCurrent + 1) + ' / ' + lboxPhotos.length;
+        document.querySelectorAll('.lbox-thumb').forEach((t, i) => {
+            t.classList.toggle('active', i === lboxCurrent);
+            if (i === lboxCurrent) t.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
+        });
+    }
+    // Keyboard nav
+    document.addEventListener('keydown', function(e) {
+        if (!document.getElementById('lbox').classList.contains('open')) return;
+        if (e.key === 'ArrowLeft')  lboxPrev();
+        if (e.key === 'ArrowRight') lboxNext();
+        if (e.key === 'Escape')     lboxClose();
+    });
+    // Click backdrop to close
+    document.getElementById('lbox').addEventListener('click', function(e) {
+        if (e.target === this) lboxClose();
+    });
+</script>
+@endif
+
+<div class="container mt-4 mb-5">
     <div class="row g-4">
 
         {{-- Kolom Kiri: Informasi Utama --}}
         <div class="col-lg-8">
 
-            {{-- Breadcrumb --}}
-            <nav aria-label="breadcrumb" class="mb-4">
-                <ol class="breadcrumb">
-                    <li class="breadcrumb-item"><a href="{{ route('home') }}" class="text-decoration-none" style="color:#1F3A34;">Beranda</a></li>
-                    <li class="breadcrumb-item"><a href="{{ $backUrl }}" class="text-decoration-none" style="color:#1F3A34;">Wisata</a></li>
-                    <li class="breadcrumb-item active text-muted">{{ $wisata->nama }}</li>
-                </ol>
-            </nav>
-
-            {{-- Judul jika tidak ada thumbnail --}}
-            @if(!$wisata->thumbnail)
-            <span class="badge mb-3" style="background:#1F3A34;font-size:0.8rem;padding:6px 14px;border-radius:6px;">{{ $wisata->kategori }}</span>
-            <h1 style="font-family:'Plus Jakarta Sans',sans-serif;font-weight:800;">{{ $wisata->nama }}</h1>
-            <p class="text-muted mb-4"><i class="fa-solid fa-location-dot me-1"></i>{{ $wisata->alamat }}, {{ $wisata->kecamatan }}</p>
-            @endif
+            {{-- Judul Utama (Di bawah foto) --}}
+            <div class="mb-4">
+                <h1 style="font-family:'Plus Jakarta Sans',sans-serif;font-weight:800;font-size:2.2rem;margin-bottom:10px;color:#14261F;">{{ $wisata->nama }}</h1>
+                <p class="text-muted mb-0" style="font-size:1.05rem;">
+                    <span class="badge me-2" style="background:#1F3A34;font-size:0.85rem;padding:6px 12px;border-radius:6px;vertical-align:middle;">{{ $wisata->kategori }}</span>
+                    <i class="fa-solid fa-location-dot me-1" style="color:#C89B3C;"></i> {{ $wisata->alamat }}, Kec. {{ $wisata->kecamatan }}, Kab. Magetan
+                </p>
+            </div>
 
             {{-- Info Cards --}}
             <div class="row g-3 mb-4">
