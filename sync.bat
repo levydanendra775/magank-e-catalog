@@ -50,33 +50,53 @@ goto END
 :: ─────────────────────────────────────────────────────
 :PULL
 :: ─────────────────────────────────────────────────────
+
+:: Deteksi path mysql.exe dari Laragon
+set MYSQL=mysql
+if exist "C:\laragon\bin\mysql\mysql-8.0.30-winx64\bin\mysql.exe" (
+    set MYSQL="C:\laragon\bin\mysql\mysql-8.0.30-winx64\bin\mysql.exe"
+)
+
 echo.
-echo [1/7] Pull data terbaru dari GitHub...
+echo [1/8] Pull data terbaru dari GitHub...
 git pull
 if errorlevel 1 ( echo ERROR: Gagal git pull! & goto END )
 
 echo.
-echo [2/7] Sync data Wisata ke database lokal...
+echo [2/8] Import dump database terbaru (termasuk data galeri foto)...
+if exist "database\dump.sql" (
+    %MYSQL% -u root magang_ecatalog < database\dump.sql
+    if errorlevel 1 (
+        echo PERINGATAN: Gagal import dump.sql. Pastikan MySQL Laragon sudah aktif.
+    ) else (
+        echo     Database berhasil diimport!
+    )
+) else (
+    echo     File database/dump.sql tidak ditemukan, langkah ini dilewati.
+)
+
+echo.
+echo [3/8] Sync data Wisata ke database lokal...
 %PHP% artisan db:seed --class=WisataSeeder
 
 echo.
-echo [3/7] Sync data Event ke database lokal...
+echo [4/8] Sync data Event ke database lokal...
 %PHP% artisan db:seed --class=EventSeeder
 
 echo.
-echo [4/7] Sync data Berita ke database lokal...
+echo [5/8] Sync data Berita ke database lokal...
 %PHP% artisan db:seed --class=BeritaSeeder
 
 echo.
-echo [5/7] Membersihkan cache konfigurasi...
+echo [6/8] Membersihkan cache konfigurasi...
 %PHP% artisan config:clear
 
 echo.
-echo [6/7] Membersihkan cache tampilan (blade)...
+echo [7/8] Membersihkan cache tampilan (blade)...
 %PHP% artisan view:clear
 
 echo.
-echo [7/7] Memastikan storage link aktif...
+echo [8/8] Memastikan storage link aktif...
 %PHP% artisan storage:link 2>nul
 echo     (Storage link sudah aktif atau baru dibuat)
 
