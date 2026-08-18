@@ -3,15 +3,15 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>@yield('title', 'Beranda') — E-Catalog Magetan</title>
+    <title>@yield('title', 'Beranda') — Jelajah Magetan</title>
     <meta name="description" content="@yield('meta_description', 'Temukan destinasi wisata, event menarik, dan berita seputar Kabupaten Magetan.')">
 
     <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}">
     <link rel="apple-touch-icon" href="{{ asset('images/lambang-magetan.png') }}">
 
     <meta property="og:type" content="website">
-    <meta property="og:site_name" content="E-Catalog Magetan">
-    <meta property="og:title" content="@yield('title', 'Beranda — E-Catalog Magetan')">
+    <meta property="og:site_name" content="Jelajah Magetan">
+    <meta property="og:title" content="@yield('title', 'Beranda — Jelajah Magetan')">
     <meta property="og:description" content="@yield('meta_description', 'Temukan destinasi wisata, event menarik, dan berita seputar Kabupaten Magetan.')">
     <meta property="og:image" content="@yield('og_image', asset('images/hero-telaga-sarangan.jpg'))">
     <meta property="og:url" content="{{ url()->current() }}">
@@ -960,7 +960,9 @@
         <div class="container position-relative" style="z-index: 1;">
             <div class="row g-4">
                 <div class="col-md-4 pe-md-5">
-                    <h5 class="brand-title mb-3">E-Catalog Wisata & Event Magetan</h5>
+                    <div class="mb-4">
+                        <img src="{{ asset('images/Logo JM.png') }}" alt="Logo Jelajah Magetan" style="height:140px; width:auto; object-fit:contain; filter: brightness(0) invert(1) opacity(0.95);">
+                    </div>
                     <p class="small" style="line-height:1.8; color:#94a3b8;">Portal informasi dan promosi pariwisata Kabupaten Magetan yang dikelola oleh Bidang Pemasaran Dinas Pariwisata dan Kebudayaan.</p>
                 </div>
                 <div class="col-md-2">

@@ -1,9 +1,9 @@
 @extends('layouts.public')
-@section('title', 'Tentang Kami — E-Catalog Magetan')
+@section('title', 'Tentang Kami — Jelajah Magetan')
 @section('content')
 <div style="background:linear-gradient(135deg, var(--primary-dark), var(--primary));padding:80px 0;" data-aos="fade-down">
     <div class="container text-white text-center">
-        <h1 class="fw-bold mb-3" style="font-family:'Plus Jakarta Sans',sans-serif;">Tentang E-Catalog Magetan</h1>
+        <h1 class="fw-bold mb-3" style="font-family:'Plus Jakarta Sans',sans-serif;">Tentang Jelajah Magetan</h1>
         <p style="opacity:0.85;max-width:600px;margin:0 auto;">Platform digital promosi wisata, event, dan berita Kabupaten Magetan</p>
     </div>
 </div>
@@ -12,7 +12,7 @@
         <div class="col-lg-8">
             <div class="p-4 mb-4" style="background:#fff;border:1px solid var(--border);border-radius:16px;" data-aos="fade-up">
                 <h4 class="fw-bold mb-3" style="font-family:'Plus Jakarta Sans',sans-serif;color:var(--text-dark);">Tentang Kami</h4>
-                <p style="line-height:1.9;color:var(--text-muted);">E-Catalog Magetan merupakan platform digital yang dikembangkan oleh <strong style="color:var(--text-dark);">Bidang Pemasaran Dinas Pariwisata dan Kebudayaan Kabupaten Magetan</strong> sebagai media promosi dan informasi terpadu untuk destinasi wisata, event, dan berita seputar Kabupaten Magetan, Jawa Timur.</p>
+                <p style="line-height:1.9;color:var(--text-muted);">Jelajah Magetan merupakan platform digital yang dikembangkan oleh <strong style="color:var(--text-dark);">Bidang Pemasaran Dinas Pariwisata dan Kebudayaan Kabupaten Magetan</strong> sebagai media promosi dan informasi terpadu untuk destinasi wisata, event, dan berita seputar Kabupaten Magetan, Jawa Timur.</p>
                 <p style="line-height:1.9;color:var(--text-muted);">Platform ini bertujuan untuk memperluas jangkauan promosi pariwisata secara digital, serta memudahkan wisatawan dalam mengakses informasi perjalanan ke Kabupaten Magetan — mulai dari pencarian destinasi, jadwal event, hingga berita terbaru seputar pariwisata daerah.</p>
             </div>
             <div class="p-4" style="background:#fff;border:1px solid var(--border);border-radius:16px;" data-aos="fade-up" data-aos-delay="100">

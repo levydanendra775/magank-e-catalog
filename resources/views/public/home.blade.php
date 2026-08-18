@@ -1714,7 +1714,7 @@ document.querySelectorAll('[data-tilt]').forEach(card => {
                         </a>
                         <a href="{{ route('public.tentang') }}" class="btn-cta-secondary">
                             <i class="fa-solid fa-circle-info"></i>
-                            <span>Tentang Magetan Tourism</span>
+                            <span>Tentang Jelajah Magetan</span>
                         </a>
                     </div>
 

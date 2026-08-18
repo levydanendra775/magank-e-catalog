@@ -1,5 +1,5 @@
 @extends('layouts.public')
-@section('title', 'Destinasi Wisata — E-Catalog Magetan')
+@section('title', 'Destinasi Wisata — Jelajah Magetan')
 
 @push('styles')
 <style>

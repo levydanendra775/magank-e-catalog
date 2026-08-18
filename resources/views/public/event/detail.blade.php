@@ -1,5 +1,5 @@
 @extends('layouts.public')
-@section('title', $event->judul.' — E-Catalog Magetan')
+@section('title', $event->judul.' — Jelajah Magetan')
 @section('content')
 
 <div style="background:linear-gradient(135deg,#0a3d1f,#1a6b3a);padding:60px 0;">
