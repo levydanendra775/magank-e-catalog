@@ -12,6 +12,11 @@ if exist "C:\laragon\bin\php\php-8.4.21-Win32-vs17-x64\php.exe" (
     set PHP="C:\laragon\bin\php\php-8.4.21-Win32-vs17-x64\php.exe"
 )
 
+set MYSQLDUMP=mysqldump
+if exist "C:\laragon\bin\mysql\mysql-8.0.30-winx64\bin\mysqldump.exe" (
+    set MYSQLDUMP="C:\laragon\bin\mysql\mysql-8.0.30-winx64\bin\mysqldump.exe"
+)
+
 if "%1"=="push" goto PUSH
 if "%1"=="pull" goto PULL
 
@@ -26,16 +31,20 @@ goto END
 :PUSH
 :: ─────────────────────────────────────────────────────
 echo.
-echo [1/3] Generate ulang semua seeder dari database lokal...
+echo [1/4] Export dump database lokal ke database\dump.sql...
+%MYSQLDUMP% -u root magang_ecatalog --result-file="database\dump.sql" 2>nul
+
+echo.
+echo [2/4] Generate ulang semua seeder dari database lokal...
 %PHP% generate_seeders.php
 if errorlevel 1 ( echo ERROR: Gagal generate seeder! & goto END )
 
 echo.
-echo [2/3] Menambahkan semua file dan seeder ke git...
+echo [3/4] Menambahkan semua file dan seeder ke git...
 git add .
 
 echo.
-echo [3/3] Commit dan push ke GitHub...
+echo [4/4] Commit dan push ke GitHub...
 set /p MSG="Pesan commit (contoh: tambah event baru / update fitur): "
 if "%MSG%"=="" set MSG=sinkronisasi data dan update kode
 git commit -m "%MSG%"
@@ -58,12 +67,12 @@ if exist "C:\laragon\bin\mysql\mysql-8.0.30-winx64\bin\mysql.exe" (
 )
 
 echo.
-echo [1/8] Pull data terbaru dari GitHub...
+echo [1/9] Pull data terbaru dari GitHub...
 git pull
 if errorlevel 1 ( echo ERROR: Gagal git pull! & goto END )
 
 echo.
-echo [2/8] Import dump database terbaru (termasuk data galeri foto)...
+echo [2/9] Import dump database terbaru (termasuk data galeri foto)...
 if exist "database\dump.sql" (
     %MYSQL% -u root magang_ecatalog < database\dump.sql
     if errorlevel 1 (
@@ -76,27 +85,31 @@ if exist "database\dump.sql" (
 )
 
 echo.
-echo [3/8] Sync data Wisata ke database lokal...
+echo [3/9] Sync data Wisata ke database lokal...
 %PHP% artisan db:seed --class=WisataSeeder
 
 echo.
-echo [4/8] Sync data Event ke database lokal...
+echo [4/9] Sync data Event ke database lokal...
 %PHP% artisan db:seed --class=EventSeeder
 
 echo.
-echo [5/8] Sync data Berita ke database lokal...
+echo [5/9] Sync data Berita ke database lokal...
 %PHP% artisan db:seed --class=BeritaSeeder
 
 echo.
-echo [6/8] Membersihkan cache konfigurasi...
+echo [6/9] Sync data Galeri Wisata ke database lokal...
+%PHP% artisan db:seed --class=WisataGallerySeeder
+
+echo.
+echo [7/9] Membersihkan cache konfigurasi...
 %PHP% artisan config:clear
 
 echo.
-echo [7/8] Membersihkan cache tampilan (blade)...
+echo [8/9] Membersihkan cache tampilan (blade)...
 %PHP% artisan view:clear
 
 echo.
-echo [8/8] Memastikan storage link aktif...
+echo [9/9] Memastikan storage link aktif...
 %PHP% artisan storage:link 2>nul
 echo     (Storage link sudah aktif atau baru dibuat)
 

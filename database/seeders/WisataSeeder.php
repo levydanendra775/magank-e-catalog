@@ -103,8 +103,8 @@ class WisataSeeder extends Seeder
                 'updated_at'           => '2026-08-10 09:04:07',
             ],
             [
-                'nama'                 => 'Situs Candi Sadon (Candi Reog)',
-                'slug'                 => 'situs-candi-sadon-candi-reog',
+                'nama'                 => 'Candi Sadon (Candi Reog)',
+                'slug'                 => 'candi-sadon-candi-reog',
                 'kategori'             => 'Budaya',
                 'kecamatan'            => 'Panekan',
                 'alamat'               => 'Dusun Sadon, Desa Cepoko, Kecamatan Panekan, Kabupaten Magetan, Jawa Timur 63352',
@@ -120,7 +120,7 @@ class WisataSeeder extends Seeder
                 'is_pinned'            => 0,
                 'pinned_at'            => NULL,
                 'created_at'           => '2026-07-22 10:22:35',
-                'updated_at'           => '2026-07-22 10:23:55',
+                'updated_at'           => '2026-08-18 11:15:38',
             ],
             [
                 'nama'                 => 'Masjid Agung Baitussalam Magetan',
@@ -456,7 +456,7 @@ Spot foto',
   1 => 'mojosemi-forest-park',
   2 => 'taman-wisata-genilangit',
   3 => 'sgodean-kolam-renang-cafe',
-  4 => 'situs-candi-sadon-candi-reog',
+  4 => 'candi-sadon-candi-reog',
   5 => 'masjid-agung-baitussalam-magetan',
   6 => 'magetan-park',
   7 => 'kampung-susu-lawu-singolangu',
@@ -489,7 +489,6 @@ Spot foto',
             );
         }
 
-        $this->command->info('✓ WisataSeeder: ' . count($data) . ' data aktif di database (21 data).');
+        $this->command->info('✓ WisataSeeder: ' . count($data) . ' data aktif di database.');
     }
 }
-

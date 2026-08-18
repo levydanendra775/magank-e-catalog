@@ -39,6 +39,7 @@ class DatabaseSeeder extends Seeder
         // Sync semua data konten (aman dijalankan berulang kali - menggunakan updateOrInsert)
         $this->call([
             WisataSeeder::class,
+            WisataGallerySeeder::class,
             EventSeeder::class,
             BeritaSeeder::class,
         ]);

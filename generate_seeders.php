@@ -101,5 +101,12 @@ $beritas = DB::table('beritas')->orderBy('id')->get()->toArray();
 writeSeeder('BeritaSeeder', 'beritas', 'judul', $beritas, __DIR__ . '/database/seeders/BeritaSeeder.php');
 echo "✅ BeritaSeeder.php  — " . count($beritas) . " data\n";
 
+// ─────────────────────────────────────────────
+// 4. WisataGallerySeeder
+// ─────────────────────────────────────────────
+$galleries = DB::table('wisata_galleries')->orderBy('id')->get()->toArray();
+writeSeeder('WisataGallerySeeder', 'wisata_galleries', 'foto', $galleries, __DIR__ . '/database/seeders/WisataGallerySeeder.php');
+echo "✅ WisataGallerySeeder.php — " . count($galleries) . " data\n";
+
 echo "\n--- Langkah selanjutnya ---\n";
 echo "Jalankan: sync.bat push\n\n";
