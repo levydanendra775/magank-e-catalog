@@ -448,6 +448,66 @@ class WisataGallerySeeder extends Seeder
                 'created_at'           => '2026-08-18 11:35:09',
                 'updated_at'           => '2026-08-18 11:35:09',
             ],
+            [
+                'wisata_id'            => 20,
+                'foto'                 => 'wisata/gallery/mQINDPAwEE5k0f6EHYYuBG4vR5PO0bNDLFJOQGym.webp',
+                'created_at'           => '2026-08-20 08:53:32',
+                'updated_at'           => '2026-08-20 08:53:32',
+            ],
+            [
+                'wisata_id'            => 20,
+                'foto'                 => 'wisata/gallery/mK6oVrLYXH8KJgbcIO9hTESoqOIIg73WF3o7U84d.webp',
+                'created_at'           => '2026-08-20 08:53:32',
+                'updated_at'           => '2026-08-20 08:53:32',
+            ],
+            [
+                'wisata_id'            => 20,
+                'foto'                 => 'wisata/gallery/JzF78vw1e5UtmTsJKanFDBZf44U75QamnhHy7D3I.webp',
+                'created_at'           => '2026-08-20 08:53:32',
+                'updated_at'           => '2026-08-20 08:53:32',
+            ],
+            [
+                'wisata_id'            => 20,
+                'foto'                 => 'wisata/gallery/EJesc7roeVWJ5VpcBRk2r50vPss5D7QOJwjf7ydF.webp',
+                'created_at'           => '2026-08-20 08:53:32',
+                'updated_at'           => '2026-08-20 08:53:32',
+            ],
+            [
+                'wisata_id'            => 20,
+                'foto'                 => 'wisata/gallery/JkATuIP3k6cyDgSGk8iz1L7ozdZ4ceFvnS0cJBQG.webp',
+                'created_at'           => '2026-08-20 08:53:32',
+                'updated_at'           => '2026-08-20 08:53:32',
+            ],
+            [
+                'wisata_id'            => 21,
+                'foto'                 => 'wisata/gallery/cc2dv86JjI1dsU3AnOu0BuDUm1QiAbyg5ySg2LLw.webp',
+                'created_at'           => '2026-08-20 08:57:15',
+                'updated_at'           => '2026-08-20 08:57:15',
+            ],
+            [
+                'wisata_id'            => 21,
+                'foto'                 => 'wisata/gallery/irKBYGfEOjgltnri5GDq1VaRRk1jprm7uZdic45y.webp',
+                'created_at'           => '2026-08-20 08:57:15',
+                'updated_at'           => '2026-08-20 08:57:15',
+            ],
+            [
+                'wisata_id'            => 21,
+                'foto'                 => 'wisata/gallery/0eoUgqmbrhRkohiyGCd1onrxOnWB0Lrnoo3ZENCx.webp',
+                'created_at'           => '2026-08-20 08:57:16',
+                'updated_at'           => '2026-08-20 08:57:16',
+            ],
+            [
+                'wisata_id'            => 21,
+                'foto'                 => 'wisata/gallery/1YPZo4gEFOMi7Nbc7q79hdXNGs6SBPNPKXkPosj8.webp',
+                'created_at'           => '2026-08-20 08:57:16',
+                'updated_at'           => '2026-08-20 08:57:16',
+            ],
+            [
+                'wisata_id'            => 21,
+                'foto'                 => 'wisata/gallery/2Mwa2WMw5bPFlePKsQAW8VFeT7sOCoENXzfbNJlh.webp',
+                'created_at'           => '2026-08-20 08:57:16',
+                'updated_at'           => '2026-08-20 08:57:16',
+            ],
         ];
 
         // ── Hapus data yang sudah tidak ada di seeder ──
@@ -523,6 +583,16 @@ class WisataGallerySeeder extends Seeder
   68 => 'wisata/gallery/QmgnzDlq9hMTOTRy5m6gsjkJmDUcsODJgIsijvKf.webp',
   69 => 'wisata/gallery/AzWOzmA69Rv3KpvjBKiTqgqSfrvAQn9iIt9jPNGJ.jpg',
   70 => 'wisata/gallery/kZESq50NZXgNYXzo9kUeIvO5hxb1dXGHMHF1UHWU.jpg',
+  71 => 'wisata/gallery/mQINDPAwEE5k0f6EHYYuBG4vR5PO0bNDLFJOQGym.webp',
+  72 => 'wisata/gallery/mK6oVrLYXH8KJgbcIO9hTESoqOIIg73WF3o7U84d.webp',
+  73 => 'wisata/gallery/JzF78vw1e5UtmTsJKanFDBZf44U75QamnhHy7D3I.webp',
+  74 => 'wisata/gallery/EJesc7roeVWJ5VpcBRk2r50vPss5D7QOJwjf7ydF.webp',
+  75 => 'wisata/gallery/JkATuIP3k6cyDgSGk8iz1L7ozdZ4ceFvnS0cJBQG.webp',
+  76 => 'wisata/gallery/cc2dv86JjI1dsU3AnOu0BuDUm1QiAbyg5ySg2LLw.webp',
+  77 => 'wisata/gallery/irKBYGfEOjgltnri5GDq1VaRRk1jprm7uZdic45y.webp',
+  78 => 'wisata/gallery/0eoUgqmbrhRkohiyGCd1onrxOnWB0Lrnoo3ZENCx.webp',
+  79 => 'wisata/gallery/1YPZo4gEFOMi7Nbc7q79hdXNGs6SBPNPKXkPosj8.webp',
+  80 => 'wisata/gallery/2Mwa2WMw5bPFlePKsQAW8VFeT7sOCoENXzfbNJlh.webp',
 );
         $deleted = DB::table('wisata_galleries')
             ->whereNotIn('foto', $activeKeys)

@@ -50,7 +50,7 @@ class PublicController extends Controller
     $wisata = $query->orderBy('is_pinned', 'desc')->orderBy('pinned_at', 'asc')->orderBy('id', 'asc')->paginate(12)->withQueryString();
 
     $kategoriList = ['Alam', 'Budaya', 'Religi', 'Buatan', 'Edukasi', 'Kuliner', 'Olahraga', 'Desa'];
-    $kecamatanList = ['Magetan', 'Maospati', 'Karas', 'Panekan', 'Plaosan', 'Sidorejo', 'Parang', 'Barat', 'Sukomoro', 'Ngariboyo', 'Kartoharjo', 'Kawedanan', 'Takeran', 'Nguntoronadi', 'Lembeyan', 'Bancikan', 'Poncol', 'Karangrejo', 'Satu Atap'];
+    $kecamatanList = ['Magetan', 'Maospati', 'Karas', 'Panekan', 'Plaosan', 'Sidorejo', 'Parang', 'Barat', 'Sukomoro', 'Ngariboyo', 'Kartoharjo', 'Kawedanan', 'Takeran', 'Nguntoronadi', 'Lembeyan', 'Poncol', 'Karangrejo', 'Goranggareng', 'Bendo'];
 
     return view('public.wisata.index', compact('wisata', 'kategoriList', 'kecamatanList'));
 }

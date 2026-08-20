@@ -29,8 +29,8 @@
                     <label class="form-label fw-semibold">Kecamatan <span class="text-danger">*</span></label>
                     <select name="kecamatan" class="form-select @error('kecamatan') is-invalid @enderror" required>
                         <option value="">Pilih Kecamatan di Magetan</option>
-                        @foreach(['Magetan', 'Maospati', 'Karas', 'Panekan', 'Plaosan', 'Sidorejo', 'Parang', 'Barat', 'Sukomoro', 'Ngariboyo', 'Kartoharjo', 'Kawedanan', 'Takeran', 'Nguntoronadi', 'Lembeyan', 'Bancikan', 'Poncol', 'Karangrejo', 'Satu Atap'] as $kec)
-                            <option value="{{ $kec }}" {{ old('kecamatan', $w?->kecamatan) == $kec ? 'selected' : '' }}>{{ $kec }}</option>
+                        @foreach(['Magetan', 'Maospati', 'Karas', 'Panekan', 'Plaosan', 'Sidorejo', 'Parang', 'Barat', 'Sukomoro', 'Ngariboyo', 'Kartoharjo', 'Kawedanan', 'Takeran', 'Nguntoronadi', 'Lembeyan', 'Poncol', 'Karangrejo', 'Bendo', 'Goranggareng'] as $kec)
+                            <option value="{{ $kec }}" {{ old($w?->kecamatan) == $kec ? 'selected' : '' }}>{{ $kec }}</option>
                         @endforeach
                     </select>
                     @error('kecamatan')<div class="invalid-feedback">{{ $message }}</div>@enderror

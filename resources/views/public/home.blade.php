@@ -42,7 +42,6 @@
     .hero-section {
         min-height: 80vh;
         background:
-            linear-gradient(rgba(15, 26, 22, 0.60), rgba(15, 26, 22, 0.75)),
             url('/images/hero-telaga-sarangan.jpg') center/cover no-repeat fixed;
         display: flex;
         align-items: center;
@@ -374,12 +373,9 @@
        WISATA UNGGULAN — Featured Pin Section
     ============================================= */
     .section-unggulan {
-        background: linear-gradient(135deg, #0a2012 0%, #0f2e1c 50%, #071810 100%);
-        padding: 80px 0;
-        position: relative;
-        overflow: hidden;
+    background: linear-gradient(135deg, var(--primary) 0%, #1a3327 50%, var(--primary-dark) 100%);
+         padding: 100px 0 70px;
     }
-
     .section-unggulan::before {
         content: '';
         position: absolute;
@@ -406,7 +402,9 @@
         display: flex;
         gap: 24px;
         overflow-x: auto;
+        overflow-y: visible;
         padding-bottom: 16px;
+        padding-top: 14px;
         scrollbar-width: thin;
         scrollbar-color: rgba(200,155,60,0.35) transparent;
         scroll-snap-type: x mandatory;
@@ -454,28 +452,19 @@
 
     .ug-card:hover img.ug-img { transform: scale(1.1); }
 
-    .ug-nophoto {
-        position: absolute;
-        inset: 0;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        background: linear-gradient(135deg, #0f2e1c, #071810);
-        color: rgba(200,155,60,0.3);
-        font-size: 3.5rem;
+   .ug-nophoto {
+    background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+    /* sebelumnya: #0f2e1c, #071810 — samakan dengan token */
     }
 
-    .ug-overlay {
-        position: absolute;
-        inset: 0;
-        background: linear-gradient(
-            180deg,
-            rgba(5,15,10,0.3) 0%,
-            rgba(5,15,10,0.1) 35%,
-            rgba(5,15,10,0.6) 65%,
-            rgba(5,15,10,0.97) 100%
-        );
-        z-index: 2;
+   .ug-overlay {
+    background: linear-gradient(
+        180deg,
+        rgba(5,15,10,0.15) 0%,
+        rgba(5,15,10,0.05) 35%,
+        rgba(5,15,10,0.55) 65%,
+        rgba(5,15,10,0.88) 100%   /* sebelumnya 0.97 — foto sedikit lebih terlihat di bawah */
+    );
     }
 
     .ug-pin-badge {
@@ -1164,12 +1153,6 @@
 
             <!-- LEFT: Text -->
             <div class="col-lg-6">
-                <!-- Badge -->
-                <div class="hero-badge-pill">
-                    <span class="dot"></span>
-                    <i class="fa-solid fa-mountain-sun"></i>
-                    Kabupaten Magetan, Jawa Timur
-                </div>
 
                 <!-- Title -->
                 <h1 class="hero-title mb-4">
