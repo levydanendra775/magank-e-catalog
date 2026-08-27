@@ -9,27 +9,14 @@
             <div class="card border-0 text-white overflow-hidden p-4 p-md-5"
                 style="background: linear-gradient(135deg, #1F3A34 0%, #14261F 100%); border-radius: 20px !important; position: relative;">
 
-                <!-- Decorative Subtle Accent Shape -->
-                <div
-                    style="position: absolute; right: -30px; bottom: -30px; width: 220px; height: 220px; background: rgba(200, 155, 60, 0.08); border-radius: 50%; pointer-events: none;">
-                </div>
-                <div
-                    style="position: absolute; right: 100px; top: -40px; width: 140px; height: 140px; background: rgba(255, 255, 255, 0.04); border-radius: 50%; pointer-events: none;">
-                </div>
-
                 <div class="position-relative" style="z-index: 2;">
-                    <div class="d-inline-flex align-items-center gap-2 px-3 py-1 rounded-pill mb-3"
-                        style="background: rgba(200, 155, 60, 0.2); border: 1px solid rgba(200, 155, 60, 0.4); color: #E5C16C; font-size: 0.78rem; font-weight: 700; letter-spacing: 0.5px; text-transform: uppercase;">
-                        <i class="fa-solid fa-crown" style="font-size:0.75rem;"></i> Panel Kontrol Admin
-                    </div>
 
                     <h2 class="fw-bold mb-2 text-white" style="font-family: 'Fraunces', serif; font-size: 1.85rem;">
-                        Selamat Datang, {{ Auth::user()->name }}! 👋
+                        Selamat Datang, {{ Auth::user()->name }}
                     </h2>
 
                     <p class="mb-0 text-white-50" style="max-width: 720px; font-size: 0.95rem; line-height: 1.6;">
-                        Kelola seluruh destinasi wisata, agenda event, publikasi berita, ulasan pengunjung, serta laporan
-                        pariwisata Kabupaten Magetan dalam satu portal terpadu.
+                        Ringkasan data wisata, event, dan berita yang sudah tercatat di E-Catalog Magetan.
                     </p>
                 </div>
             </div>
@@ -151,13 +138,6 @@
                                 style="background: #EAF0EC; color: #1F3A34; font-weight: 600; font-size: 0.73rem;">
                                 <i class="fa-solid fa-location-dot me-1"></i> Terdaftar di Magetan
                             </span>
-                            @if ($trendBulanIni['wisata'] > 0)
-                                <span class="badge mt-2 ms-1"
-                                    style="background: rgba(31,58,52,0.08); color: #1F3A34; font-weight: 600; font-size: 0.73rem;">
-                                    <i class="fa-solid fa-arrow-trend-up me-1"></i> +{{ $trendBulanIni['wisata'] }} bulan
-                                    ini
-                                </span>
-                            @endif
                         </div>
                         <div class="stat-icon-box stat-icon-wisata">
                             <i class="fa-solid fa-map-location-dot fa-xl"></i>
@@ -210,13 +190,6 @@
                                 style="background: rgba(122, 59, 46, 0.12); color: #7A3B2E; font-weight: 600; font-size: 0.73rem;">
                                 <i class="fa-solid fa-newspaper me-1"></i> Artikel Terbit
                             </span>
-                            @if ($trendBulanIni['berita'] > 0)
-                                <span class="badge mt-2 ms-1"
-                                    style="background: rgba(122,59,46,0.06); color: #7A3B2E; font-weight: 600; font-size: 0.73rem;">
-                                    <i class="fa-solid fa-arrow-trend-up me-1"></i> +{{ $trendBulanIni['berita'] }} bulan
-                                    ini
-                                </span>
-                            @endif
                         </div>
                         <div class="stat-icon-box stat-icon-berita">
                             <i class="fa-regular fa-newspaper fa-xl"></i>

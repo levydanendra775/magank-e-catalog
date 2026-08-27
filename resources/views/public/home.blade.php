@@ -48,24 +48,6 @@
             }
         }
 
-        @keyframes float-particle {
-
-            0%,
-            100% {
-                transform: translateY(0px) translateX(0px);
-                opacity: 0.4;
-            }
-
-            33% {
-                transform: translateY(-18px) translateX(8px);
-                opacity: 0.7;
-            }
-
-            66% {
-                transform: translateY(-8px) translateX(-6px);
-                opacity: 0.5;
-            }
-        }
 
         @keyframes shimmer-line {
             0% {
@@ -125,51 +107,6 @@
             z-index: 1;
         }
 
-        /* Animated radial glow — main (GPU-promoted, cheaper animation) */
-        .hero-glow-main {
-            position: absolute;
-            left: 50%;
-            top: 60%;
-            width: 100%;
-            height: 140vh;
-            transform: translate(-50%, -50%);
-            background:
-                radial-gradient(50% 50% at 50% 50%, rgba(31, 58, 52, 0.85) 0%, transparent 70%),
-                radial-gradient(38% 44% at 30% 40%, rgba(200, 155, 60, 0.22) 0%, transparent 65%),
-                radial-gradient(30% 38% at 72% 30%, rgba(31, 58, 52, 0.55) 0%, transparent 65%);
-            filter: blur(48px);
-            /* Only animate opacity — no transform mutation = no layout/paint thrashing */
-            animation: glow-pulse 14s ease-in-out infinite;
-            pointer-events: none;
-            z-index: 0;
-            will-change: opacity;
-            contain: layout paint;
-        }
-
-        /* Subtle accent glow top-left — static, no animation needed */
-        .hero-glow-accent {
-            position: absolute;
-            top: -10%;
-            left: -5%;
-            width: 55vw;
-            height: 55vh;
-            background: radial-gradient(ellipse at center, rgba(200, 155, 60, 0.08) 0%, transparent 70%);
-            filter: blur(36px);
-            pointer-events: none;
-            z-index: 0;
-            /* Static — no animation */
-        }
-
-
-        /* Noise grain overlay */
-        .hero-grain {
-            position: absolute;
-            inset: 0;
-            z-index: 2;
-            opacity: 0.03;
-            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
-            pointer-events: none;
-        }
 
         .hero-section .container {
             position: relative;
@@ -1261,11 +1198,6 @@
             @endif
         </div>
 
-        <!-- Animated glow layers -->
-        <div class="hero-glow-main"></div>
-        <div class="hero-glow-accent"></div>
-        <!-- Grain texture -->
-        <div class="hero-grain"></div>
 
         <div class="container">
             <div class="row align-items-center gy-5 py-5">

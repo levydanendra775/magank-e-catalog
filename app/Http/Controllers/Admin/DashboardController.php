@@ -36,13 +36,7 @@ class DashboardController extends Controller
             $eventBulanData[] = $eventPerBulan[$num] ?? 0;
         }
 
-        // Ringkasan penambahan bulan ini — untuk badge tren kecil di stat card
-        $bulanIni = now()->startOfMonth();
-        $trendBulanIni = [
-            'wisata' => Wisata::where('created_at', '>=', $bulanIni)->count(),
-            'berita' => Berita::where('created_at', '>=', $bulanIni)->count(),
-        ];
 
-        return view('admin.dashboard', compact('stats', 'wisataPerKecamatan', 'eventBulanData', 'bulanLabels', 'trendBulanIni'));
+        return view('admin.dashboard', compact('stats', 'wisataPerKecamatan', 'eventBulanData', 'bulanLabels'));
     }
 }

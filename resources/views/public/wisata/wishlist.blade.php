@@ -222,7 +222,7 @@
 
 @section('content')
 {{-- Page Hero Header --}}
-<div style="background:linear-gradient(135deg,#0a3d1f,#1a6b3a);padding:70px 0 60px;" data-aos="fade-down">
+<div style="background:linear-gradient(135deg, var(--primary-dark), var(--primary));padding:70px 0 60px;" data-aos="fade-down">
     <div class="container text-white">
         <nav aria-label="breadcrumb" class="mb-3">
             <ol class="breadcrumb" style="--bs-breadcrumb-divider-color:rgba(255,255,255,0.5);">
@@ -351,7 +351,7 @@
         <p class="text-muted mb-4" style="max-width:480px;margin:0 auto;">
             Anda belum menambahkan tempat wisata ke dalam daftar favorit. Tekan tombol hati pada kartu wisata untuk menyimpannya di sini.
         </p>
-        <a href="{{ route('public.wisata') }}" class="btn btn-warning fw-bold px-4 py-2" style="border-radius:12px;">
+        <a href="{{ route('public.wisata') }}" class="btn fw-bold px-4 py-2" style="border-radius:12px;background:var(--accent);color:#fff;">
             <i class="fa-solid fa-compass me-2"></i>Jelajahi Destinasi Wisata
         </a>
     </div>

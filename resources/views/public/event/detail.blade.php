@@ -2,7 +2,7 @@
 @section('title', $event->judul.' — Pesona Magetan')
 @section('content')
 
-<div style="background:linear-gradient(135deg,#0a3d1f,#1a6b3a);padding:60px 0;">
+<div style="background:linear-gradient(135deg, var(--primary-dark), var(--primary));padding:60px 0;">
     <div class="container text-white">
         <nav aria-label="breadcrumb" class="mb-3">
             <ol class="breadcrumb" style="--bs-breadcrumb-divider-color:rgba(255,255,255,0.5);">
@@ -27,52 +27,52 @@
         <div class="col-lg-8">
 
             @if($event->poster)
-            <div class="mb-5 rounded-4 overflow-hidden shadow-sm" style="border:1px solid #e9ecef;">
+            <div class="mb-5 rounded-4 overflow-hidden shadow-sm" style="border:1px solid var(--border);">
                 <img src="{{ Storage::url($event->poster) }}" alt="{{ $event->judul }}" style="width:100%;height:auto;max-height:500px;object-fit:cover;">
             </div>
             @endif
 
             {{-- Info Box --}}
-            <div class="card border-0 mb-5 p-4" style="background:#f0f9f4;border-radius:16px;border-left:4px solid #1a6b3a!important;">
+            <div class="card border-0 mb-5 p-4" style="background:var(--bg-light);border-radius:16px;border-left:4px solid var(--accent)!important;">
                 <div class="row g-3">
                     <div class="col-sm-6">
                         <div class="d-flex align-items-center gap-3">
-                            <div style="width:42px;height:42px;background:#1a6b3a;border-radius:10px;display:flex;align-items:center;justify-content:center;">
+                            <div style="width:42px;height:42px;background:var(--primary);border-radius:10px;display:flex;align-items:center;justify-content:center;">
                                 <i class="fa-regular fa-calendar text-white"></i>
                             </div>
                             <div>
                                 <div class="text-muted small">Tanggal</div>
-                                <div class="fw-bold" style="color:#1a6b3a;">{{ $event->tanggal->translatedFormat('d F Y') }}</div>
+                                <div class="fw-bold" style="color:var(--primary);">{{ $event->tanggal->translatedFormat('d F Y') }}</div>
                             </div>
                         </div>
                     </div>
                     @if($event->jam)
                     <div class="col-sm-6">
                         <div class="d-flex align-items-center gap-3">
-                            <div style="width:42px;height:42px;background:#1a6b3a;border-radius:10px;display:flex;align-items:center;justify-content:center;">
+                            <div style="width:42px;height:42px;background:var(--primary);border-radius:10px;display:flex;align-items:center;justify-content:center;">
                                 <i class="fa-regular fa-clock text-white"></i>
                             </div>
                             <div>
                                 <div class="text-muted small">Waktu</div>
-                                <div class="fw-bold" style="color:#1a6b3a;">{{ $event->jam }}</div>
+                                <div class="fw-bold" style="color:var(--primary);">{{ $event->jam }}</div>
                             </div>
                         </div>
                     </div>
                     @endif
                     <div class="col-sm-6">
                         <div class="d-flex align-items-center gap-3">
-                            <div style="width:42px;height:42px;background:#1a6b3a;border-radius:10px;display:flex;align-items:center;justify-content:center;">
+                            <div style="width:42px;height:42px;background:var(--primary);border-radius:10px;display:flex;align-items:center;justify-content:center;">
                                 <i class="fa-solid fa-location-dot text-white"></i>
                             </div>
                             <div>
                                 <div class="text-muted small">Lokasi</div>
-                                <div class="fw-bold" style="color:#1a6b3a;">{{ $event->lokasi }}</div>
+                                <div class="fw-bold" style="color:var(--primary);">{{ $event->lokasi }}</div>
                             </div>
                         </div>
                     </div>
                     @if($event->link_pendaftaran)
                     <div class="col-sm-6 d-flex align-items-center">
-                        <a href="{{ $event->link_pendaftaran }}" target="_blank" class="btn btn-warning fw-bold px-4" style="border-radius:10px;">
+                        <a href="{{ $event->link_pendaftaran }}" target="_blank" class="btn fw-bold px-4" style="border-radius:10px;background:var(--accent);color:#fff;">
                             <i class="fa-solid fa-arrow-right me-2"></i>Daftar Sekarang
                         </a>
                     </div>
@@ -81,7 +81,7 @@
             </div>
 
             {{-- Deskripsi --}}
-            <div class="event-content" style="line-height:1.9;font-size:1.05rem;color:#333;text-align:justify;">
+            <div class="event-content" style="line-height:1.9;font-size:1.05rem;color:var(--text-dark);text-align:justify;">
                 {!! nl2br(e($event->deskripsi)) !!}
             </div>
 
