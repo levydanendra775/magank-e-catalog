@@ -1,5 +1,5 @@
 @extends('layouts.public')
-@section('title', $berita->judul.' — Jelajah Magetan')
+@section('title', $berita->judul.' — Pesona Magetan')
 @section('content')
 
 <div class="container py-5 mt-4">

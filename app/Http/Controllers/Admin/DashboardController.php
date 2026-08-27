@@ -4,12 +4,8 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Wisata;
-use App\Models\Umkm;
-use App\Models\Produk;
 use App\Models\Event;
 use App\Models\Berita;
-use App\Models\Kuliner;
-use App\Models\Penginapan;
 use Illuminate\Support\Facades\DB;
 
 class DashboardController extends Controller
@@ -17,24 +13,15 @@ class DashboardController extends Controller
     public function index()
     {
         $stats = [
-            'wisata'     => Wisata::count(),
-            'umkm'       => Umkm::count(),
-            'produk'     => Produk::count(),
-            'event'      => Event::where('tanggal', '>=', now()->toDateString())->count(),
-            'berita'     => Berita::count(),
-            'kuliner'    => Kuliner::count(),
-            'penginapan' => Penginapan::count(),
+            'wisata' => Wisata::count(),
+            'event'  => Event::where('tanggal', '>=', now()->toDateString())->count(),
+            'berita' => Berita::count(),
         ];
 
         // Chart Data: Wisata per Kecamatan
         $wisataPerKecamatan = Wisata::select('kecamatan', DB::raw('count(*) as total'))
             ->groupBy('kecamatan')
             ->pluck('total', 'kecamatan')->toArray();
-
-        // Chart Data: Produk per Kategori
-        $produkPerKategori = Produk::select('kategori', DB::raw('count(*) as total'))
-            ->groupBy('kategori')
-            ->pluck('total', 'kategori')->toArray();
 
         // Chart Data: Event per Bulan (Tahun ini)
         $eventPerBulan = Event::select(DB::raw('DATE_FORMAT(tanggal, "%m") as bulan'), DB::raw('count(*) as total'))
@@ -49,7 +36,13 @@ class DashboardController extends Controller
             $eventBulanData[] = $eventPerBulan[$num] ?? 0;
         }
 
-        return view('admin.dashboard', compact('stats', 'wisataPerKecamatan', 'produkPerKategori', 'eventBulanData', 'bulanLabels'));
+        // Ringkasan penambahan bulan ini — untuk badge tren kecil di stat card
+        $bulanIni = now()->startOfMonth();
+        $trendBulanIni = [
+            'wisata' => Wisata::where('created_at', '>=', $bulanIni)->count(),
+            'berita' => Berita::where('created_at', '>=', $bulanIni)->count(),
+        ];
+
+        return view('admin.dashboard', compact('stats', 'wisataPerKecamatan', 'eventBulanData', 'bulanLabels', 'trendBulanIni'));
     }
 }
-

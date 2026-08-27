@@ -1,5 +1,5 @@
 @extends('layouts.public')
-@section('title', 'Event & Agenda — Jelajah Magetan')
+@section('title', 'Event & Agenda — Pesona Magetan')
 
 @push('styles')
 <style>

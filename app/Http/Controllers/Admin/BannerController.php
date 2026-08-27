@@ -33,7 +33,7 @@ class BannerController extends Controller
 
         Banner::create($validated);
 
-        return redirect()->route('admin.banner.index')->with('success', 'Banner berhasil ditambahkan!');
+        return redirect()->route('admin.banner.index')->with('success', 'Foto background hero berhasil ditambahkan!');
     }
 
     public function show(Banner $banner)
@@ -62,13 +62,13 @@ class BannerController extends Controller
 
         $banner->update($validated);
 
-        return redirect()->route('admin.banner.index')->with('success', 'Banner berhasil diperbarui!');
+        return redirect()->route('admin.banner.index')->with('success', 'Foto background hero berhasil diperbarui!');
     }
 
     public function destroy(Banner $banner)
     {
         if ($banner->gambar) Storage::disk('public')->delete($banner->gambar);
         $banner->delete();
-        return redirect()->route('admin.banner.index')->with('success', 'Banner berhasil dihapus!');
+        return redirect()->route('admin.banner.index')->with('success', 'Foto background hero berhasil dihapus!');
     }
 }

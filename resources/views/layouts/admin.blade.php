@@ -1,16 +1,19 @@
 <!DOCTYPE html>
 <html lang="id">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>@yield('title', 'Admin Panel') — Jelajah Magetan</title>
+    <title>@yield('title', 'Admin Panel') — Pesona Magetan</title>
 
     <!-- Bootstrap 5 CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <!-- FontAwesome for Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
     <!-- Google Fonts: Fraunces, Plus Jakarta Sans, IBM Plex Mono -->
-    <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,wght@0,500;0,600;1,500&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=IBM+Plex+Mono:wght@500&display=swap" rel="stylesheet">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Fraunces:ital,wght@0,500;0,600;1,500&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=IBM+Plex+Mono:wght@500&display=swap"
+        rel="stylesheet">
 
     <style>
         :root {
@@ -28,8 +31,10 @@
             --sidebar-collapsed: 72px;
         }
 
-        * { box-sizing: border-box; }
-        
+        * {
+            box-sizing: border-box;
+        }
+
         body {
             font-family: 'Plus Jakarta Sans', sans-serif;
             background-color: var(--bg-admin);
@@ -39,12 +44,19 @@
             overflow-x: hidden;
         }
 
-        h1, h2, h3, h4, h5, h6 {
+        h1,
+        h2,
+        h3,
+        h4,
+        h5,
+        h6 {
             font-family: 'Fraunces', serif;
             font-weight: 600;
         }
 
-        .font-mono { font-family: 'IBM Plex Mono', monospace; }
+        .font-mono {
+            font-family: 'IBM Plex Mono', monospace;
+        }
 
         /* =========================================================
            COLLAPSIBLE SIDEBAR SYSTEM (Matching 21st.dev UX & Landing Page Colors)
@@ -60,7 +72,7 @@
             z-index: 1050;
             display: flex;
             flex-direction: column;
-            box-shadow: 4px 0 25px rgba(0,0,0,0.12);
+            box-shadow: 4px 0 25px rgba(0, 0, 0, 0.12);
             transition: width 0.3s cubic-bezier(0.4, 0, 0.2, 1);
             overflow: hidden;
         }
@@ -72,8 +84,8 @@
         /* Sidebar Brand */
         .sidebar-brand {
             padding: 18px 16px;
-            border-bottom: 1px solid rgba(255,255,255,0.08);
-            background: rgba(0,0,0,0.15);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+            background: rgba(0, 0, 0, 0.15);
             display: flex;
             align-items: center;
             gap: 12px;
@@ -142,7 +154,7 @@
         }
 
         .sidebar-link {
-            color: rgba(255,255,255,0.75);
+            color: rgba(255, 255, 255, 0.75);
             text-decoration: none;
             padding: 11px 14px;
             display: flex;
@@ -161,14 +173,14 @@
             width: 20px;
             font-size: 1.05rem;
             text-align: center;
-            color: rgba(255,255,255,0.55);
+            color: rgba(255, 255, 255, 0.55);
             transition: color 0.2s ease;
             flex-shrink: 0;
         }
 
         .sidebar-link:hover {
             color: #ffffff;
-            background: rgba(255,255,255,0.08);
+            background: rgba(255, 255, 255, 0.08);
         }
 
         .sidebar-link:hover i {
@@ -206,17 +218,17 @@
         /* Sidebar Toggle Footer */
         .sidebar-footer {
             padding: 12px 10px;
-            border-top: 1px solid rgba(255,255,255,0.08);
-            background: rgba(0,0,0,0.2);
+            border-top: 1px solid rgba(255, 255, 255, 0.08);
+            background: rgba(0, 0, 0, 0.2);
             display: flex;
             flex-direction: column;
             gap: 8px;
         }
 
         .btn-view-public {
-            background: rgba(255,255,255,0.08);
+            background: rgba(255, 255, 255, 0.08);
             color: #fff;
-            border: 1px solid rgba(255,255,255,0.15);
+            border: 1px solid rgba(255, 255, 255, 0.15);
             padding: 9px 12px;
             border-radius: 10px;
             font-size: 0.82rem;
@@ -241,9 +253,9 @@
         }
 
         .toggle-sidebar-btn {
-            background: rgba(255,255,255,0.05);
-            border: 1px solid rgba(255,255,255,0.1);
-            color: rgba(255,255,255,0.7);
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            color: rgba(255, 255, 255, 0.7);
             border-radius: 10px;
             padding: 8px 12px;
             display: flex;
@@ -255,7 +267,7 @@
         }
 
         .toggle-sidebar-btn:hover {
-            background: rgba(255,255,255,0.12);
+            background: rgba(255, 255, 255, 0.12);
             color: #ffffff;
         }
 
@@ -294,7 +306,7 @@
             background: #ffffff;
             padding: 14px 24px;
             border: 1px solid var(--border-color);
-            box-shadow: 0 4px 20px rgba(31,58,52,0.04);
+            box-shadow: 0 4px 20px rgba(31, 58, 52, 0.04);
             margin-bottom: 28px;
             border-radius: 16px;
             display: flex;
@@ -365,7 +377,7 @@
             display: inline-flex;
             align-items: center;
             gap: 6px;
-            border: 1px solid rgba(31,58,52,0.1);
+            border: 1px solid rgba(31, 58, 52, 0.1);
         }
 
         /* Stats Card Styling (21st.dev Style) */
@@ -374,13 +386,13 @@
             border: 1px solid var(--border-color);
             border-radius: 16px;
             padding: 20px;
-            box-shadow: 0 4px 16px rgba(31,58,52,0.03);
+            box-shadow: 0 4px 16px rgba(31, 58, 52, 0.03);
             transition: transform 0.2s ease, box-shadow 0.2s ease;
         }
 
         .stat-card:hover {
             transform: translateY(-2px);
-            box-shadow: 0 8px 24px rgba(31,58,52,0.07);
+            box-shadow: 0 8px 24px rgba(31, 58, 52, 0.07);
         }
 
         .stat-icon-wrapper {
@@ -397,7 +409,7 @@
         .card {
             border-radius: 16px !important;
             border: 1px solid var(--border-color) !important;
-            box-shadow: 0 6px 20px rgba(31,58,52,0.04) !important;
+            box-shadow: 0 6px 20px rgba(31, 58, 52, 0.04) !important;
             background: #ffffff;
         }
 
@@ -409,14 +421,14 @@
             font-weight: 600;
             padding: 9px 20px;
             transition: all 0.2s ease;
-            box-shadow: 0 4px 12px rgba(31,58,52,0.15);
+            box-shadow: 0 4px 12px rgba(31, 58, 52, 0.15);
         }
 
         .btn-primary:hover {
             background-color: var(--primary-dark) !important;
             border-color: var(--primary-dark) !important;
             transform: translateY(-1px);
-            box-shadow: 0 6px 16px rgba(31,58,52,0.25);
+            box-shadow: 0 6px 16px rgba(31, 58, 52, 0.25);
         }
 
         .btn-outline-primary {
@@ -443,7 +455,8 @@
             color: #ffffff !important;
         }
 
-        .form-control, .form-select {
+        .form-control,
+        .form-select {
             border-radius: 10px;
             border: 1px solid var(--border-color);
             padding: 10px 14px;
@@ -451,9 +464,10 @@
             transition: border-color 0.2s ease, box-shadow 0.2s ease;
         }
 
-        .form-control:focus, .form-select:focus {
+        .form-control:focus,
+        .form-select:focus {
             border-color: var(--primary);
-            box-shadow: 0 0 0 3px rgba(31,58,52,0.12);
+            box-shadow: 0 0 0 3px rgba(31, 58, 52, 0.12);
         }
 
         .table thead th {
@@ -475,7 +489,7 @@
         }
 
         .table-hover tbody tr:hover {
-            background-color: rgba(31,58,52,0.02) !important;
+            background-color: rgba(31, 58, 52, 0.02) !important;
         }
 
         @media (max-width: 991px) {
@@ -483,9 +497,11 @@
                 transform: translateX(-100%);
                 width: var(--sidebar-expanded) !important;
             }
+
             .sidebar.show {
                 transform: translateX(0);
             }
+
             .main-content {
                 margin-left: 0 !important;
                 padding: 16px;
@@ -598,12 +614,12 @@
             height: 7px;
             border-radius: 50%;
             transition: left 0.35s cubic-bezier(0.2, 0.8, 0.2, 1),
-                        top 0.35s cubic-bezier(0.2, 0.8, 0.2, 1),
-                        width 0.35s cubic-bezier(0.2, 0.8, 0.2, 1),
-                        height 0.35s cubic-bezier(0.2, 0.8, 0.2, 1),
-                        transform 0.35s cubic-bezier(0.2, 0.8, 0.2, 1),
-                        border-radius 0.35s cubic-bezier(0.2, 0.8, 0.2, 1),
-                        background 0.35s ease;
+                top 0.35s cubic-bezier(0.2, 0.8, 0.2, 1),
+                width 0.35s cubic-bezier(0.2, 0.8, 0.2, 1),
+                height 0.35s cubic-bezier(0.2, 0.8, 0.2, 1),
+                transform 0.35s cubic-bezier(0.2, 0.8, 0.2, 1),
+                border-radius 0.35s cubic-bezier(0.2, 0.8, 0.2, 1),
+                background 0.35s ease;
             z-index: 1;
         }
 
@@ -622,12 +638,15 @@
             color: #1F3A34 !important;
             box-shadow: 0 2px 8px rgba(31, 58, 52, 0.06);
         }
+
         .btn-interactive-forest .btn-bubble {
             background: #1F3A34;
         }
+
         .btn-interactive-forest .btn-text-hover {
             color: #ffffff !important;
         }
+
         .btn-interactive-forest:hover {
             border-color: #1F3A34;
             box-shadow: 0 6px 18px rgba(31, 58, 52, 0.2);
@@ -742,6 +761,7 @@
     @stack('styles')
     @yield('styles')
 </head>
+
 <body>
 
     <!-- Sidebar -->
@@ -756,32 +776,41 @@
 
         <div class="sidebar-menu">
             <div class="sidebar-label">Utama</div>
-            <a href="{{ route('admin.dashboard') }}" class="sidebar-link {{ request()->routeIs('admin.dashboard') ? 'active' : '' }}" title="Dashboard">
+            <a href="{{ route('admin.dashboard') }}"
+                class="sidebar-link {{ request()->routeIs('admin.dashboard') ? 'active' : '' }}" title="Dashboard">
                 <i class="fa-solid fa-gauge"></i> <span>Dashboard</span>
             </a>
-            <a href="{{ route('admin.wisata.index') }}" class="sidebar-link {{ request()->routeIs('admin.wisata*') ? 'active' : '' }}" title="Wisata">
+            <a href="{{ route('admin.wisata.index') }}"
+                class="sidebar-link {{ request()->routeIs('admin.wisata*') ? 'active' : '' }}" title="Wisata">
                 <i class="fa-solid fa-map-location-dot"></i> <span>Wisata</span>
             </a>
-            <a href="{{ route('admin.event.index') }}" class="sidebar-link {{ request()->routeIs('admin.event*') ? 'active' : '' }}" title="Event">
+            <a href="{{ route('admin.event.index') }}"
+                class="sidebar-link {{ request()->routeIs('admin.event*') ? 'active' : '' }}" title="Event">
                 <i class="fa-solid fa-calendar-days"></i> <span>Event</span>
             </a>
 
             <div class="sidebar-label">Konten</div>
-            <a href="{{ route('admin.berita.index') }}" class="sidebar-link {{ request()->routeIs('admin.berita*') ? 'active' : '' }}" title="Berita">
+            <a href="{{ route('admin.berita.index') }}"
+                class="sidebar-link {{ request()->routeIs('admin.berita*') ? 'active' : '' }}" title="Berita">
                 <i class="fa-regular fa-newspaper"></i> <span>Berita</span>
             </a>
-            <a href="{{ route('admin.ulasan.index') }}" class="sidebar-link {{ request()->routeIs('admin.ulasan*') ? 'active' : '' }}" title="Ulasan & Rating">
+            <a href="{{ route('admin.ulasan.index') }}"
+                class="sidebar-link {{ request()->routeIs('admin.ulasan*') ? 'active' : '' }}" title="Ulasan & Rating">
                 <i class="fa-solid fa-star-half-stroke"></i> <span>Ulasan & Rating</span>
             </a>
-            <a href="{{ route('admin.galeri.index') }}" class="sidebar-link {{ request()->routeIs('admin.galeri*') ? 'active' : '' }}" title="Galeri">
+            <a href="{{ route('admin.galeri.index') }}"
+                class="sidebar-link {{ request()->routeIs('admin.galeri*') ? 'active' : '' }}" title="Galeri">
                 <i class="fa-solid fa-images"></i> <span>Galeri</span>
             </a>
-            <a href="{{ route('admin.banner.index') }}" class="sidebar-link {{ request()->routeIs('admin.banner*') ? 'active' : '' }}" title="Banner">
-                <i class="fa-solid fa-bullhorn"></i> <span>Banner</span>
+            <a href="{{ route('admin.banner.index') }}"
+                class="sidebar-link {{ request()->routeIs('admin.banner*') ? 'active' : '' }}"
+                title="Foto Background Hero">
+                <i class="fa-solid fa-panorama"></i> <span>Background Hero</span>
             </a>
 
             <div class="sidebar-label">Laporan</div>
-            <a href="{{ route('admin.laporan.index') }}" class="sidebar-link {{ request()->routeIs('admin.laporan*') ? 'active' : '' }}" title="Cetak Laporan">
+            <a href="{{ route('admin.laporan.index') }}"
+                class="sidebar-link {{ request()->routeIs('admin.laporan*') ? 'active' : '' }}" title="Cetak Laporan">
                 <i class="fa-solid fa-file-pdf"></i> <span>Cetak Laporan</span>
             </a>
         </div>
@@ -804,7 +833,8 @@
         <!-- Topbar Header -->
         <div class="topbar">
             <div class="topbar-title-section">
-                <button class="btn btn-sm btn-light d-lg-none border" type="button" onclick="document.getElementById('adminSidebar').classList.toggle('show')">
+                <button class="btn btn-sm btn-light d-lg-none border" type="button"
+                    onclick="document.getElementById('adminSidebar').classList.toggle('show')">
                     <i class="fa-solid fa-bars"></i>
                 </button>
                 <h5 class="topbar-title">@yield('title', 'Dashboard')</h5>
@@ -812,40 +842,54 @@
 
             <div class="topbar-actions">
                 <div class="dropdown">
-                    <button class="topbar-btn" type="button" id="notificationDropdown" data-bs-toggle="dropdown" aria-expanded="false" title="Notifikasi">
+                    <button class="topbar-btn" type="button" id="notificationDropdown" data-bs-toggle="dropdown"
+                        aria-expanded="false" title="Notifikasi">
                         <i class="fa-regular fa-bell"></i>
-                        @if(isset($hasUnreadActivities) && $hasUnreadActivities)
-                        <span class="topbar-badge-dot"></span>
+                        @if (isset($hasUnreadActivities) && $hasUnreadActivities)
+                            <span class="topbar-badge-dot"></span>
                         @endif
                     </button>
-                    <ul class="dropdown-menu dropdown-menu-end shadow-sm border-0 mt-2" aria-labelledby="notificationDropdown" style="width: 320px; border-radius: 12px; padding: 0;">
-                        <li class="p-3 border-bottom" style="background-color: var(--primary-light); border-top-left-radius: 12px; border-top-right-radius: 12px;">
+                    <ul class="dropdown-menu dropdown-menu-end shadow-sm border-0 mt-2"
+                        aria-labelledby="notificationDropdown" style="width: 320px; border-radius: 12px; padding: 0;">
+                        <li class="p-3 border-bottom"
+                            style="background-color: var(--primary-light); border-top-left-radius: 12px; border-top-right-radius: 12px;">
                             <h6 class="mb-0 fw-bold" style="color: var(--primary);">Notifikasi Aktivitas</h6>
                         </li>
                         <div style="max-height: 350px; overflow-y: auto;">
-                            @if(isset($recentActivities) && $recentActivities->count() > 0)
-                                @foreach($recentActivities as $activity)
-                                <li>
-                                    <a class="dropdown-item d-flex align-items-start p-3 border-bottom text-wrap" href="#" style="transition: background-color 0.2s;">
-                                        <div class="bg-light rounded-circle p-2 me-3 d-flex align-items-center justify-content-center" style="width: 40px; height: 40px; flex-shrink: 0;">
-                                            <i class="{{ $activity->icon }}" style="color: {{ $activity->icon_color }};"></i>
-                                        </div>
-                                        <div>
-                                            <p class="mb-1 text-dark fw-semibold" style="font-size: 0.88rem; line-height: 1.4;">{{ $activity->user_name }} <span class="fw-normal text-muted">{{ $activity->message }}</span> {{ $activity->target_name }}</p>
-                                            <small class="text-muted" style="font-size: 0.75rem;"><i class="fa-regular fa-clock me-1"></i>{{ \Carbon\Carbon::parse($activity->time)->diffForHumans() }}</small>
-                                        </div>
-                                    </a>
-                                </li>
+                            @if (isset($recentActivities) && $recentActivities->count() > 0)
+                                @foreach ($recentActivities as $activity)
+                                    <li>
+                                        <a class="dropdown-item d-flex align-items-start p-3 border-bottom text-wrap"
+                                            href="#" style="transition: background-color 0.2s;">
+                                            <div class="bg-light rounded-circle p-2 me-3 d-flex align-items-center justify-content-center"
+                                                style="width: 40px; height: 40px; flex-shrink: 0;">
+                                                <i class="{{ $activity->icon }}"
+                                                    style="color: {{ $activity->icon_color }};"></i>
+                                            </div>
+                                            <div>
+                                                <p class="mb-1 text-dark fw-semibold"
+                                                    style="font-size: 0.88rem; line-height: 1.4;">
+                                                    {{ $activity->user_name }} <span
+                                                        class="fw-normal text-muted">{{ $activity->message }}</span>
+                                                    {{ $activity->target_name }}</p>
+                                                <small class="text-muted" style="font-size: 0.75rem;"><i
+                                                        class="fa-regular fa-clock me-1"></i>{{ \Carbon\Carbon::parse($activity->time)->diffForHumans() }}</small>
+                                            </div>
+                                        </a>
+                                    </li>
                                 @endforeach
                             @else
                                 <li class="p-4 text-center text-muted">
-                                    <i class="fa-regular fa-bell-slash mb-2" style="font-size: 1.5rem; opacity: 0.5;"></i>
+                                    <i class="fa-regular fa-bell-slash mb-2"
+                                        style="font-size: 1.5rem; opacity: 0.5;"></i>
                                     <p class="mb-0" style="font-size: 0.85rem;">Belum ada aktivitas baru</p>
                                 </li>
                             @endif
                         </div>
                         <li class="p-2 text-center" style="border-top: 1px solid var(--border-color);">
-                            <a href="#" class="text-decoration-none" style="font-size: 0.85rem; font-weight: 600; color: var(--primary);">Lihat Semua Notifikasi</a>
+                            <a href="#" class="text-decoration-none"
+                                style="font-size: 0.85rem; font-weight: 600; color: var(--primary);">Lihat Semua
+                                Notifikasi</a>
                         </li>
                     </ul>
                 </div>
@@ -856,7 +900,8 @@
                     {{ $adminUser->roles->pluck('name')->first() ?? 'Admin' }}
                 </span>
 
-                <span class="fw-semibold text-dark small d-none d-sm-inline me-2">{{ $adminUser->name ?? 'Admin' }}</span>
+                <span
+                    class="fw-semibold text-dark small d-none d-sm-inline me-2">{{ $adminUser->name ?? 'Admin' }}</span>
 
                 <form method="POST" action="{{ route('admin.logout') }}" class="d-inline">
                     @csrf
@@ -868,19 +913,22 @@
         </div>
 
         <!-- Alert Success -->
-        @if(session('success'))
-            <div class="alert alert-success alert-dismissible fade show border-0 shadow-sm rounded-4 mb-4" style="background:var(--primary-light); color:var(--primary);" role="alert">
+        @if (session('success'))
+            <div class="alert alert-success alert-dismissible fade show border-0 shadow-sm rounded-4 mb-4"
+                style="background:var(--primary-light); color:var(--primary);" role="alert">
                 <i class="fa-solid fa-circle-check me-2" style="color:var(--primary);"></i> {{ session('success') }}
                 <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
             </div>
         @endif
 
         <!-- Alert Errors -->
-        @if($errors->any())
-            <div class="alert alert-danger alert-dismissible fade show border-0 shadow-sm rounded-4 mb-4" role="alert">
-                <strong><i class="fa-solid fa-triangle-exclamation me-1"></i> Gagal menyimpan data!</strong> Silakan periksa kembali isian formulir Anda.
+        @if ($errors->any())
+            <div class="alert alert-danger alert-dismissible fade show border-0 shadow-sm rounded-4 mb-4"
+                role="alert">
+                <strong><i class="fa-solid fa-triangle-exclamation me-1"></i> Gagal menyimpan data!</strong> Silakan
+                periksa kembali isian formulir Anda.
                 <ul class="mb-0 mt-2">
-                    @foreach($errors->all() as $error)
+                    @foreach ($errors->all() as $error)
                         <li>{{ $error }}</li>
                     @endforeach
                 </ul>
@@ -917,4 +965,5 @@
     </script>
     @stack('scripts')
 </body>
+
 </html>

@@ -4,15 +4,15 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>@yield('title', 'Beranda') — Jelajah Magetan</title>
+    <title>@yield('title', 'Beranda') — Pesona Magetan</title>
     <meta name="description" content="@yield('meta_description', 'Temukan destinasi wisata, event menarik, dan berita seputar Kabupaten Magetan.')">
 
     <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}">
     <link rel="apple-touch-icon" href="{{ asset('images/lambang-magetan.png') }}">
 
     <meta property="og:type" content="website">
-    <meta property="og:site_name" content="Jelajah Magetan">
-    <meta property="og:title" content="@yield('title', 'Beranda — Jelajah Magetan')">
+    <meta property="og:site_name" content="Pesona Magetan">
+    <meta property="og:title" content="@yield('title', 'Beranda — Pesona Magetan')">
     <meta property="og:description" content="@yield('meta_description', 'Temukan destinasi wisata, event menarik, dan berita seputar Kabupaten Magetan.')">
     <meta property="og:image" content="@yield('og_image', asset('images/hero-telaga-sarangan.jpg'))">
     <meta property="og:url" content="{{ url()->current() }}">
@@ -46,10 +46,17 @@
             box-sizing: border-box;
         }
 
+        html {
+            overflow-x: hidden;
+            max-width: 100%;
+        }
+
         body {
             font-family: 'Plus Jakarta Sans', sans-serif;
             color: var(--text-dark);
             background: #fff;
+            overflow-x: hidden;
+            max-width: 100%;
         }
 
         h1,
@@ -1076,7 +1083,7 @@
             <div class="row g-4">
                 <div class="col-md-4 pe-md-5">
                     <div class="mb-4">
-                        <img src="{{ asset('images/Logo JM.png') }}" alt="Logo Jelajah Magetan"
+                        <img src="{{ asset('images/Logo Pesona Magetan.png') }}" alt="Logo Pesona Magetan"
                             style="height:150px; width:auto; object-fit:contain; filter: brightness(0) invert(1) opacity(0.95);">
                     </div>
                     <p class="small" style="line-height:1.8; color:#94a3b8;">Portal informasi dan promosi pariwisata
@@ -1142,9 +1149,9 @@
 
     <script>
         /* =====================================================
-                       NAVBAR — Floating glass behavior
-                       - Transparan → glass saat scroll (selalu tampil, tidak disembunyikan)
-                    ===================================================== */
+                                   NAVBAR — Floating glass behavior
+                                   - Transparan → glass saat scroll (selalu tampil, tidak disembunyikan)
+                                ===================================================== */
         (function() {
             const nav = document.getElementById('mainNavbar');
             if (!nav) return;
@@ -1363,6 +1370,7 @@
             });
         })();
     </script>
+    @stack('scripts')
 </body>
 
 </html>

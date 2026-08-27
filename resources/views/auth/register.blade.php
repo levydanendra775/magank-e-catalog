@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Daftar Akun - Jelajah Magetan</title>
+    <title>Daftar Akun - Pesona Magetan</title>
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -284,7 +284,7 @@
 
             <div>
                 <h1 class="title">Buat Akun Baru</h1>
-                <p class="subtitle">Daftarkan diri Anda untuk mengelola Jelajah Magetan.</p>
+                <p class="subtitle">Daftarkan diri Anda untuk mengelola Pesona Magetan.</p>
             </div>
 
             @if ($errors->any())

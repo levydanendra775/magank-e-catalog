@@ -1,15 +1,18 @@
 <!DOCTYPE html>
 <html lang="id">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login - Jelajah Magetan</title>
+    <title>Login - Pesona Magetan</title>
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600;9..144,700&family=Plus+Jakarta+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600;9..144,700&family=Plus+Jakarta+Sans:wght@400;500;600&display=swap"
+        rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    
+
     <style>
         * {
             box-sizing: border-box;
@@ -19,7 +22,8 @@
 
         body {
             font-family: 'Plus Jakarta Sans', sans-serif;
-            background-color: #1F3D2B; /* Solid green Magetan */
+            background-color: #1F3D2B;
+            /* Solid green Magetan */
             color: #ffffff;
             height: 100vh;
             display: flex;
@@ -54,8 +58,10 @@
 
         @media (max-width: 900px) {
             .image-panel {
-                display: none; /* Hide image on smaller screens */
+                display: none;
+                /* Hide image on smaller screens */
             }
+
             .form-panel {
                 padding: 40px 5%;
             }
@@ -145,7 +151,8 @@
         }
 
         .form-control:focus {
-            border-bottom-color: #C89B3C; /* Accent color matching public layout */
+            border-bottom-color: #C89B3C;
+            /* Accent color matching public layout */
         }
 
         .password-toggle {
@@ -157,7 +164,7 @@
             cursor: pointer;
             transition: color 0.2s;
         }
-        
+
         .password-toggle:hover {
             color: #ffffff;
         }
@@ -374,12 +381,12 @@
             height: 7px;
             border-radius: 50%;
             transition: left 0.35s cubic-bezier(0.2, 0.8, 0.2, 1),
-                        top 0.35s cubic-bezier(0.2, 0.8, 0.2, 1),
-                        width 0.35s cubic-bezier(0.2, 0.8, 0.2, 1),
-                        height 0.35s cubic-bezier(0.2, 0.8, 0.2, 1),
-                        transform 0.35s cubic-bezier(0.2, 0.8, 0.2, 1),
-                        border-radius 0.35s cubic-bezier(0.2, 0.8, 0.2, 1),
-                        background 0.35s ease;
+                top 0.35s cubic-bezier(0.2, 0.8, 0.2, 1),
+                width 0.35s cubic-bezier(0.2, 0.8, 0.2, 1),
+                height 0.35s cubic-bezier(0.2, 0.8, 0.2, 1),
+                transform 0.35s cubic-bezier(0.2, 0.8, 0.2, 1),
+                border-radius 0.35s cubic-bezier(0.2, 0.8, 0.2, 1),
+                background 0.35s ease;
             z-index: 1;
         }
 
@@ -399,19 +406,23 @@
             backdrop-filter: blur(8px);
             -webkit-backdrop-filter: blur(8px);
         }
+
         .btn-interactive-gold .btn-bubble {
             background: linear-gradient(135deg, #C89B3C 0%, #f5c842 100%);
             box-shadow: 0 0 8px rgba(245, 200, 66, 0.6);
         }
+
         .btn-interactive-gold .btn-text-hover {
             color: #14261F !important;
         }
+
         .btn-interactive-gold:hover {
             border-color: #f5c842;
             box-shadow: 0 8px 28px rgba(200, 155, 60, 0.45);
         }
     </style>
 </head>
+
 <body>
 
     <div class="split-layout">
@@ -420,7 +431,7 @@
 
         <!-- Form Panel -->
         <div class="form-panel">
-            
+
             <div class="logo-container">
                 <img src="{{ asset('images/lambang-magetan.png') }}" alt="Lambang Magetan">
                 <div class="logo-text">
@@ -430,17 +441,23 @@
             </div>
 
             <div>
-                <h1 class="title">Masuk Katalog Magetan</h1>
+                <h1 class="title">Masuk Katalog Pesona Magetan</h1>
                 <p class="subtitle">Masuk dengan email dan kata sandi Anda untuk melanjutkan.</p>
             </div>
 
-            @if(Auth::guard('admin')->check())
-                <div style="background: rgba(200, 155, 60, 0.2); border-left: 4px solid #C89B3C; color: #fce3a7; padding: 12px 16px; font-size: 13px; border-radius: 8px; margin-bottom: 24px;">
-                    <i class="fa-solid fa-user-shield me-1"></i> Saat ini Anda sedang login sebagai Admin: <strong>{{ Auth::guard('admin')->user()->name }}</strong>. Anda dapat login ke akun User di bawah ini tanpa mengeluarkan (logout) sesi Admin.
+            @if (Auth::guard('admin')->check())
+                <div
+                    style="background: rgba(200, 155, 60, 0.2); border-left: 4px solid #C89B3C; color: #fce3a7; padding: 12px 16px; font-size: 13px; border-radius: 8px; margin-bottom: 24px;">
+                    <i class="fa-solid fa-user-shield me-1"></i> Saat ini Anda sedang login sebagai Admin:
+                    <strong>{{ Auth::guard('admin')->user()->name }}</strong>. Anda dapat login ke akun User di bawah
+                    ini tanpa mengeluarkan (logout) sesi Admin.
                 </div>
             @elseif(Auth::guard('web')->check())
-                <div style="background: rgba(59, 130, 246, 0.2); border-left: 4px solid #60a5fa; color: #93c5fd; padding: 12px 16px; font-size: 13px; border-radius: 8px; margin-bottom: 24px;">
-                    <i class="fa-solid fa-user me-1"></i> Saat ini Anda sedang login sebagai User: <strong>{{ Auth::guard('web')->user()->name }}</strong>. Anda dapat login ke akun Admin di bawah ini tanpa mengeluarkan (logout) sesi User.
+                <div
+                    style="background: rgba(59, 130, 246, 0.2); border-left: 4px solid #60a5fa; color: #93c5fd; padding: 12px 16px; font-size: 13px; border-radius: 8px; margin-bottom: 24px;">
+                    <i class="fa-solid fa-user me-1"></i> Saat ini Anda sedang login sebagai User:
+                    <strong>{{ Auth::guard('web')->user()->name }}</strong>. Anda dapat login ke akun Admin di bawah ini
+                    tanpa mengeluarkan (logout) sesi User.
                 </div>
             @endif
 
@@ -455,7 +472,8 @@
 
                 <div class="form-group">
                     <label for="email" class="form-label">Alamat Email</label>
-                    <input id="email" class="form-control" type="email" name="email" value="{{ old('email') }}" required autofocus autocomplete="username" placeholder="Masukkan email Anda">
+                    <input id="email" class="form-control" type="email" name="email" value="{{ old('email') }}"
+                        required autofocus autocomplete="username" placeholder="Masukkan email Anda">
                     @error('email')
                         <span class="text-danger">{{ $message }}</span>
                     @enderror
@@ -463,7 +481,8 @@
 
                 <div class="form-group">
                     <label for="password" class="form-label">Kata Sandi</label>
-                    <input id="password" class="form-control" type="password" name="password" required autocomplete="current-password" placeholder="Masukkan kata sandi">
+                    <input id="password" class="form-control" type="password" name="password" required
+                        autocomplete="current-password" placeholder="Masukkan kata sandi">
                     <i class="fa-regular fa-eye password-toggle" id="togglePasswordIcon" onclick="togglePassword()"></i>
                     @error('password')
                         <span class="text-danger">{{ $message }}</span>
@@ -507,7 +526,7 @@
         function togglePassword() {
             const passwordInput = document.getElementById('password');
             const toggleIcon = document.getElementById('togglePasswordIcon');
-            
+
             if (passwordInput.type === 'password') {
                 passwordInput.type = 'text';
                 toggleIcon.classList.remove('fa-eye');
@@ -520,4 +539,5 @@
         }
     </script>
 </body>
+
 </html>
