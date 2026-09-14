@@ -40,7 +40,7 @@ class WisataController extends Controller
             'status_publish'   => 'boolean',
         ]);
 
-        $validated['slug'] = Str::slug($request->nama);
+        $validated['slug'] = $this->generateUniqueSlug($request->nama);
         $validated['harga_tiket'] = $request->filled('harga_tiket') ? (float) $request->harga_tiket : 0;
 
         if ($request->hasFile('thumbnail')) {
@@ -82,7 +82,7 @@ class WisataController extends Controller
             'thumbnail'        => 'nullable|image|mimes:jpg,jpeg,png,webp|max:2048',
         ]);
 
-        $validated['slug'] = Str::slug($request->nama);
+        $validated['slug'] = $this->generateUniqueSlug($request->nama, $wisatum->id);
         $validated['harga_tiket'] = $request->filled('harga_tiket') ? (float) $request->harga_tiket : 0;
 
         if ($request->hasFile('thumbnail')) {
@@ -96,7 +96,7 @@ class WisataController extends Controller
 
         $wisatum->update($validated);
 
-        return redirect()->route('admin.wisata.index')->with('success', 'Data wisata berhasil diperbarui!');
+        return redirect()->route('admin.wisata.index', ['page' => $request->input('page', 1)])->with('success', 'Data wisata berhasil diperbarui!');
     }
 
     public function destroy(Wisata $wisatum)
@@ -122,8 +122,10 @@ class WisataController extends Controller
             $wisatum->galleries()->create(['foto' => $path]);
         }
 
+        $page = $request->input('page', 1);
+
         return redirect()
-            ->route('admin.wisata.edit', $wisatum)
+            ->to(route('admin.wisata.edit', $wisatum) . '?page=' . $page)
             ->with('gallery_success', count($request->file('fotos')) . ' foto galeri berhasil ditambahkan!');
     }
 
@@ -149,5 +151,30 @@ class WisataController extends Controller
 
         return redirect()->route('admin.wisata.index')
             ->with('success', "Wisata \"" . $wisatum->nama . "\" berhasil $status!");
+    }
+
+    /**
+     * Generate a unique slug for wisata.
+     * If the base slug already exists, appends a numeric suffix (e.g. "nama-2", "nama-3").
+     *
+     * @param  string       $nama      The wisata name.
+     * @param  int|null     $excludeId Exclude this ID from uniqueness check (for updates).
+     * @return string
+     */
+    private function generateUniqueSlug(string $nama, ?int $excludeId = null): string
+    {
+        $base = Str::slug($nama);
+        $slug = $base;
+        $counter = 2;
+
+        while (
+            Wisata::where('slug', $slug)
+                ->when($excludeId, fn($q) => $q->where('id', '!=', $excludeId))
+                ->exists()
+        ) {
+            $slug = $base . '-' . $counter++;
+        }
+
+        return $slug;
     }
 }

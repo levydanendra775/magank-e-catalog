@@ -159,7 +159,7 @@
                     </td>
                     <td class="text-end">
                         <div class="d-inline-flex gap-1">
-                            <a href="{{ route('admin.wisata.edit', $w) }}" class="btn btn-sm btn-outline-primary" title="Edit Data">
+                            <a href="{{ route('admin.wisata.edit', $w) . '?page=' . request('page', 1) }}" class="btn btn-sm btn-outline-primary" title="Edit Data">
                                 <i class="fa-solid fa-pen-to-square"></i>
                             </a>
                             <button type="button" class="btn btn-sm btn-outline-danger" data-bs-toggle="modal" data-bs-target="#deleteModal{{ $w->id }}" title="Hapus Data">

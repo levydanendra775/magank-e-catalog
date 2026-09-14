@@ -1236,8 +1236,6 @@
             });
         })();
     </script>
-    @stack('scripts')
-
     <!-- Toast Container -->
     <div id="toast-container"
         style="position:fixed; bottom:28px; right:28px; z-index:99999; display:flex; flex-direction:column; gap:10px; pointer-events:none;">

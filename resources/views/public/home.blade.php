@@ -6,8 +6,8 @@
 @push('styles')
     <style>
         /* =============================================
-                               HERO PREMIUM — 21st.dev Inspired
-                            ============================================= */
+                                   HERO PREMIUM — 21st.dev Inspired
+                                ============================================= */
         @keyframes hero-blur-in {
             from {
                 opacity: 0;
@@ -193,6 +193,7 @@
             box-shadow: 0 4px 24px rgba(200, 155, 60, 0.35);
             position: relative;
             overflow: hidden;
+            text-decoration: none !important;
         }
 
         .btn-hero-primary::before {
@@ -227,6 +228,7 @@
             gap: 8px;
             transition: all 0.25s ease;
             backdrop-filter: blur(8px);
+            text-decoration: none !important;
         }
 
         .btn-hero-ghost:hover {
@@ -242,8 +244,8 @@
         }
 
         .hero-stat-card {
-            background: rgba(255, 255, 255, 0.04);
-            border: 1px solid rgba(255, 255, 255, 0.10);
+            background: rgba(255, 255, 255, 0.09);
+            border: 1px solid rgba(255, 255, 255, 0.14);
             border-radius: 16px;
             padding: 28px 20px;
             text-align: center;
@@ -322,8 +324,8 @@
         }
 
         /* =============================================
-                               WISATA UNGGULAN — Featured Pin Section
-                            ============================================= */
+                                   WISATA UNGGULAN — Featured Pin Section
+                                ============================================= */
         .section-unggulan {
             background: linear-gradient(135deg, var(--primary) 0%, #1a3327 50%, var(--primary-dark) 100%);
             padding: 100px 0 70px;
@@ -567,8 +569,8 @@
         }
 
         /* =============================================
-                               WISATA CARD — 21st.dev "3D Card" Style
-                            ============================================= */
+                                   WISATA CARD — 21st.dev "3D Card" Style
+                                ============================================= */
         .wisata-card-3d {
             border-radius: 20px;
             overflow: hidden;
@@ -822,8 +824,8 @@
         }
 
         /* =============================================
-                               21st.dev AURORA BENTO CTA SECTION
-                            ============================================= */
+                                   21st.dev AURORA BENTO CTA SECTION
+                                ============================================= */
         .cta-aurora-wrapper {
             position: relative;
             padding: 40px 0 90px;
@@ -1193,8 +1195,8 @@
             @else
                 <div class="hero-bg-slide active"
                     style="background-image: url('{{ asset('images/hero-telaga-sarangan.jpg') }}');"></div>
-                <div class="hero-bg-slide"
-                    style="background-image: url('{{ asset('images/hero-sarangan-rainbow.jpg') }}');"></div>
+                <div class="hero-bg-slide" style="background-image: url('{{ asset('images/hero-sarangan-rainbow.jpg') }}');">
+                </div>
             @endif
         </div>
 
@@ -1365,8 +1367,7 @@
 
                 {{-- Mobile: lihat semua button --}}
                 <div class="text-center mt-4 d-md-none">
-                    <a href="{{ route('public.wisata') }}"
-                        class="btn-interactive btn-interactive-gold btn-interactive-lg">
+                    <a href="{{ route('public.wisata') }}" class="btn-interactive btn-interactive-gold btn-interactive-lg">
                         <span class="btn-text-initial">Lihat Semua Wisata</span>
                         <div class="btn-text-hover">
                             <span>Lihat Semua Wisata</span>
@@ -1756,21 +1757,21 @@
                                 <p class="cta-bento-lbl">Tingkat Kepuasan & Ulasan Wisatawan</p>
                             </div>
 
-                            <div class="cta-bento-item">
+                            <a href="{{ route('public.event') }}" class="cta-bento-item text-decoration-none" style="cursor:pointer;">
                                 <div class="cta-bento-icon">
                                     <i class="fa-solid fa-calendar-check"></i>
                                 </div>
                                 <div class="cta-bento-val">Event</div>
                                 <p class="cta-bento-lbl">Festival Tradisi & Seni Budaya Tahunan</p>
-                            </div>
+                            </a>
 
-                            <div class="cta-bento-item">
+                            <a href="{{ route('public.wisata') }}" class="cta-bento-item text-decoration-none" style="cursor:pointer;">
                                 <div class="cta-bento-icon">
                                     <i class="fa-solid fa-map-location-dot"></i>
                                 </div>
                                 <div class="cta-bento-val">E-Catalog</div>
                                 <p class="cta-bento-lbl">Akses Rute, Tiket & Fasilitas Terpadu</p>
-                            </div>
+                            </a>
                         </div>
                     </div>
                 </div>

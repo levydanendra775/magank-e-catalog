@@ -955,10 +955,16 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
 
-    document.addEventListener('DOMContentLoaded', function () {
+    function safeInit() {
         initDropdown('dd-kategori',  'kategori-input',  'dd-kategori-label');
         initDropdown('dd-kecamatan', 'kecamatan-input', 'dd-kecamatan-label');
-    });
+    }
+
+    if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', safeInit);
+    } else {
+        safeInit();
+    }
 })();
 </script>
 @endpush
