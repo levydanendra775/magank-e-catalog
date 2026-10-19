@@ -27,8 +27,8 @@
         <div class="col-lg-8">
 
             @if($event->poster)
-            <div class="mb-5 rounded-4 overflow-hidden shadow-sm" style="border:1px solid var(--border);">
-                <img src="{{ Storage::url($event->poster) }}" alt="{{ $event->judul }}" style="width:100%;height:auto;max-height:500px;object-fit:cover;">
+            <div class="mb-5 rounded-4 overflow-hidden shadow-sm text-center" style="border:1px solid var(--border);">
+                <img src="{{ Storage::url($event->poster) }}" alt="{{ $event->judul }}" style="display:block;margin:0 auto;width:auto;max-width:100%;height:auto;">
             </div>
             @endif
 
