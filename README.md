@@ -1,171 +1,303 @@
-# E-Catalog Pariwisata Magetan
+<div align="center">
 
-Sistem E-Catalog untuk mempromosikan Pariwisata, Destinasi, Event, dan Berita di wilayah Kabupaten Magetan. Dibangun menggunakan framework **Laravel 12** dengan database **MySQL**.
+# 🗺️ E-Catalog Pariwisata Kabupaten Magetan
 
----
+**Sistem informasi wisata digital untuk memperkenalkan potensi pariwisata, UMKM, kuliner, dan penginapan Kabupaten Magetan.**
 
-## 🖥️ Prasyarat (Prerequisites)
+[![Laravel](https://img.shields.io/badge/Laravel-12.x-FF2D20?style=for-the-badge&logo=laravel&logoColor=white)](https://laravel.com)
+[![PHP](https://img.shields.io/badge/PHP-8.2+-777BB4?style=for-the-badge&logo=php&logoColor=white)](https://php.net)
+[![TailwindCSS](https://img.shields.io/badge/TailwindCSS-3.x-06B6D4?style=for-the-badge&logo=tailwindcss&logoColor=white)](https://tailwindcss.com)
+[![SQLite](https://img.shields.io/badge/SQLite-3.x-003B57?style=for-the-badge&logo=sqlite&logoColor=white)](https://sqlite.org)
 
-Pastikan sistem Anda telah menginstal perangkat lunak berikut:
-
-| Perangkat | Versi Minimum |
-|-----------|--------------|
-| PHP | >= 8.2 |
-| Composer | Latest |
-| Node.js & NPM | >= 18 |
-| MySQL | >= 8.0 |
-
-> **Rekomendasi:** Gunakan [Laragon](https://laragon.org/) agar PHP, MySQL, dan server langsung tersedia tanpa konfigurasi tambahan.
+</div>
 
 ---
 
-## 🚀 Cara Menjalankan Project (Local Development)
+## 📋 Deskripsi
 
-### 1. Clone Repository
+**E-Catalog Pariwisata Magetan** adalah aplikasi web berbasis Laravel yang dikembangkan sebagai proyek magang untuk membantu mempromosikan destinasi wisata, event, kuliner, UMKM, produk lokal, dan penginapan di Kabupaten Magetan, Jawa Timur.
 
+Aplikasi ini memiliki dua sisi utama:
+- 🌐 **Halaman Publik** — dapat diakses oleh masyarakat umum tanpa login
+- 🔐 **Panel Admin** — untuk pengelolaan konten oleh administrator
+
+---
+
+## ✨ Fitur Utama
+
+### 🌐 Halaman Publik
+| Fitur | Keterangan |
+|---|---|
+| 🏠 Beranda | Hero banner, wisata unggulan, event terbaru, kuliner & UMKM |
+| 🏝️ Wisata | Daftar & detail destinasi wisata dengan galeri foto & peta |
+| 📅 Event | Informasi event dan festival pariwisata daerah |
+| 📰 Berita | Artikel berita seputar pariwisata Magetan |
+| ℹ️ Tentang | Halaman informasi tentang Kabupaten Magetan |
+| ⭐ Rating & Ulasan | Pengguna dapat memberikan rating dan ulasan wisata |
+| ❤️ Wishlist | Simpan destinasi wisata favorit |
+
+### 🔐 Panel Admin
+| Fitur | Keterangan |
+|---|---|
+| 📊 Dashboard | Statistik data wisata, event, ulasan, dan pengunjung |
+| 🏝️ Manajemen Wisata | CRUD wisata + galeri foto + pin wisata unggulan |
+| 📅 Manajemen Event | CRUD event/festival pariwisata |
+| 📰 Manajemen Berita | CRUD artikel berita |
+| 🖼️ Manajemen Banner | Kelola banner halaman utama |
+| 🖼️ Manajemen Galeri | Kelola galeri foto |
+| 💬 Manajemen Ulasan | Moderasi ulasan & balas ulasan pengguna |
+| 📄 Laporan | Export laporan data wisata dalam format PDF |
+
+---
+
+## 🛠️ Tech Stack
+
+| Layer | Teknologi |
+|---|---|
+| **Backend** | Laravel 12.x, PHP 8.2+ |
+| **Frontend** | Blade Template, TailwindCSS 3.x, Vite |
+| **Database** | SQLite (default) / MySQL |
+| **Auth** | Laravel Breeze (multi-guard) |
+| **Permission** | Spatie Laravel Permission |
+| **PDF Export** | barryvdh/laravel-dompdf |
+| **Package Manager** | Composer, NPM |
+
+---
+
+## 📁 Struktur Proyek
+
+```
+Magang-E-Catalog/
+├── app/
+│   ├── Http/
+│   │   └── Controllers/
+│   │       ├── Admin/              # Controller panel admin
+│   │       │   ├── DashboardController.php
+│   │       │   ├── WisataController.php
+│   │       │   ├── EventController.php
+│   │       │   ├── BeritaController.php
+│   │       │   ├── BannerController.php
+│   │       │   ├── GaleriController.php
+│   │       │   ├── UlasanController.php
+│   │       │   └── LaporanController.php
+│   │       ├── PublicController.php    # Controller halaman publik
+│   │       ├── RatingController.php    # Manajemen rating wisata
+│   │       └── WishlistController.php  # Manajemen wishlist
+│   └── Models/
+│       ├── Wisata.php          # Destinasi wisata
+│       ├── WisataGallery.php   # Galeri foto wisata
+│       ├── WisataRating.php    # Rating & ulasan wisata
+│       ├── Event.php           # Event & festival
+│       ├── Berita.php          # Artikel berita
+│       ├── Kuliner.php         # Data kuliner
+│       ├── Umkm.php            # Data UMKM
+│       ├── Produk.php          # Produk lokal
+│       ├── Penginapan.php      # Data penginapan
+│       ├── Banner.php          # Banner halaman utama
+│       ├── Galeri.php          # Galeri foto
+│       └── User.php            # Pengguna
+├── database/
+│   ├── migrations/             # Migrasi database
+│   └── seeders/                # Seeder data awal
+│       ├── WisataSeeder.php
+│       ├── WisataGallerySeeder.php
+│       ├── EventSeeder.php
+│       └── BeritaSeeder.php
+├── resources/
+│   └── views/
+│       ├── admin/              # Tampilan panel admin
+│       ├── public/             # Tampilan halaman publik
+│       ├── layouts/            # Layout template
+│       └── auth/               # Halaman autentikasi
+├── routes/
+│   ├── web.php                 # Route publik & auth pengguna
+│   └── auth.php                # Route autentikasi
+└── storage/app/public/         # Upload file & gambar
+```
+
+---
+
+## ⚙️ Instalasi & Setup
+
+### Prasyarat
+- PHP >= 8.2
+- Composer
+- Node.js & NPM
+- Git
+
+### Langkah Instalasi
+
+**1. Clone repository**
 ```bash
 git clone https://github.com/levydanendra775/magank-e-catalog.git
 cd magank-e-catalog
 ```
 
-### 2. Install Dependensi PHP
-
+**2. Install dependensi PHP**
 ```bash
 composer install
 ```
 
-### 3. Salin File Konfigurasi
-
+**3. Salin file environment**
 ```bash
-# Windows
-copy .env.example .env
-
-# Mac/Linux
 cp .env.example .env
 ```
 
-### 4. Generate Application Key
-
+**4. Generate application key**
 ```bash
 php artisan key:generate
 ```
 
-### 5. Konfigurasi Database MySQL
-
-Edit file `.env`, sesuaikan bagian database:
-
+**5. Konfigurasi database** (edit file `.env`)
 ```env
+# Untuk SQLite (default)
+DB_CONNECTION=sqlite
+
+# Untuk MySQL
 DB_CONNECTION=mysql
 DB_HOST=127.0.0.1
 DB_PORT=3306
 DB_DATABASE=magang_ecatalog
 DB_USERNAME=root
-DB_PASSWORD=          # kosongkan jika tidak pakai password (default Laragon)
+DB_PASSWORD=
 ```
 
-### 6. Buat Database & Import Data
-
-Buat database di MySQL:
-
+**6. Jalankan migrasi & seeder**
 ```bash
-mysql -u root -e "CREATE DATABASE IF NOT EXISTS magang_ecatalog CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;"
+php artisan migrate
+php artisan db:seed
 ```
 
-> Atau buat manual via **phpMyAdmin** / **HeidiSQL** dengan nama: `magang_ecatalog`
-
-Lalu import data (tabel + data wisata, user, dll sudah tersedia):
-
-```bash
-mysql -u root magang_ecatalog < database/dump.sql
-```
-
-> ⚠️ **Jangan jalankan** `php artisan migrate` jika sudah import `dump.sql` karena semua tabel dan data sudah ada di dalamnya.
-
-### 7. Buat Storage Link
-
+**7. Buat storage link**
 ```bash
 php artisan storage:link
 ```
 
-Perintah ini membuat symlink `public/storage → storage/app/public` agar gambar wisata, event, dan berita bisa tampil di browser.
-
-### 8. Install & Compile Frontend
-
+**8. Install dependensi Node.js & build assets**
 ```bash
 npm install
 npm run build
 ```
 
-> Gunakan `npm run dev` jika sedang dalam mode pengembangan aktif agar perubahan CSS/JS otomatis ter-update.
-
-### 9. Jalankan Server
-
+**9. Jalankan server**
 ```bash
 php artisan serve
 ```
 
-Akses aplikasi di: **x**
-
-> Jika menggunakan Laragon, bisa langsung akses via virtual host: `http://magank-e-catalog.test`
+Akses aplikasi di: **http://localhost:8000**
 
 ---
 
-## 🔑 Akun Login Default
+## 🚀 Menjalankan Development
+
+Gunakan perintah berikut untuk menjalankan semua service sekaligus (server, queue, log, vite):
+
+```bash
+composer run dev
+```
+
+Atau jalankan secara terpisah:
+
+```bash
+# Terminal 1 - Laravel server
+php artisan serve
+
+# Terminal 2 - Vite dev server
+npm run dev
+
+# Terminal 3 - Queue worker
+php artisan queue:listen
+```
+
+---
+
+## 🔑 Akun Default
+
+Setelah menjalankan seeder, gunakan akun berikut untuk login:
 
 | Role | Email | Password |
-|------|-------|----------|
-| 👑 Super Admin | `admin@magetan.go.id` | `password` |
-| 👤 Petugas | `petugas@magetan.go.id` | `password` |
+|---|---|---|
+| **Admin** | `admin@magetan.go.id` | `password` |
 
 ---
 
-## 🔄 Update Data dari Rekan Tim
+## 🗄️ Database
 
-Jika rekan tim menambah data baru (wisata, event, dll), minta mereka export dump terbaru:
-
-```bash
-# Di laptop yang punya data terbaru:
-mysqldump -u root magang_ecatalog > database/dump.sql
-git add database/dump.sql
-git commit -m "update: sinkronisasi data database"
-git push
+Aplikasi menggunakan **SQLite** secara default. File database tersimpan di:
+```
+database/database.sqlite
 ```
 
-Lalu di laptop kamu:
+Untuk menggunakan MySQL, ubah konfigurasi `DB_CONNECTION` di file `.env`.
 
+### Refresh & Seed Ulang Data
 ```bash
-git pull
-mysql -u root magang_ecatalog < database/dump.sql
+# Migrasi ulang + seed semua data
+php artisan migrate:fresh --seed
+
+# Seed seeder tertentu saja
+php artisan db:seed --class=WisataSeeder
+php artisan db:seed --class=EventSeeder
+php artisan db:seed --class=BeritaSeeder
 ```
 
----
-
-## ⚡ Ringkasan Perintah Cepat
-
+### Generate Ulang Seeder dari Database
 ```bash
-# Setelah clone, jalankan semua ini secara urut:
-composer install
-copy .env.example .env          # lalu edit DB_* di .env
-php artisan key:generate
-mysql -u root -e "CREATE DATABASE magang_ecatalog;"
-mysql -u root magang_ecatalog < database/dump.sql
-php artisan storage:link
-npm install && npm run build
-php artisan serve
+php generate_seeders.php
 ```
 
 ---
 
-## 📁 Struktur Fitur
+## 📊 Model & Relasi
 
-| Fitur | URL |
-|-------|-----|
-| Beranda Publik | `/` |
-| Destinasi Wisata | `/wisata` |
-| Event & Agenda | `/event` |
-| Berita | `/berita` |
-| Dashboard Admin | `/admin` |
+```
+Wisata
+ ├── hasMany → WisataGallery   (galeri foto)
+ ├── hasMany → WisataRating    (rating & ulasan)
+ └── belongsToMany → User      (melalui tabel wishlists)
+
+WisataRating
+ └── belongsTo → User          (pemberi ulasan)
+
+User
+ └── belongsToMany → Wisata    (wishlist)
+```
 
 ---
 
-*Dikembangkan oleh tim magang Dinas Pariwisata & Kebudayaan Kabupaten Magetan.*
+## 🌐 Route Publik
+
+| Method | URL | Keterangan |
+|---|---|---|
+| GET | `/` | Beranda |
+| GET | `/wisata` | Daftar wisata |
+| GET | `/wisata/{slug}` | Detail wisata |
+| GET | `/event` | Daftar event |
+| GET | `/event/{id}` | Detail event |
+| GET | `/berita` | Daftar berita |
+| GET | `/berita/{id}` | Detail berita |
+| GET | `/tentang` | Halaman tentang |
+
+### Route Auth (Login Diperlukan)
+| Method | URL | Keterangan |
+|---|---|---|
+| POST | `/wisata/{wisata}/rating` | Tambah rating |
+| PUT | `/wisata/{wisata}/rating` | Update rating |
+| DELETE | `/wisata/{wisata}/rating` | Hapus rating |
+| POST | `/rating/{rating}/like` | Like ulasan |
+| POST | `/wisata/{wisata}/wishlist` | Toggle wishlist |
+| GET | `/wishlist` | Daftar wishlist |
+
+---
+
+## 📄 Lisensi
+
+Project ini dikembangkan sebagai bagian dari **Program Magang** di instansi Pemerintah Kabupaten Magetan.
+
+---
+
+<div align="center">
+
+Dibuat dengan ❤️ sebagai proyek magang · Kabupaten Magetan, Jawa Timur
+
+</div>
