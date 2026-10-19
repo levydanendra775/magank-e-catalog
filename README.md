@@ -2,7 +2,7 @@
 
 # 🗺️ E-Catalog Pariwisata Kabupaten Magetan
 
-**Sistem informasi wisata digital untuk memperkenalkan potensi pariwisata, UMKM, kuliner, dan penginapan Kabupaten Magetan.**
+**Sistem informasi wisata digital untuk memperkenalkan potensi pariwisata, event, dan berita Kabupaten Magetan.**
 
 [![Laravel](https://img.shields.io/badge/Laravel-12.x-FF2D20?style=for-the-badge&logo=laravel&logoColor=white)](https://laravel.com)
 [![PHP](https://img.shields.io/badge/PHP-8.2+-777BB4?style=for-the-badge&logo=php&logoColor=white)](https://php.net)
@@ -15,7 +15,7 @@
 
 ## 📋 Deskripsi
 
-**E-Catalog Pariwisata Magetan** adalah aplikasi web berbasis Laravel yang dikembangkan sebagai proyek magang untuk membantu mempromosikan destinasi wisata, event, kuliner, UMKM, produk lokal, dan penginapan di Kabupaten Magetan, Jawa Timur.
+**E-Catalog Pariwisata Magetan** adalah aplikasi web berbasis Laravel yang dikembangkan sebagai proyek magang untuk membantu mempromosikan destinasi wisata, event, dan berita pariwisata di Kabupaten Magetan, Jawa Timur.
 
 Aplikasi ini memiliki dua sisi utama:
 - 🌐 **Halaman Publik** — dapat diakses oleh masyarakat umum tanpa login
@@ -28,7 +28,7 @@ Aplikasi ini memiliki dua sisi utama:
 ### 🌐 Halaman Publik
 | Fitur | Keterangan |
 |---|---|
-| 🏠 Beranda | Hero banner, wisata unggulan, event terbaru, kuliner & UMKM |
+| 🏠 Beranda | Hero banner, wisata unggulan, event terbaru, dan berita |
 | 🏝️ Wisata | Daftar & detail destinasi wisata dengan galeri foto & peta |
 | 📅 Event | Informasi event dan festival pariwisata daerah |
 | 📰 Berita | Artikel berita seputar pariwisata Magetan |
@@ -89,10 +89,6 @@ Magang-E-Catalog/
 │       ├── WisataRating.php    # Rating & ulasan wisata
 │       ├── Event.php           # Event & festival
 │       ├── Berita.php          # Artikel berita
-│       ├── Kuliner.php         # Data kuliner
-│       ├── Umkm.php            # Data UMKM
-│       ├── Produk.php          # Produk lokal
-│       ├── Penginapan.php      # Data penginapan
 │       ├── Banner.php          # Banner halaman utama
 │       ├── Galeri.php          # Galeri foto
 │       └── User.php            # Pengguna
